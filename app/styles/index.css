@@ -9,11 +9,5 @@ header { height: 60px;  background: #6666CC;}
 header .logo { width: 100px; height: 60px; display: inline-block; vertical-align: top; }
 header .title { line-height: 60px; display: inline-block; font-size: 24px; padding-left: 20px; color: #ffffff;}
 
-section { height: 300px; margin-top: 10px; background: #f5f5f5;}
-section .techNav { width: 800px; height: 300px; margin: 0px auto;}
-section .techNav .item { display: inline-block; width: 150px; height: 150px; line-height: 150px; margin:  75px 25px; background: #99ccff; text-align: center; font-size: 22px;}
-section .techNav .item a { color: #ffffff; }
-section .techNav .item.angular { background:  #AF2A25; }
-section .techNav .item.backbone { background:  #0071B5; }
-section .techNav .item.react { background:  #61DAFB; }
-section .techNav .item.ext { background:  #085788; }
+section { height: 600px; margin-top: 10px; background: #f5f5f5;}
+

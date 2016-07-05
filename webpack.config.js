@@ -12,8 +12,9 @@ var WebpackCfg = {
     context: path.join(__dirname, "app"),
     //页面入口文件
     entry: {
-        "index": ['./scripts/index.js', 
-            'webpack/hot/dev-server', 
+        "index": [
+            './scripts/index.js',
+            'webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:9090/'
         ]
     },
@@ -26,6 +27,11 @@ var WebpackCfg = {
     },
     //插件部分
     plugins: [
+        new webpack.ProvidePlugin({
+            '$': 'jquery',
+            'React': 'react',
+            'ReactDom': 'react-dom'
+        }),
         new webpack.HotModuleReplacementPlugin()
     ],
     //模块

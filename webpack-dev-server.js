@@ -11,7 +11,7 @@ var path = require('path');
 
 var compiler = webpack(config);
 var server = new WebpackDevServer(compiler, {
-    contentBase: 'app/bundles',
+    contentBase: 'app',
     filename: 'IndexBundle.js',
     hot: true,
     publicPath: '/',

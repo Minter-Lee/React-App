@@ -1,14 +1,14 @@
 {
-    "name": "WDS-M",
+    "name": "react-app",
     "version": "0.0.1",
-    "description": "通过webpack-dev-server或webpack-dev-middleware结合HMR插件实现页面热替换",
+    "description": "react实例",
     "author": {
         "name": "Minter Lee",
         "email": "MinterLee@hotmail.com"
     },
     "scripts": {
         "server": "webpack-dev-server --inline --hot",
-        "startDevServer": "node app/webpack-dev-server.js",
+        "startDevServer": "node webpack-dev-server.js",
         "start": "node server/server.js"
     },
 
@@ -29,7 +29,10 @@
         "jsx-loader": "^0.13.2",
         "html-loader": "^0.4.0",
         "url-loader": "^0.5.7",
-
+        
+        "react": " ^15.0.2",
+        "react-dom": "",
+        
         "webpack-dev-server": ""
     }
 }

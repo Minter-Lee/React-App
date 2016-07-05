@@ -1,6 +1,8 @@
 ### SublimeText ###
 *.sublime-workspace
 /.idea/
+/app/.DS_Store
+/app/bundles/
 
 ### OSX ###
 .DS_Store
