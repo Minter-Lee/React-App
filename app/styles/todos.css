@@ -1,0 +1,20 @@
+/*
+ * Title: 页面级CSS
+ * Author: MinterLee@hotmail.com
+ * CreateDate: 2016-01-26
+ * Description: 该模块下页面级CSS。
+ */
+ .todos{ 
+ 	width: 600px; 
+ 	height: 500px; 
+ 	margin: 0 auto; 
+ 	border: 2px solid #ddddde; 
+ 	position: relative; top: 40px;
+ }
+ 
+ .todos .title { 
+ 	font-size: 48px;
+    line-height: 48px;
+    padding-top: 20px;
+    text-align: center; 
+  }
