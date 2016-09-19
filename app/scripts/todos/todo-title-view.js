@@ -6,7 +6,7 @@
  */
  var TodoTitleView = React.createClass({
  	render: function(){
- 		return <h1 className='title'>Todos</h1>
+ 		return <h1 className='title'>{this.props.title}</h1>
  	}
  });
 

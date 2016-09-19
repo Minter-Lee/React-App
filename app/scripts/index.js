@@ -12,12 +12,6 @@ var ReactDom = require("react-dom");
 
 var TodoIndexView = require("./todos/index-page-view");
 
-// var AppComponent = React.createClass({
-// 	render: function(){
-// 		return <div>hello world!</div>;
-// 	}
-// });
-
 ReactDom.render(
 	<TodoIndexView/>, 
 	document.getElementById("container")

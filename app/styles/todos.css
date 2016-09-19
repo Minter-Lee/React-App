@@ -4,17 +4,44 @@
  * CreateDate: 2016-01-26
  * Description: 该模块下页面级CSS。
  */
- .todos{ 
- 	width: 600px; 
- 	height: 500px; 
- 	margin: 0 auto; 
- 	border: 2px solid #ddddde; 
- 	position: relative; top: 40px;
- }
- 
- .todos .title { 
- 	font-size: 48px;
+
+.todos {
+    width: 600px;
+    height: 500px;
+    margin: 0 auto;
+    border: 2px solid #ddddde;
+    position: relative;
+    top: 40px;
+}
+
+.todos .title {
+    font-size: 48px;
     line-height: 48px;
-    padding-top: 20px;
-    text-align: center; 
-  }
+    padding: 20px 0px;
+    text-align: center;
+}
+
+.todos .todoInput {
+    height: 26px;
+    line-height: 26px;
+    vertical-align: top;
+    margin-left: 150px;
+    margin-right: 10px;
+    width: 300px;
+    padding-left: 5px;
+    display: inline-block;
+}
+
+.todos .addBtn {
+    display: inline-block;
+    height: 30px;
+    width: 50px;
+    line-height: 30px;
+    background-color: #cecece;
+    text-align: center;
+    cursor: pointer;
+}
+
+.todos .addBtn:hover {
+	background-color: #bbbbbb;
+}
