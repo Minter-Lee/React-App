@@ -29,6 +29,7 @@ var WebpackCfg = {
     plugins: [
         new webpack.ProvidePlugin({
             '$': 'jquery',
+            "_": 'underscore',
             'React': 'react',
             'ReactDom': 'react-dom'
         }),

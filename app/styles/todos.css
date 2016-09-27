@@ -25,7 +25,7 @@
     height: 26px;
     line-height: 26px;
     vertical-align: top;
-    margin-left: 150px;
+    margin-left: 120px;
     margin-right: 10px;
     width: 300px;
     padding-left: 5px;
@@ -43,5 +43,115 @@
 }
 
 .todos .addBtn:hover {
-	background-color: #bbbbbb;
+    background-color: #bbbbbb;
+}
+
+.todos ul.todoList {
+    width: 400px;
+    height: 300px;
+    margin-left: 100px;
+    margin-top: 10px;
+    border: 1px solid #cecece;
+}
+
+.todos ul.todoList li {
+    height: 45px;
+    line-height: 45px;
+    width: 400px;
+    border-bottom: 1px solid #cecece;
+}
+
+.todos ul.todoList li .itemCheckbox {
+    width: 14px;
+    margin: 0 8px;
+    line-height: 45px;
+    height: 45px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.todos ul.todoList li .itemText {
+    display: inline-block;
+    width: 300px;
+    height: 45px;
+    vertical-align: top;
+    font-size: 20px;
+}
+
+.todos .todoBtn {
+    display: inline-block;
+    width: 35px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.todos .todoBtn:hover {
+    font-size: 18px;
+    background: #cecece;
+}
+
+.todos .deleteBtn {
+    color: #c70101;
+}
+
+.todos .completeBtn {
+    color: #008000;
+}
+
+.todos .undoneBtn {
+    color: blue;
+}
+
+.todos .todoFootbar {
+    background: #cecece;
+    border: 1px solid #cecece;
+    width: 380px;
+    margin-left: 100px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0px 10px;
+    position: absolute;
+}
+
+.todos .todoFootbar .checkAll {
+    height: 45px;
+    vertical-align: top;
+    width: 15px;
+    margin: 0 10px;
+}
+
+.todos .todoFootbar ul.queryBtn {
+    width: 180px;
+    height: 35px;
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    line-height: 35px;
+    padding: 5px 0px;
+}
+
+.todos .todoFootbar ul.queryBtn li {
+    display: inline-block;
+    width: 60px;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.todos .todoFootbar ul.queryBtn li.all {
+    background: #999999;
+}
+
+.todos .todoFootbar ul.queryBtn li.complete {
+    background: #008000;
+}
+
+.todos .todoFootbar ul.queryBtn li.undone {
+    background: blue;
+}
+
+.todos .todoFootbar ul.queryBtn li.on {
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
 }
