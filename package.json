@@ -32,6 +32,8 @@
         
         "react": " ^15.0.2",
         "react-dom": "",
+        "react-redux":"",
+        "redux":'',
         
         "webpack-dev-server": ""
     }
