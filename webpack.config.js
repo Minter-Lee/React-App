@@ -13,7 +13,8 @@ var WebpackCfg = {
     //页面入口文件
     entry: {
         "index": [
-            './scripts/index.js',
+            // './scripts/index.js',
+            './scripts/redux-es6-index.js',
             'webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:9090/'
         ]
@@ -38,19 +39,29 @@ var WebpackCfg = {
     //模块
     module: {
         //前置加载器
-        preloaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'jshint-loader'
-        }],
+        // preloaders: [{
+        //     test: /\.js$/,
+        //     exclude: /node_modules/,
+        //     loaders: ['babel']
+        //     // query: {
+        //     //     presets: ['es2015']
+        //     // }
+        // }],
         //加载器配置
         loaders: [{
             test: /\.css$/,
             loader: 'style-loader!css-loader' //CSS注入和语法
-        }, {
+        }, 
+        // {
+        //     test: /\.js$/,
+        //     loader: 'jsx-loader?harmony' //js文件使用jsx处理--react使用？
+        // }, 
+        {
             test: /\.js$/,
-            loader: 'jsx-loader?harmony' //js文件使用jsx处理--react使用？
-        }, {
+            loaders: ['babel'],
+            exclude: /node_modules/
+        }, 
+        {
             test: /\.(png|jpg)$/,
             loader: 'url-loader?limit=8192' //图片文件小于8K，直接转码base64
         }, {

@@ -6,23 +6,23 @@
  */
 
 // React 基础使用
-import React from 'react';
-import { render } from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
 
 // react-redux 相关
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
 
 // 主容器视图
-import App from './containers/App';
+import App from './redux-es6-todos/containers/App'
 
 // 处理过的store构建器
-import configureStore from './stores/index';
+import configureStore from './redux-es6-todos/stores/index'
 
-const store = configureStore();
+const store = configureStore()
 
-render(
+render (
 	<Provider store={store}>
 		<App />
 	</Provider>,
 	document.getElementById('container')
-	);
+)

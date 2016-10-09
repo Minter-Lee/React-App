@@ -23,17 +23,29 @@
 
     "devDependencies": {
         "webpack": "",
+        "file-loader": "",
+        "jshint": "",
         "css-loader": "^0.23.1",
         "style-loader": "^0.13.0",
-        "jshint-loader": "^0.8.3",
         "jsx-loader": "^0.13.2",
         "html-loader": "^0.4.0",
-        "url-loader": "^0.5.7",
+        "url-loader": "",
         
-        "react": " ^15.0.2",
+        "react": "",
         "react-dom": "",
         "react-redux":"",
-        "redux":'',
+        "redux":"",
+        "babel-loader": "^6.2.4",
+        "babel-core": "^6.7.7",
+        "babel-register":"^6.7.2",
+        "babel-plugin-react-transform": "^2.0.2",
+        "babel-plugin-transform-decorators-legacy": "^1.3.4",
+        "babel-polyfill": "^6.7.4",
+        "babel-preset-es2015-webpack": "^6.4.1",
+        "babel-preset-react": "^6.5.0",
+        "babel-preset-stage-0": "^6.5.0",
+        "react-transform-catch-errors": "^1.0.0",
+        "react-transform-hmr": "^1.0.4",
         
         "webpack-dev-server": ""
     }
