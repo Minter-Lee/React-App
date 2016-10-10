@@ -1,10 +1,10 @@
 /*
- * Title: action 注册
+ * Title: TitleView
  * Author: MinterLee@hotmail.com
  * CreateDate: 2016-10-09
  * Description: ...
  */
-import React, {Component, PorpTypes} from 'react'
+import React, { PropTypes, Component } from 'react'
 
 export default class TodoTitleView extends Component {
 	// 类型验证 title 字符串 必填
@@ -15,7 +15,7 @@ export default class TodoTitleView extends Component {
 	render() {
 		const { title } = this.props;
 		console.info('title',title);
-		return <h1 className='title'>{this.props.title}</h1>;
+		return <h1 className='title'>{title}</h1>;
 	}
 
 }

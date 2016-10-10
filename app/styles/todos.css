@@ -78,6 +78,10 @@
     font-size: 20px;
 }
 
+.todos ul.todoList li .itemText.isCompleted {
+    color: #aaaaaa;
+}
+
 .todos .todoBtn {
     display: inline-block;
     width: 35px;
