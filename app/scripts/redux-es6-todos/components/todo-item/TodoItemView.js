@@ -24,7 +24,24 @@
  		this.props.completeTodo(this.props.todoItem.id);
  	}
 
+ 	shouldComponentUpdate(nextProps, nextState) {
+ 		const {todoItem, deleteTodo, completeTodo } = this.props;
+ 		const {
+ 			todoItem: todoItemNext, 
+ 			deleteTodo: deleteTodoNext, 
+ 			completeTodo: completeTodoNext
+ 		} = nextProps;
+    		if (todoItemNext === todoItem 
+    			&& deleteTodoNext === deleteTodo
+    			&& completeTodoNext === completeTodo) {
+    			console.log("TodoItemView-拦截");
+    			return false;
+    		}
+    		return true;
+    }
+
  	render() {
+ 		console.info("TodoItemView-render");
  		const { todoItem } = this.props;
  		return <li>
  			<TodoItemTextView todoItem = {todoItem}/>

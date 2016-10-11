@@ -17,6 +17,14 @@
  		return `itemText ${extralClass}`;
  	}
 
+ 	shouldComponentUpdate(nextProps, nextState) {
+    		if (nextProps.todoItem === this.props.todoItem) {
+    			console.log("ItemTextView-拦截")
+    			return false;
+    		}
+    		return true;
+    }
+
  	render() {
  		console.info('ItemTextView-render');
  		return <span className={this.getClassName()}>{this.props.todoItem.text}</span>

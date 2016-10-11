@@ -18,8 +18,19 @@
  		return `todoBtn ${extralClass}`;
  	}
 
- 	
+ 	shouldComponentUpdate(nextProps, nextState) {
+ 		const { completeTodo, completed } = this.props;
+ 		const {completeTodo: completeTodoNext, completed: completedNext } = nextProps;
+		if (completeTodoNext === completeTodo 
+			&& completedNext === completed) {
+			console.log("ItemCompleteView-拦截")
+			return false;
+		}
+    		return true;
+    }
+
  	render() {
+ 		console.info("ItemCompleteView-render");
  		return <div 
 		title='complete'
  		className={this.getClassName()} 

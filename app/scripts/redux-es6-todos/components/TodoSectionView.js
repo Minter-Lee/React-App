@@ -12,7 +12,8 @@ import {SHOW_ALL, SHOW_COMPLETE, SHOW_UNDONE} from '../constants/FilterTypes'
 
 export default class TodoSectionView extends Component {
 	static propTypes = {
-		actions: PropTypes.object.isRequired,
+		deleteTodo: PropTypes.func.isRequired,
+		completeTodo: PropTypes.func.isRequired,
 		todoItems: PropTypes.array.isRequired
 	}
 
@@ -33,27 +34,35 @@ export default class TodoSectionView extends Component {
   			case SHOW_ALL:
   				return todoItems;
   			case SHOW_COMPLETE:
-  				return todoItems.filter(item => item.complete === true);
+  				return todoItems.filter(item => item.completed === true);
   			case SHOW_UNDONE:
-  				return todoItems.filter(item => item.complete === false);
+  				return todoItems.filter(item => item.completed === false);
   			default:
   				return todoItems;
   		}
   	}
 
+    shouldComponentUpdate(nextProps, nextState) {
+      
+      return true;
+    }
+
   	render () {
+  		console.info("TodoSectionView-render");
+  		const { deleteTodo, completeTodo, todoItems} = this.props;
   		return <div>
   			<TodoListView 
 				todoItems = {this.getFilterTodoItems()} 
 				actions = {{
-					deleteTodo: actions.deleteTodo,
-					completeTodo: actions.completeTodo
+					deleteTodo: deleteTodo,
+					completeTodo: completeTodo
 				}} 
   			/>
   			<TodoFootbarView 
   				filter = {this.state.filter}
   				changeFilter = {this.changeFilter}
+  				completedCount = {todoItems.filter(item => item.completed === true).length}
   			/>
-  		<div>
+  		</div>
   	}
 }

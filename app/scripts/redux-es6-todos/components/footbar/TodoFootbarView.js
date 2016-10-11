@@ -10,16 +10,34 @@ import TodoFootbarFilterView from './TodoFootbarFilterView'
 
 export default class TodoFootbarView extends Component {
 	static propTypes = {
-		filter: PropTypes.string.isRequired
+		filter: PropTypes.string.isRequired,
+		changeFilter: PropTypes.func.isRequired,
+		completedCount: PropTypes.number.isRequired
 	}
 
+    shouldComponentUpdate(nextProps, nextState) {
+    		const {filter, changeFilter, completedCount} = this.props;
+    		if (nextProps.filter === filter 
+    			&& nextProps.changeFilter === changeFilter
+    			&& nextProps.completedCount === completedCount
+    		) {
+    			console.log("TodoFootbarView-拦截");
+    			return false;
+    		}
+    		return true;
+    }
+
 	render() {
+  		console.info("TodoFootbarView-render");
+		const { filter, changeFilter, completedCount} = this.props;
 		return <div className='todoFootbar'>
-			<TodoFootbarCountView 
-				filter={this.props.filter}
-				changeFilter = {this.changeFilter}
+			<TodoFootbarCountView
+				completedCount = {completedCount}
 			/>
-			<TodoFootbarFilterView />
+			<TodoFootbarFilterView  
+				filter = {filter}
+				changeFilter = {changeFilter}
+			/>
 		</div>
 	}
 }

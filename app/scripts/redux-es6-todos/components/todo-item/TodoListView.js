@@ -15,6 +15,7 @@
  	}
 
  	render(){
+ 		console.info("TodoListView-render");
  		const { actions } = this.props;
  		return <ul className = 'todoList'>
  		{

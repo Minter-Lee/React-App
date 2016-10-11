@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ec0b1a1e5cc921b76da7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c0f7474eda4c2e43e7b1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -584,8 +584,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(362);
-	module.exports = __webpack_require__(364);
+	__webpack_require__(372);
+	module.exports = __webpack_require__(374);
 
 
 /***/ },
@@ -606,7 +606,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _index = __webpack_require__(359);
+	var _index = __webpack_require__(369);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -23668,6 +23668,14 @@
 		value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
+	                                                                                                                                                                                                                                                                   * Title: 主容器视图
+	                                                                                                                                                                                                                                                                   * Author: MinterLee@hotmail.com
+	                                                                                                                                                                                                                                                                   * CreateDate: 2016-10-09
+	                                                                                                                                                                                                                                                                   * Description: 传递Action，提供数据等
+	                                                                                                                                                                                                                                                                   */
+
+
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -23684,11 +23692,11 @@
 
 	var _TodoInputView2 = _interopRequireDefault(_TodoInputView);
 
-	var _TodoListView = __webpack_require__(435);
+	var _TodoSectionView = __webpack_require__(357);
 
-	var _TodoListView2 = _interopRequireDefault(_TodoListView);
+	var _TodoSectionView2 = _interopRequireDefault(_TodoSectionView);
 
-	var _actions = __webpack_require__(357);
+	var _actions = __webpack_require__(367);
 
 	var TodoActions = _interopRequireWildcard(_actions);
 
@@ -23705,23 +23713,13 @@
 			{ className: 'todos' },
 			_react2.default.createElement(_TodoTitleView2.default, { title: todos.title }),
 			_react2.default.createElement(_TodoInputView2.default, { addTodo: actions.addTodo }),
-			_react2.default.createElement(_TodoListView2.default, {
-				todoItems: todos.items,
-				actions: {
-					deleteTodo: actions.deleteTodo,
-					completeTodo: actions.completeTodo
-				}
-			})
+			_react2.default.createElement(_TodoSectionView2.default, _extends({
+				todoItems: todos.items
+			}, actions))
 		);
 	};
 
 	// 验证propType类型
-	/*
-	 * Title: 主容器视图
-	 * Author: MinterLee@hotmail.com
-	 * CreateDate: 2016-10-09
-	 * Description: 传递Action，提供数据等
-	 */
 	App.propTypes = {
 		todos: _react.PropTypes.object.isRequired,
 		actions: _react.PropTypes.object.isRequired
@@ -23823,19 +23821,31 @@
 		}
 
 		_createClass(TodoTitleView, [{
+			key: 'shouldComponentUpdate',
+
+
+			// 拦截没必要的render 对比过程 提高效能
+			value: function shouldComponentUpdate(nextProps, nextState) {
+				if (nextProps.title === this.props.title) {
+					console.log("TodoTitleView-拦截");
+					return false;
+				}
+				return true;
+			}
+			// 类型验证 title 字符串 必填
+
+		}, {
 			key: 'render',
 			value: function render() {
+				console.info('TodoTitleView-render');
 				var title = this.props.title;
 
-				console.info('title', title);
 				return _react3.default.createElement(
 					'h1',
 					{ className: 'title' },
 					title
 				);
 			}
-			// 类型验证 title 字符串 必填
-
 		}]);
 
 		return TodoTitleView;
@@ -30559,12 +30569,18 @@
 
 
 		_createClass(TodoInputView, [{
+			key: 'shouldComponentUpdate',
+			value: function shouldComponentUpdate(nextProps, nextState) {
+				if (nextProps.addTodo === this.props.addTodo && nextState.inputValue === this.state.inputValue) {
+					console.log("TodoInputView-拦截");
+					return false;
+				}
+				return true;
+			}
+		}, {
 			key: 'render',
-
-
-			//
 			value: function render() {
-				console.info('todoInput-render');
+				console.info('TodoInputView-render');
 				return _react3.default.createElement('input', {
 					className: 'todoInput',
 					type: 'text',
@@ -30589,6 +30605,1215 @@
 /* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp2;
+
+	var _TodoListView = __webpack_require__(358);
+
+	var _TodoListView2 = _interopRequireDefault(_TodoListView);
+
+	var _TodoFootbarView = __webpack_require__(363);
+
+	var _TodoFootbarView2 = _interopRequireDefault(_TodoFootbarView);
+
+	var _FilterTypes = __webpack_require__(365);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	  TodoSectionView: {
+	    displayName: 'TodoSectionView'
+	  }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoSectionView.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoSectionView.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	} /*
+	   * Title: todo Section
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-09
+	   * Description: 列表 + 工具栏
+	   */
+
+	var TodoSectionView = _wrapComponent('TodoSectionView')((_temp2 = _class = function (_Component) {
+	  _inherits(TodoSectionView, _Component);
+
+	  function TodoSectionView() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, TodoSectionView);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoSectionView.__proto__ || Object.getPrototypeOf(TodoSectionView)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	      filter: 'SHOW_ALL'
+	    }, _this.changeFilter = function (filter) {
+	      _this.setState({
+	        filter: filter
+	      });
+	    }, _this.getFilterTodoItems = function () {
+	      var filter = _this.state.filter;
+	      var todoItems = _this.props.todoItems;
+
+	      switch (filter) {
+	        case _FilterTypes.SHOW_ALL:
+	          return todoItems;
+	        case _FilterTypes.SHOW_COMPLETE:
+	          return todoItems.filter(function (item) {
+	            return item.completed === true;
+	          });
+	        case _FilterTypes.SHOW_UNDONE:
+	          return todoItems.filter(function (item) {
+	            return item.completed === false;
+	          });
+	        default:
+	          return todoItems;
+	      }
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(TodoSectionView, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+
+	      return true;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.info("TodoSectionView-render");
+	      var _props = this.props;
+	      var deleteTodo = _props.deleteTodo;
+	      var completeTodo = _props.completeTodo;
+	      var todoItems = _props.todoItems;
+
+	      return _react3.default.createElement(
+	        'div',
+	        null,
+	        _react3.default.createElement(_TodoListView2.default, {
+	          todoItems: this.getFilterTodoItems(),
+	          actions: {
+	            deleteTodo: deleteTodo,
+	            completeTodo: completeTodo
+	          }
+	        }),
+	        _react3.default.createElement(_TodoFootbarView2.default, {
+	          filter: this.state.filter,
+	          changeFilter: this.changeFilter,
+	          completedCount: todoItems.filter(function (item) {
+	            return item.completed === true;
+	          }).length
+	        })
+	      );
+	    }
+	  }]);
+
+	  return TodoSectionView;
+	}(_react2.Component), _class.propTypes = {
+	  deleteTodo: _react2.PropTypes.func.isRequired,
+	  completeTodo: _react2.PropTypes.func.isRequired,
+	  todoItems: _react2.PropTypes.array.isRequired
+	}, _temp2));
+
+	exports.default = TodoSectionView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 358 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
+
+	var _TodoItemView = __webpack_require__(359);
+
+	var _TodoItemView2 = _interopRequireDefault(_TodoItemView);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	  TodoListView: {
+	    displayName: 'TodoListView'
+	  }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoListView.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoListView.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	} /*
+	   * Title: todo 列表
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-09
+	   * Description: 列表
+	   */
+
+	var TodoListView = _wrapComponent('TodoListView')((_temp = _class = function (_Component) {
+	  _inherits(TodoListView, _Component);
+
+	  function TodoListView() {
+	    _classCallCheck(this, TodoListView);
+
+	    return _possibleConstructorReturn(this, (TodoListView.__proto__ || Object.getPrototypeOf(TodoListView)).apply(this, arguments));
+	  }
+
+	  _createClass(TodoListView, [{
+	    key: 'render',
+	    value: function render() {
+	      console.info("TodoListView-render");
+	      var actions = this.props.actions;
+
+	      return _react3.default.createElement(
+	        'ul',
+	        { className: 'todoList' },
+	        this.props.todoItems.map(function (item, index) {
+	          return _react3.default.createElement(_TodoItemView2.default, _extends({ key: item.id, todoItem: item }, actions));
+	        })
+	      );
+	    }
+	  }]);
+
+	  return TodoListView;
+	}(_react2.Component), _class.propTypes = {
+	  todoItems: _react2.PropTypes.array.isRequired,
+	  actions: _react2.PropTypes.object.isRequired
+	}, _temp));
+
+	exports.default = TodoListView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 359 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp2;
+
+	var _TodoItemTextView = __webpack_require__(360);
+
+	var _TodoItemTextView2 = _interopRequireDefault(_TodoItemTextView);
+
+	var _TodoItemDeleteView = __webpack_require__(361);
+
+	var _TodoItemDeleteView2 = _interopRequireDefault(_TodoItemDeleteView);
+
+	var _TodoItemCompleteView = __webpack_require__(362);
+
+	var _TodoItemCompleteView2 = _interopRequireDefault(_TodoItemCompleteView);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	   TodoItemView: {
+	      displayName: 'TodoItemView'
+	   }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemView.js',
+	   components: _components,
+	   locals: [],
+	   imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemView.js',
+	   components: _components,
+	   locals: [module],
+	   imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	   return function (Component) {
+	      return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	   };
+	} /*
+	   * Title: ItemView
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-09
+	   * Description: ...
+	   */
+
+
+	var TodoItemView = _wrapComponent('TodoItemView')((_temp2 = _class = function (_Component) {
+	   _inherits(TodoItemView, _Component);
+
+	   function TodoItemView() {
+	      var _ref;
+
+	      var _temp, _this, _ret;
+
+	      _classCallCheck(this, TodoItemView);
+
+	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	         args[_key] = arguments[_key];
+	      }
+
+	      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoItemView.__proto__ || Object.getPrototypeOf(TodoItemView)).call.apply(_ref, [this].concat(args))), _this), _this.deleteTodo = function () {
+	         _this.props.deleteTodo(_this.props.todoItem.id);
+	      }, _this.completeTodo = function () {
+	         _this.props.completeTodo(_this.props.todoItem.id);
+	      }, _temp), _possibleConstructorReturn(_this, _ret);
+	   }
+
+	   _createClass(TodoItemView, [{
+	      key: 'shouldComponentUpdate',
+	      value: function shouldComponentUpdate(nextProps, nextState) {
+	         var _props = this.props;
+	         var todoItem = _props.todoItem;
+	         var deleteTodo = _props.deleteTodo;
+	         var completeTodo = _props.completeTodo;
+	         var todoItemNext = nextProps.todoItem;
+	         var deleteTodoNext = nextProps.deleteTodo;
+	         var completeTodoNext = nextProps.completeTodo;
+
+	         if (todoItemNext === todoItem && deleteTodoNext === deleteTodo && completeTodoNext === completeTodo) {
+	            console.log("TodoItemView-拦截");
+	            return false;
+	         }
+	         return true;
+	      }
+	   }, {
+	      key: 'render',
+	      value: function render() {
+	         console.info("TodoItemView-render");
+	         var todoItem = this.props.todoItem;
+
+	         return _react3.default.createElement(
+	            'li',
+	            null,
+	            _react3.default.createElement(_TodoItemTextView2.default, { todoItem: todoItem }),
+	            _react3.default.createElement(_TodoItemDeleteView2.default, { deleteTodo: this.deleteTodo }),
+	            _react3.default.createElement(_TodoItemCompleteView2.default, { completeTodo: this.completeTodo, completed: todoItem.completed })
+	         );
+	      }
+	   }]);
+
+	   return TodoItemView;
+	}(_react2.Component), _class.propTypes = {
+	   todoItem: _react2.PropTypes.object.isRequired,
+	   deleteTodo: _react2.PropTypes.func.isRequired,
+	   completeTodo: _react2.PropTypes.func.isRequired
+	}, _temp2));
+
+	exports.default = TodoItemView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 360 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp2;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	   ItemTextView: {
+	      displayName: 'ItemTextView'
+	   }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemTextView.js',
+	   components: _components,
+	   locals: [],
+	   imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemTextView.js',
+	   components: _components,
+	   locals: [module],
+	   imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	   return function (Component) {
+	      return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	   };
+	} /*
+	   * Title: ItemTextView
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-09
+	   * Description: ...
+	   */
+
+	var ItemTextView = _wrapComponent('ItemTextView')((_temp2 = _class = function (_Component) {
+	   _inherits(ItemTextView, _Component);
+
+	   function ItemTextView() {
+	      var _ref;
+
+	      var _temp, _this, _ret;
+
+	      _classCallCheck(this, ItemTextView);
+
+	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	         args[_key] = arguments[_key];
+	      }
+
+	      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ItemTextView.__proto__ || Object.getPrototypeOf(ItemTextView)).call.apply(_ref, [this].concat(args))), _this), _this.getClassName = function () {
+	         var extralClass = _this.props.todoItem.completed === true ? 'isCompleted' : '';
+	         return 'itemText ' + extralClass;
+	      }, _temp), _possibleConstructorReturn(_this, _ret);
+	   }
+
+	   _createClass(ItemTextView, [{
+	      key: 'shouldComponentUpdate',
+	      value: function shouldComponentUpdate(nextProps, nextState) {
+	         if (nextProps.todoItem === this.props.todoItem) {
+	            console.log("ItemTextView-拦截");
+	            return false;
+	         }
+	         return true;
+	      }
+	   }, {
+	      key: 'render',
+	      value: function render() {
+	         console.info('ItemTextView-render');
+	         return _react3.default.createElement(
+	            'span',
+	            { className: this.getClassName() },
+	            this.props.todoItem.text
+	         );
+	      }
+	   }]);
+
+	   return ItemTextView;
+	}(_react2.Component), _class.propTypes = {
+	   todoItem: _react2.PropTypes.object.isRequired
+	}, _temp2));
+
+	exports.default = ItemTextView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 361 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	   ItemDeleteView: {
+	      displayName: "ItemDeleteView"
+	   }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	   filename: "/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemDeleteView.js",
+	   components: _components,
+	   locals: [],
+	   imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	   filename: "/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemDeleteView.js",
+	   components: _components,
+	   locals: [module],
+	   imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	   return function (Component) {
+	      return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	   };
+	} /*
+	   * Title: ItemDeleteView
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-10
+	   * Description: ...
+	   */
+
+	var ItemDeleteView = _wrapComponent("ItemDeleteView")((_temp = _class = function (_Component) {
+	   _inherits(ItemDeleteView, _Component);
+
+	   function ItemDeleteView() {
+	      _classCallCheck(this, ItemDeleteView);
+
+	      return _possibleConstructorReturn(this, (ItemDeleteView.__proto__ || Object.getPrototypeOf(ItemDeleteView)).apply(this, arguments));
+	   }
+
+	   _createClass(ItemDeleteView, [{
+	      key: "shouldComponentUpdate",
+	      value: function shouldComponentUpdate(nextProps, nextState) {
+	         if (nextProps.deleteTodo === this.props.deleteTodo) {
+	            console.log("ItemDeleteView-拦截");
+	            return false;
+	         }
+	         return true;
+	      }
+	   }, {
+	      key: "render",
+	      value: function render() {
+	         console.info("ItemDeleteView-render");
+	         return _react3.default.createElement(
+	            "div",
+	            { className: "todoBtn deleteBtn", onClick: this.props.deleteTodo, title: "delete" },
+	            "\xD7"
+	         );
+	      }
+	   }]);
+
+	   return ItemDeleteView;
+	}(_react2.Component), _class.propTypes = {
+	   deleteTodo: _react2.PropTypes.func.isRequired
+	}, _temp));
+
+	exports.default = ItemDeleteView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	  ItemCompleteView: {
+	    displayName: 'ItemCompleteView'
+	  }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemCompleteView.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemCompleteView.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	} /*
+	   * Title: ItemCompleteView
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-10
+	   * Description: ...
+	   */
+
+	var ItemCompleteView = _wrapComponent('ItemCompleteView')((_temp = _class = function (_Component) {
+	  _inherits(ItemCompleteView, _Component);
+
+	  function ItemCompleteView() {
+	    _classCallCheck(this, ItemCompleteView);
+
+	    return _possibleConstructorReturn(this, (ItemCompleteView.__proto__ || Object.getPrototypeOf(ItemCompleteView)).apply(this, arguments));
+	  }
+
+	  _createClass(ItemCompleteView, [{
+	    key: 'getClassName',
+	    value: function getClassName() {
+	      var extralClass = this.props.completed === true ? 'undoneBtn' : 'completeBtn';
+	      return 'todoBtn ' + extralClass;
+	    }
+	  }, {
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      var _props = this.props;
+	      var completeTodo = _props.completeTodo;
+	      var completed = _props.completed;
+	      var completeTodoNext = nextProps.completeTodo;
+	      var completedNext = nextProps.completed;
+
+	      if (completeTodoNext === completeTodo && completedNext === completed) {
+	        console.log("ItemCompleteView-拦截");
+	        return false;
+	      }
+	      return true;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.info("ItemCompleteView-render");
+	      return _react3.default.createElement(
+	        'div',
+	        {
+	          title: 'complete',
+	          className: this.getClassName(),
+	          onClick: this.props.completeTodo
+	        },
+	        this.props.completed === true ? '＋' : '√'
+	      );
+	    }
+	  }]);
+
+	  return ItemCompleteView;
+	}(_react2.Component), _class.propTypes = {
+	  completeTodo: _react2.PropTypes.func.isRequired,
+	  completed: _react2.PropTypes.bool.isRequired
+	}, _temp));
+
+	exports.default = ItemCompleteView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 363 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
+
+	var _TodoFootbarCountView = __webpack_require__(364);
+
+	var _TodoFootbarCountView2 = _interopRequireDefault(_TodoFootbarCountView);
+
+	var _TodoFootbarFilterView = __webpack_require__(366);
+
+	var _TodoFootbarFilterView2 = _interopRequireDefault(_TodoFootbarFilterView);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	  TodoFootbarView: {
+	    displayName: 'TodoFootbarView'
+	  }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarView.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarView.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	} /*
+	   * Title: TodoFootbarView
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-10
+	   * Description: ...
+	   */
+
+
+	var TodoFootbarView = _wrapComponent('TodoFootbarView')((_temp = _class = function (_Component) {
+	  _inherits(TodoFootbarView, _Component);
+
+	  function TodoFootbarView() {
+	    _classCallCheck(this, TodoFootbarView);
+
+	    return _possibleConstructorReturn(this, (TodoFootbarView.__proto__ || Object.getPrototypeOf(TodoFootbarView)).apply(this, arguments));
+	  }
+
+	  _createClass(TodoFootbarView, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      var _props = this.props;
+	      var filter = _props.filter;
+	      var changeFilter = _props.changeFilter;
+	      var completedCount = _props.completedCount;
+
+	      if (nextProps.filter === filter && nextProps.changeFilter === changeFilter && nextProps.completedCount === completedCount) {
+	        console.log("TodoFootbarView-拦截");
+	        return false;
+	      }
+	      return true;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.info("TodoFootbarView-render");
+	      var _props2 = this.props;
+	      var filter = _props2.filter;
+	      var changeFilter = _props2.changeFilter;
+	      var completedCount = _props2.completedCount;
+
+	      return _react3.default.createElement(
+	        'div',
+	        { className: 'todoFootbar' },
+	        _react3.default.createElement(_TodoFootbarCountView2.default, {
+	          completedCount: completedCount
+	        }),
+	        _react3.default.createElement(_TodoFootbarFilterView2.default, {
+	          filter: filter,
+	          changeFilter: changeFilter
+	        })
+	      );
+	    }
+	  }]);
+
+	  return TodoFootbarView;
+	}(_react2.Component), _class.propTypes = {
+	  filter: _react2.PropTypes.string.isRequired,
+	  changeFilter: _react2.PropTypes.func.isRequired,
+	  completedCount: _react2.PropTypes.number.isRequired
+	}, _temp));
+
+	exports.default = TodoFootbarView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 364 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
+
+	var _FilterTypes = __webpack_require__(365);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	  TodoFootbarCountView: {
+	    displayName: 'TodoFootbarCountView'
+	  }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarCountView.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarCountView.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	} /*
+	   * Title: TodoFootbarCountView
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-10
+	   * Description: ...
+	   */
+
+	var TodoFootbarCountView = _wrapComponent('TodoFootbarCountView')((_temp = _class = function (_Component) {
+	  _inherits(TodoFootbarCountView, _Component);
+
+	  function TodoFootbarCountView() {
+	    _classCallCheck(this, TodoFootbarCountView);
+
+	    return _possibleConstructorReturn(this, (TodoFootbarCountView.__proto__ || Object.getPrototypeOf(TodoFootbarCountView)).apply(this, arguments));
+	  }
+
+	  _createClass(TodoFootbarCountView, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      if (nextProps.completedCount === this.props.completedCount) {
+	        console.log("TodoFootbarCountView-拦截");
+	        return false;
+	      }
+	      return true;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.info("TodoFootbarCountView-render");
+	      return _react3.default.createElement(
+	        'span',
+	        null,
+	        '\u5DF2\u5B8C\u6210',
+	        this.props.completedCount,
+	        '\u6761'
+	      );
+	    }
+	  }]);
+
+	  return TodoFootbarCountView;
+	}(_react2.Component), _class.propTypes = {
+	  completedCount: _react2.PropTypes.number.isRequired
+	}, _temp));
+
+	exports.default = TodoFootbarCountView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 365 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/*
+	 * Title: FilterType涉及所有常量
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-10-09
+	 * Description: 定义常量
+	 */
+
+	var SHOW_ALL = exports.SHOW_ALL = 'SHOW_ALL';
+	var SHOW_COMPLETE = exports.SHOW_COMPLETE = 'SHOW_COMPLETE';
+	var SHOW_UNDONE = exports.SHOW_UNDONE = 'SHOW_UNDONE';
+
+/***/ },
+/* 366 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactTransformHmr3 = __webpack_require__(203);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(350);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(355);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp2;
+
+	var _FilterTypes = __webpack_require__(365);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	  TodoFootbarFilterView: {
+	    displayName: 'TodoFootbarFilterView'
+	  }
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarFilterView.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarFilterView.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	} /*
+	   * Title: TodoFootbarView
+	   * Author: MinterLee@hotmail.com
+	   * CreateDate: 2016-10-10
+	   * Description: ...
+	   */
+
+	var TodoFootbarFilterView = _wrapComponent('TodoFootbarFilterView')((_temp2 = _class = function (_Component) {
+	  _inherits(TodoFootbarFilterView, _Component);
+
+	  function TodoFootbarFilterView() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, TodoFootbarFilterView);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoFootbarFilterView.__proto__ || Object.getPrototypeOf(TodoFootbarFilterView)).call.apply(_ref, [this].concat(args))), _this), _this.getDefaultClassName = function () {
+	      return {
+	        classNameAll: 'all',
+	        classNameComplete: 'complete',
+	        classNameUndone: 'undone'
+	      };
+	    }, _this.getClassNames = function (filter) {
+	      var defaultClassName = _this.getDefaultClassName();
+	      switch (filter) {
+	        case _FilterTypes.SHOW_ALL:
+	          return _extends({}, defaultClassName, { classNameAll: 'all on' });
+	        case _FilterTypes.SHOW_COMPLETE:
+	          return _extends({}, defaultClassName, { classNameComplete: 'complete on' });
+	        case _FilterTypes.SHOW_UNDONE:
+	          return _extends({}, defaultClassName, { classNameUndone: 'undone on' });
+	        default:
+	          return _extends({}, defaultClassName, { classNameAll: 'all on' });
+	      }
+	    }, _this.changeFilter = function (e) {
+	      var type = e.target.getAttribute('data-filter-type');
+	      _this.props.changeFilter(type);
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  // 固化按钮样式
+
+
+	  _createClass(TodoFootbarFilterView, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      var _props = this.props;
+	      var filter = _props.filter;
+	      var changeFilter = _props.changeFilter;
+
+	      if (nextProps.filter === filter && nextProps.changeFilter === changeFilter) {
+	        console.log("TodoFootbarView-拦截");
+	        return false;
+	      }
+	      return true;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var filter = this.props.filter;
+
+	      var classNames = this.getClassNames(filter);
+	      console.info("TodoFootbarView-render");
+	      return _react3.default.createElement(
+	        'ul',
+	        { className: 'queryBtn' },
+	        _react3.default.createElement(
+	          'li',
+	          { className: classNames.classNameAll,
+	            'data-filter-type': _FilterTypes.SHOW_ALL,
+	            onClick: this.changeFilter
+	          },
+	          'A'
+	        ),
+	        _react3.default.createElement(
+	          'li',
+	          { className: classNames.classNameComplete,
+	            'data-filter-type': _FilterTypes.SHOW_COMPLETE,
+	            onClick: this.changeFilter
+	          },
+	          'C'
+	        ),
+	        _react3.default.createElement(
+	          'li',
+	          { className: classNames.classNameUndone,
+	            'data-filter-type': _FilterTypes.SHOW_UNDONE,
+	            onClick: this.changeFilter
+	          },
+	          'U'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return TodoFootbarFilterView;
+	}(_react2.Component), _class.propTypes = {
+	  filter: _react2.PropTypes.string.isRequired,
+	  changeFilter: _react2.PropTypes.func.isRequired
+	}, _temp2));
+
+	exports.default = TodoFootbarFilterView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+
+/***/ },
+/* 367 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -30596,7 +31821,7 @@
 	});
 	exports.completeTodo = exports.deleteTodo = exports.addTodo = undefined;
 
-	var _ActionTypes = __webpack_require__(358);
+	var _ActionTypes = __webpack_require__(368);
 
 	var types = _interopRequireWildcard(_ActionTypes);
 
@@ -30619,7 +31844,7 @@
 	};
 
 /***/ },
-/* 358 */
+/* 368 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30639,7 +31864,7 @@
 	var COMPLETE_TODO = exports.COMPLETE_TODO = 'COMPLETE_TODO';
 
 /***/ },
-/* 359 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30649,7 +31874,7 @@
 	});
 	exports.default = configureStore;
 
-	var _index = __webpack_require__(360);
+	var _index = __webpack_require__(370);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -30671,9 +31896,9 @@
 
 		//告知该文件及其所有关联被修正时，进行热替换，替换reducer
 		if (true) {
-			module.hot.accept(360, function () {
+			module.hot.accept(370, function () {
 				// 重新加载reducer
-				var nextReducer = __webpack_require__(360);
+				var nextReducer = __webpack_require__(370);
 				// 替换reducer
 				store.replaceReducer(nextReducer);
 			});
@@ -30684,7 +31909,7 @@
 	// export default configureStore;
 
 /***/ },
-/* 360 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30695,7 +31920,7 @@
 
 	var _redux = __webpack_require__(180);
 
-	var _todos = __webpack_require__(361);
+	var _todos = __webpack_require__(371);
 
 	var _todos2 = _interopRequireDefault(_todos);
 
@@ -30715,7 +31940,7 @@
 	exports.default = rootRducer;
 
 /***/ },
-/* 361 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30728,7 +31953,7 @@
 
 	exports.default = todos;
 
-	var _ActionTypes = __webpack_require__(358);
+	var _ActionTypes = __webpack_require__(368);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /*
 	                                                                                                                                                                                                     * Title: reducer for todos
@@ -30775,7 +32000,7 @@
 	}
 
 /***/ },
-/* 362 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30815,7 +32040,7 @@
 					check();
 				}
 
-				__webpack_require__(363)(updatedModules, updatedModules);
+				__webpack_require__(373)(updatedModules, updatedModules);
 
 				if(upToDate()) {
 					console.log("[HMR] App is up to date.");
@@ -30844,7 +32069,7 @@
 
 
 /***/ },
-/* 363 */
+/* 373 */
 /***/ function(module, exports) {
 
 	/*
@@ -30875,12 +32100,12 @@
 
 
 /***/ },
-/* 364 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {var url = __webpack_require__(365);
-	var SockJS = __webpack_require__(370);
-	var stripAnsi = __webpack_require__(433);
+	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {var url = __webpack_require__(375);
+	var SockJS = __webpack_require__(380);
+	var stripAnsi = __webpack_require__(443);
 	var scriptElements = document.getElementsByTagName("script");
 	var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "");
 
@@ -30978,7 +32203,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "?http://localhost:9090/"))
 
 /***/ },
-/* 365 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -31002,7 +32227,7 @@
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	var punycode = __webpack_require__(366);
+	var punycode = __webpack_require__(376);
 
 	exports.parse = urlParse;
 	exports.resolve = urlResolve;
@@ -31074,7 +32299,7 @@
 	      'gopher:': true,
 	      'file:': true
 	    },
-	    querystring = __webpack_require__(367);
+	    querystring = __webpack_require__(377);
 
 	function urlParse(url, parseQueryString, slashesDenoteHost) {
 	  if (url && isObject(url) && url instanceof Url) return url;
@@ -31691,7 +32916,7 @@
 
 
 /***/ },
-/* 366 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! https://mths.be/punycode v1.3.2 by @mathias */
@@ -32226,17 +33451,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module), (function() { return this; }())))
 
 /***/ },
-/* 367 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.decode = exports.parse = __webpack_require__(368);
-	exports.encode = exports.stringify = __webpack_require__(369);
+	exports.decode = exports.parse = __webpack_require__(378);
+	exports.encode = exports.stringify = __webpack_require__(379);
 
 
 /***/ },
-/* 368 */
+/* 378 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -32322,7 +33547,7 @@
 
 
 /***/ },
-/* 369 */
+/* 379 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -32392,14 +33617,14 @@
 
 
 /***/ },
-/* 370 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var transportList = __webpack_require__(371);
+	var transportList = __webpack_require__(381);
 
-	module.exports = __webpack_require__(417)(transportList);
+	module.exports = __webpack_require__(427)(transportList);
 
 	// TODO can't get rid of this until all servers do
 	if ('_sockjs_onload' in global) {
@@ -32409,45 +33634,45 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 371 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = [
 	  // streaming transports
-	  __webpack_require__(372)
-	, __webpack_require__(388)
+	  __webpack_require__(382)
 	, __webpack_require__(398)
-	, __webpack_require__(400)
-	, __webpack_require__(403)(__webpack_require__(400))
+	, __webpack_require__(408)
+	, __webpack_require__(410)
+	, __webpack_require__(413)(__webpack_require__(410))
 
 	  // polling transports
-	, __webpack_require__(410)
-	, __webpack_require__(403)(__webpack_require__(410))
-	, __webpack_require__(412)
-	, __webpack_require__(413)
-	, __webpack_require__(403)(__webpack_require__(412))
-	, __webpack_require__(414)
+	, __webpack_require__(420)
+	, __webpack_require__(413)(__webpack_require__(420))
+	, __webpack_require__(422)
+	, __webpack_require__(423)
+	, __webpack_require__(413)(__webpack_require__(422))
+	, __webpack_require__(424)
 	];
 
 
 /***/ },
-/* 372 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(373)
-	  , urlUtils = __webpack_require__(376)
-	  , inherits = __webpack_require__(384)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
-	  , WebsocketDriver = __webpack_require__(387)
+	var utils = __webpack_require__(383)
+	  , urlUtils = __webpack_require__(386)
+	  , inherits = __webpack_require__(394)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
+	  , WebsocketDriver = __webpack_require__(397)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:websocket');
+	  debug = __webpack_require__(391)('sockjs-client:websocket');
 	}
 
 	function WebSocketTransport(transUrl, ignore, options) {
@@ -32538,12 +33763,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 373 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var random = __webpack_require__(374);
+	var random = __webpack_require__(384);
 
 	var onUnload = {}
 	  , afterUnload = false
@@ -32618,13 +33843,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 374 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	/* global crypto:true */
-	var crypto = __webpack_require__(375);
+	var crypto = __webpack_require__(385);
 
 	// This string has length 32, a power of 2, so the modulus doesn't introduce a
 	// bias.
@@ -32653,7 +33878,7 @@
 
 
 /***/ },
-/* 375 */
+/* 385 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -32677,16 +33902,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 376 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var URL = __webpack_require__(377);
+	var URL = __webpack_require__(387);
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:utils:url');
+	  debug = __webpack_require__(391)('sockjs-client:utils:url');
 	}
 
 	module.exports = {
@@ -32731,14 +33956,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 377 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var required = __webpack_require__(378)
-	  , lolcation = __webpack_require__(379)
-	  , qs = __webpack_require__(380)
+	var required = __webpack_require__(388)
+	  , lolcation = __webpack_require__(389)
+	  , qs = __webpack_require__(390)
 	  , relativere = /^\/(?!\/)/
 	  , protocolre = /^([a-z0-9.+-]+:)?(\/\/)?(.*)$/i; // actual protocol is first match
 
@@ -33006,7 +34231,7 @@
 
 
 /***/ },
-/* 378 */
+/* 388 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33050,7 +34275,7 @@
 
 
 /***/ },
-/* 379 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -33082,7 +34307,7 @@
 	 */
 	module.exports = function lolcation(loc) {
 	  loc = loc || global.location || {};
-	  URL = URL || __webpack_require__(377);
+	  URL = URL || __webpack_require__(387);
 
 	  var finaldestination = {}
 	    , type = typeof loc
@@ -33110,7 +34335,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 380 */
+/* 390 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33177,7 +34402,7 @@
 
 
 /***/ },
-/* 381 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -33187,7 +34412,7 @@
 	 * Expose `debug()` as the module.
 	 */
 
-	exports = module.exports = __webpack_require__(382);
+	exports = module.exports = __webpack_require__(392);
 	exports.log = log;
 	exports.formatArgs = formatArgs;
 	exports.save = save;
@@ -33351,7 +34576,7 @@
 
 
 /***/ },
-/* 382 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -33367,7 +34592,7 @@
 	exports.disable = disable;
 	exports.enable = enable;
 	exports.enabled = enabled;
-	exports.humanize = __webpack_require__(383);
+	exports.humanize = __webpack_require__(393);
 
 	/**
 	 * The currently active debug mode names, and names to skip.
@@ -33554,7 +34779,7 @@
 
 
 /***/ },
-/* 383 */
+/* 393 */
 /***/ function(module, exports) {
 
 	/**
@@ -33685,7 +34910,7 @@
 
 
 /***/ },
-/* 384 */
+/* 394 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -33714,13 +34939,13 @@
 
 
 /***/ },
-/* 385 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , EventTarget = __webpack_require__(386)
+	var inherits = __webpack_require__(394)
+	  , EventTarget = __webpack_require__(396)
 	  ;
 
 	function EventEmitter() {
@@ -33777,7 +35002,7 @@
 
 
 /***/ },
-/* 386 */
+/* 396 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33845,7 +35070,7 @@
 
 
 /***/ },
-/* 387 */
+/* 397 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -33860,17 +35085,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 388 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , AjaxBasedTransport = __webpack_require__(389)
-	  , XhrReceiver = __webpack_require__(393)
-	  , XHRCorsObject = __webpack_require__(394)
-	  , XHRLocalObject = __webpack_require__(396)
-	  , browser = __webpack_require__(397)
+	var inherits = __webpack_require__(394)
+	  , AjaxBasedTransport = __webpack_require__(399)
+	  , XhrReceiver = __webpack_require__(403)
+	  , XHRCorsObject = __webpack_require__(404)
+	  , XHRLocalObject = __webpack_require__(406)
+	  , browser = __webpack_require__(407)
 	  ;
 
 	function XhrStreamingTransport(transUrl) {
@@ -33908,19 +35133,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 389 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , urlUtils = __webpack_require__(376)
-	  , SenderReceiver = __webpack_require__(390)
+	var inherits = __webpack_require__(394)
+	  , urlUtils = __webpack_require__(386)
+	  , SenderReceiver = __webpack_require__(400)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:ajax-based');
+	  debug = __webpack_require__(391)('sockjs-client:ajax-based');
 	}
 
 	function createAjaxSender(AjaxObject) {
@@ -33964,20 +35189,20 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 390 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , urlUtils = __webpack_require__(376)
-	  , BufferedSender = __webpack_require__(391)
-	  , Polling = __webpack_require__(392)
+	var inherits = __webpack_require__(394)
+	  , urlUtils = __webpack_require__(386)
+	  , BufferedSender = __webpack_require__(401)
+	  , Polling = __webpack_require__(402)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:sender-receiver');
+	  debug = __webpack_require__(391)('sockjs-client:sender-receiver');
 	}
 
 	function SenderReceiver(transUrl, urlSuffix, senderFunc, Receiver, AjaxObject) {
@@ -34016,18 +35241,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 391 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
+	var inherits = __webpack_require__(394)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:buffered-sender');
+	  debug = __webpack_require__(391)('sockjs-client:buffered-sender');
 	}
 
 	function BufferedSender(url, sender) {
@@ -34110,18 +35335,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 392 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
+	var inherits = __webpack_require__(394)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:polling');
+	  debug = __webpack_require__(391)('sockjs-client:polling');
 	}
 
 	function Polling(Receiver, receiveUrl, AjaxObject) {
@@ -34174,18 +35399,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 393 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
+	var inherits = __webpack_require__(394)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:receiver:xhr');
+	  debug = __webpack_require__(391)('sockjs-client:receiver:xhr');
 	}
 
 	function XhrReceiver(url, AjaxObject) {
@@ -34251,13 +35476,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 394 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , XhrDriver = __webpack_require__(395)
+	var inherits = __webpack_require__(394)
+	  , XhrDriver = __webpack_require__(405)
 	  ;
 
 	function XHRCorsObject(method, url, payload, opts) {
@@ -34272,21 +35497,21 @@
 
 
 /***/ },
-/* 395 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {'use strict';
 
-	var EventEmitter = __webpack_require__(385).EventEmitter
-	  , inherits = __webpack_require__(384)
-	  , utils = __webpack_require__(373)
-	  , urlUtils = __webpack_require__(376)
+	var EventEmitter = __webpack_require__(395).EventEmitter
+	  , inherits = __webpack_require__(394)
+	  , utils = __webpack_require__(383)
+	  , urlUtils = __webpack_require__(386)
 	  , XHR = global.XMLHttpRequest
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:browser:xhr');
+	  debug = __webpack_require__(391)('sockjs-client:browser:xhr');
 	}
 
 	function AbstractXHRObject(method, url, payload, opts) {
@@ -34472,13 +35697,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(4)))
 
 /***/ },
-/* 396 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , XhrDriver = __webpack_require__(395)
+	var inherits = __webpack_require__(394)
+	  , XhrDriver = __webpack_require__(405)
 	  ;
 
 	function XHRLocalObject(method, url, payload /*, opts */) {
@@ -34495,7 +35720,7 @@
 
 
 /***/ },
-/* 397 */
+/* 407 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -34529,15 +35754,15 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 398 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , AjaxBasedTransport = __webpack_require__(389)
-	  , XhrReceiver = __webpack_require__(393)
-	  , XDRObject = __webpack_require__(399)
+	var inherits = __webpack_require__(394)
+	  , AjaxBasedTransport = __webpack_require__(399)
+	  , XhrReceiver = __webpack_require__(403)
+	  , XDRObject = __webpack_require__(409)
 	  ;
 
 	// According to:
@@ -34567,21 +35792,21 @@
 
 
 /***/ },
-/* 399 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var EventEmitter = __webpack_require__(385).EventEmitter
-	  , inherits = __webpack_require__(384)
-	  , eventUtils = __webpack_require__(373)
-	  , browser = __webpack_require__(397)
-	  , urlUtils = __webpack_require__(376)
+	var EventEmitter = __webpack_require__(395).EventEmitter
+	  , inherits = __webpack_require__(394)
+	  , eventUtils = __webpack_require__(383)
+	  , browser = __webpack_require__(407)
+	  , urlUtils = __webpack_require__(386)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:sender:xdr');
+	  debug = __webpack_require__(391)('sockjs-client:sender:xdr');
 	}
 
 	// References:
@@ -34677,16 +35902,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 400 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , AjaxBasedTransport = __webpack_require__(389)
-	  , EventSourceReceiver = __webpack_require__(401)
-	  , XHRCorsObject = __webpack_require__(394)
-	  , EventSourceDriver = __webpack_require__(402)
+	var inherits = __webpack_require__(394)
+	  , AjaxBasedTransport = __webpack_require__(399)
+	  , EventSourceReceiver = __webpack_require__(411)
+	  , XHRCorsObject = __webpack_require__(404)
+	  , EventSourceDriver = __webpack_require__(412)
 	  ;
 
 	function EventSourceTransport(transUrl) {
@@ -34710,19 +35935,19 @@
 
 
 /***/ },
-/* 401 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
-	  , EventSourceDriver = __webpack_require__(402)
+	var inherits = __webpack_require__(394)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
+	  , EventSourceDriver = __webpack_require__(412)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:receiver:eventsource');
+	  debug = __webpack_require__(391)('sockjs-client:receiver:eventsource');
 	}
 
 	function EventSourceReceiver(url) {
@@ -34780,7 +36005,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 402 */
+/* 412 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global.EventSource;
@@ -34788,14 +36013,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 403 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , IframeTransport = __webpack_require__(404)
-	  , objectUtils = __webpack_require__(409)
+	var inherits = __webpack_require__(394)
+	  , IframeTransport = __webpack_require__(414)
+	  , objectUtils = __webpack_require__(419)
 	  ;
 
 	module.exports = function(transport) {
@@ -34828,7 +36053,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 404 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -34841,19 +36066,19 @@
 	//    http://msdn.microsoft.com/en-us/library/cc197015(v=VS.85).aspx
 	//    http://stevesouders.com/misc/test-postmessage.php
 
-	var inherits = __webpack_require__(384)
-	  , JSON3 = __webpack_require__(405)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
-	  , version = __webpack_require__(407)
-	  , urlUtils = __webpack_require__(376)
-	  , iframeUtils = __webpack_require__(408)
-	  , eventUtils = __webpack_require__(373)
-	  , random = __webpack_require__(374)
+	var inherits = __webpack_require__(394)
+	  , JSON3 = __webpack_require__(415)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
+	  , version = __webpack_require__(417)
+	  , urlUtils = __webpack_require__(386)
+	  , iframeUtils = __webpack_require__(418)
+	  , eventUtils = __webpack_require__(383)
+	  , random = __webpack_require__(384)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:transport:iframe');
+	  debug = __webpack_require__(391)('sockjs-client:transport:iframe');
 	}
 
 	function IframeTransport(transport, transUrl, baseUrl) {
@@ -34976,14 +36201,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 405 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 	;(function () {
 	  // Detect the `define` function exposed by asynchronous module loaders. The
 	  // strict `define` check is necessary for compatibility with `r.js`.
-	  var isLoader = "function" === "function" && __webpack_require__(406);
+	  var isLoader = "function" === "function" && __webpack_require__(416);
 
 	  // A set of types used to distinguish objects from primitives.
 	  var objectTypes = {
@@ -35885,7 +37110,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module), (function() { return this; }())))
 
 /***/ },
-/* 406 */
+/* 416 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -35893,26 +37118,26 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 407 */
+/* 417 */
 /***/ function(module, exports) {
 
 	module.exports = '1.1.1';
 
 
 /***/ },
-/* 408 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var eventUtils = __webpack_require__(373)
-	  , JSON3 = __webpack_require__(405)
-	  , browser = __webpack_require__(397)
+	var eventUtils = __webpack_require__(383)
+	  , JSON3 = __webpack_require__(415)
+	  , browser = __webpack_require__(407)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:utils:iframe');
+	  debug = __webpack_require__(391)('sockjs-client:utils:iframe');
 	}
 
 	module.exports = {
@@ -36094,7 +37319,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 409 */
+/* 419 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36124,15 +37349,15 @@
 
 
 /***/ },
-/* 410 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , HtmlfileReceiver = __webpack_require__(411)
-	  , XHRLocalObject = __webpack_require__(396)
-	  , AjaxBasedTransport = __webpack_require__(389)
+	var inherits = __webpack_require__(394)
+	  , HtmlfileReceiver = __webpack_require__(421)
+	  , XHRLocalObject = __webpack_require__(406)
+	  , AjaxBasedTransport = __webpack_require__(399)
 	  ;
 
 	function HtmlFileTransport(transUrl) {
@@ -36155,21 +37380,21 @@
 
 
 /***/ },
-/* 411 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , iframeUtils = __webpack_require__(408)
-	  , urlUtils = __webpack_require__(376)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
-	  , random = __webpack_require__(374)
+	var inherits = __webpack_require__(394)
+	  , iframeUtils = __webpack_require__(418)
+	  , urlUtils = __webpack_require__(386)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
+	  , random = __webpack_require__(384)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:receiver:htmlfile');
+	  debug = __webpack_require__(391)('sockjs-client:receiver:htmlfile');
 	}
 
 	function HtmlfileReceiver(url) {
@@ -36249,16 +37474,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 412 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , AjaxBasedTransport = __webpack_require__(389)
-	  , XhrReceiver = __webpack_require__(393)
-	  , XHRCorsObject = __webpack_require__(394)
-	  , XHRLocalObject = __webpack_require__(396)
+	var inherits = __webpack_require__(394)
+	  , AjaxBasedTransport = __webpack_require__(399)
+	  , XhrReceiver = __webpack_require__(403)
+	  , XHRCorsObject = __webpack_require__(404)
+	  , XHRLocalObject = __webpack_require__(406)
 	  ;
 
 	function XhrPollingTransport(transUrl) {
@@ -36288,16 +37513,16 @@
 
 
 /***/ },
-/* 413 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , AjaxBasedTransport = __webpack_require__(389)
-	  , XdrStreamingTransport = __webpack_require__(398)
-	  , XhrReceiver = __webpack_require__(393)
-	  , XDRObject = __webpack_require__(399)
+	var inherits = __webpack_require__(394)
+	  , AjaxBasedTransport = __webpack_require__(399)
+	  , XdrStreamingTransport = __webpack_require__(408)
+	  , XhrReceiver = __webpack_require__(403)
+	  , XDRObject = __webpack_require__(409)
 	  ;
 
 	function XdrPollingTransport(transUrl) {
@@ -36317,7 +37542,7 @@
 
 
 /***/ },
-/* 414 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -36330,10 +37555,10 @@
 	//   o you will get a spinning cursor
 	//   o for Konqueror a dumb timer is needed to detect errors
 
-	var inherits = __webpack_require__(384)
-	  , SenderReceiver = __webpack_require__(390)
-	  , JsonpReceiver = __webpack_require__(415)
-	  , jsonpSender = __webpack_require__(416)
+	var inherits = __webpack_require__(394)
+	  , SenderReceiver = __webpack_require__(400)
+	  , JsonpReceiver = __webpack_require__(425)
+	  , jsonpSender = __webpack_require__(426)
 	  ;
 
 	function JsonPTransport(transUrl) {
@@ -36358,22 +37583,22 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 415 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var utils = __webpack_require__(408)
-	  , random = __webpack_require__(374)
-	  , browser = __webpack_require__(397)
-	  , urlUtils = __webpack_require__(376)
-	  , inherits = __webpack_require__(384)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
+	var utils = __webpack_require__(418)
+	  , random = __webpack_require__(384)
+	  , browser = __webpack_require__(407)
+	  , urlUtils = __webpack_require__(386)
+	  , inherits = __webpack_require__(394)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:receiver:jsonp');
+	  debug = __webpack_require__(391)('sockjs-client:receiver:jsonp');
 	}
 
 	function JsonpReceiver(url) {
@@ -36548,18 +37773,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 416 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var random = __webpack_require__(374)
-	  , urlUtils = __webpack_require__(376)
+	var random = __webpack_require__(384)
+	  , urlUtils = __webpack_require__(386)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:sender:jsonp');
+	  debug = __webpack_require__(391)('sockjs-client:sender:jsonp');
 	}
 
 	var form, area;
@@ -36654,35 +37879,35 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 417 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	__webpack_require__(418);
+	__webpack_require__(428);
 
-	var URL = __webpack_require__(377)
-	  , inherits = __webpack_require__(384)
-	  , JSON3 = __webpack_require__(405)
-	  , random = __webpack_require__(374)
-	  , escape = __webpack_require__(419)
-	  , urlUtils = __webpack_require__(376)
-	  , eventUtils = __webpack_require__(373)
-	  , transport = __webpack_require__(420)
-	  , objectUtils = __webpack_require__(409)
-	  , browser = __webpack_require__(397)
-	  , log = __webpack_require__(421)
-	  , Event = __webpack_require__(422)
-	  , EventTarget = __webpack_require__(386)
-	  , loc = __webpack_require__(423)
-	  , CloseEvent = __webpack_require__(424)
-	  , TransportMessageEvent = __webpack_require__(425)
-	  , InfoReceiver = __webpack_require__(426)
+	var URL = __webpack_require__(387)
+	  , inherits = __webpack_require__(394)
+	  , JSON3 = __webpack_require__(415)
+	  , random = __webpack_require__(384)
+	  , escape = __webpack_require__(429)
+	  , urlUtils = __webpack_require__(386)
+	  , eventUtils = __webpack_require__(383)
+	  , transport = __webpack_require__(430)
+	  , objectUtils = __webpack_require__(419)
+	  , browser = __webpack_require__(407)
+	  , log = __webpack_require__(431)
+	  , Event = __webpack_require__(432)
+	  , EventTarget = __webpack_require__(396)
+	  , loc = __webpack_require__(433)
+	  , CloseEvent = __webpack_require__(434)
+	  , TransportMessageEvent = __webpack_require__(435)
+	  , InfoReceiver = __webpack_require__(436)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:main');
+	  debug = __webpack_require__(391)('sockjs-client:main');
 	}
 
 	var transports;
@@ -36822,7 +38047,7 @@
 	  this._transport.send(escape.quote(data));
 	};
 
-	SockJS.version = __webpack_require__(407);
+	SockJS.version = __webpack_require__(417);
 
 	SockJS.CONNECTING = 0;
 	SockJS.OPEN = 1;
@@ -37035,14 +38260,14 @@
 
 	module.exports = function(availableTransports) {
 	  transports = transport(availableTransports);
-	  __webpack_require__(431)(SockJS, availableTransports);
+	  __webpack_require__(441)(SockJS, availableTransports);
 	  return SockJS;
 	};
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 418 */
+/* 428 */
 /***/ function(module, exports) {
 
 	/* eslint-disable */
@@ -37521,12 +38746,12 @@
 
 
 /***/ },
-/* 419 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var JSON3 = __webpack_require__(405);
+	var JSON3 = __webpack_require__(415);
 
 	// Some extra characters that Chrome gets wrong, and substitutes with
 	// something else on the wire.
@@ -37576,14 +38801,14 @@
 
 
 /***/ },
-/* 420 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:utils:transport');
+	  debug = __webpack_require__(391)('sockjs-client:utils:transport');
 	}
 
 	module.exports = function(availableTransports) {
@@ -37633,7 +38858,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 421 */
+/* 431 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -37658,7 +38883,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 422 */
+/* 432 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37686,7 +38911,7 @@
 
 
 /***/ },
-/* 423 */
+/* 433 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -37703,13 +38928,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 424 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , Event = __webpack_require__(422)
+	var inherits = __webpack_require__(394)
+	  , Event = __webpack_require__(432)
 	  ;
 
 	function CloseEvent() {
@@ -37726,13 +38951,13 @@
 
 
 /***/ },
-/* 425 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , Event = __webpack_require__(422)
+	var inherits = __webpack_require__(394)
+	  , Event = __webpack_require__(432)
 	  ;
 
 	function TransportMessageEvent(data) {
@@ -37747,25 +38972,25 @@
 
 
 /***/ },
-/* 426 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var EventEmitter = __webpack_require__(385).EventEmitter
-	  , inherits = __webpack_require__(384)
-	  , urlUtils = __webpack_require__(376)
-	  , XDR = __webpack_require__(399)
-	  , XHRCors = __webpack_require__(394)
-	  , XHRLocal = __webpack_require__(396)
-	  , XHRFake = __webpack_require__(427)
-	  , InfoIframe = __webpack_require__(428)
-	  , InfoAjax = __webpack_require__(430)
+	var EventEmitter = __webpack_require__(395).EventEmitter
+	  , inherits = __webpack_require__(394)
+	  , urlUtils = __webpack_require__(386)
+	  , XDR = __webpack_require__(409)
+	  , XHRCors = __webpack_require__(404)
+	  , XHRLocal = __webpack_require__(406)
+	  , XHRFake = __webpack_require__(437)
+	  , InfoIframe = __webpack_require__(438)
+	  , InfoAjax = __webpack_require__(440)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:info-receiver');
+	  debug = __webpack_require__(391)('sockjs-client:info-receiver');
 	}
 
 	function InfoReceiver(baseUrl, urlInfo) {
@@ -37843,13 +39068,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 427 */
+/* 437 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var EventEmitter = __webpack_require__(385).EventEmitter
-	  , inherits = __webpack_require__(384)
+	var EventEmitter = __webpack_require__(395).EventEmitter
+	  , inherits = __webpack_require__(394)
 	  ;
 
 	function XHRFake(/* method, url, payload, opts */) {
@@ -37873,22 +39098,22 @@
 
 
 /***/ },
-/* 428 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var EventEmitter = __webpack_require__(385).EventEmitter
-	  , inherits = __webpack_require__(384)
-	  , JSON3 = __webpack_require__(405)
-	  , utils = __webpack_require__(373)
-	  , IframeTransport = __webpack_require__(404)
-	  , InfoReceiverIframe = __webpack_require__(429)
+	var EventEmitter = __webpack_require__(395).EventEmitter
+	  , inherits = __webpack_require__(394)
+	  , JSON3 = __webpack_require__(415)
+	  , utils = __webpack_require__(383)
+	  , IframeTransport = __webpack_require__(414)
+	  , InfoReceiverIframe = __webpack_require__(439)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:info-iframe');
+	  debug = __webpack_require__(391)('sockjs-client:info-iframe');
 	}
 
 	function InfoIframe(baseUrl, url) {
@@ -37949,16 +39174,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 429 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(384)
-	  , EventEmitter = __webpack_require__(385).EventEmitter
-	  , JSON3 = __webpack_require__(405)
-	  , XHRLocalObject = __webpack_require__(396)
-	  , InfoAjax = __webpack_require__(430)
+	var inherits = __webpack_require__(394)
+	  , EventEmitter = __webpack_require__(395).EventEmitter
+	  , JSON3 = __webpack_require__(415)
+	  , XHRLocalObject = __webpack_require__(406)
+	  , InfoAjax = __webpack_require__(440)
 	  ;
 
 	function InfoReceiverIframe(transUrl) {
@@ -37988,20 +39213,20 @@
 
 
 /***/ },
-/* 430 */
+/* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var EventEmitter = __webpack_require__(385).EventEmitter
-	  , inherits = __webpack_require__(384)
-	  , JSON3 = __webpack_require__(405)
-	  , objectUtils = __webpack_require__(409)
+	var EventEmitter = __webpack_require__(395).EventEmitter
+	  , inherits = __webpack_require__(394)
+	  , JSON3 = __webpack_require__(415)
+	  , objectUtils = __webpack_require__(419)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:info-ajax');
+	  debug = __webpack_require__(391)('sockjs-client:info-ajax');
 	}
 
 	function InfoAjax(url, AjaxObject) {
@@ -38044,23 +39269,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 431 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var urlUtils = __webpack_require__(376)
-	  , eventUtils = __webpack_require__(373)
-	  , JSON3 = __webpack_require__(405)
-	  , FacadeJS = __webpack_require__(432)
-	  , InfoIframeReceiver = __webpack_require__(429)
-	  , iframeUtils = __webpack_require__(408)
-	  , loc = __webpack_require__(423)
+	var urlUtils = __webpack_require__(386)
+	  , eventUtils = __webpack_require__(383)
+	  , JSON3 = __webpack_require__(415)
+	  , FacadeJS = __webpack_require__(442)
+	  , InfoIframeReceiver = __webpack_require__(439)
+	  , iframeUtils = __webpack_require__(418)
+	  , loc = __webpack_require__(433)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(381)('sockjs-client:iframe-bootstrap');
+	  debug = __webpack_require__(391)('sockjs-client:iframe-bootstrap');
 	}
 
 	module.exports = function(SockJS, availableTransports) {
@@ -38153,13 +39378,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 432 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var JSON3 = __webpack_require__(405)
-	  , iframeUtils = __webpack_require__(408)
+	var JSON3 = __webpack_require__(415)
+	  , iframeUtils = __webpack_require__(418)
 	  ;
 
 	function FacadeJS(transport) {
@@ -38186,11 +39411,11 @@
 
 
 /***/ },
-/* 433 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var ansiRegex = __webpack_require__(434)();
+	var ansiRegex = __webpack_require__(444)();
 
 	module.exports = function (str) {
 		return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
@@ -38198,7 +39423,7 @@
 
 
 /***/ },
-/* 434 */
+/* 444 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38206,556 +39431,6 @@
 		return /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 	};
 
-
-/***/ },
-/* 435 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	var _TodoItemView = __webpack_require__(436);
-
-	var _TodoItemView2 = _interopRequireDefault(_TodoItemView);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  TodoListView: {
-	    displayName: 'TodoListView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoListView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoListView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: todo 列表
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: 列表
-	   */
-
-	var TodoListView = _wrapComponent('TodoListView')((_temp = _class = function (_Component) {
-	  _inherits(TodoListView, _Component);
-
-	  function TodoListView() {
-	    _classCallCheck(this, TodoListView);
-
-	    return _possibleConstructorReturn(this, (TodoListView.__proto__ || Object.getPrototypeOf(TodoListView)).apply(this, arguments));
-	  }
-
-	  _createClass(TodoListView, [{
-	    key: 'render',
-	    value: function render() {
-	      var actions = this.props.actions;
-
-	      return _react3.default.createElement(
-	        'ul',
-	        { className: 'todoList' },
-	        this.props.todoItems.map(function (item, index) {
-	          return _react3.default.createElement(_TodoItemView2.default, _extends({ key: item.id, todoItem: item }, actions));
-	        })
-	      );
-	    }
-	  }]);
-
-	  return TodoListView;
-	}(_react2.Component), _class.propTypes = {
-	  todoItems: _react2.PropTypes.array.isRequired,
-	  actions: _react2.PropTypes.object.isRequired
-	}, _temp));
-
-	exports.default = TodoListView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 436 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp2;
-
-	var _TodoItemTextView = __webpack_require__(437);
-
-	var _TodoItemTextView2 = _interopRequireDefault(_TodoItemTextView);
-
-	var _TodoItemDeleteView = __webpack_require__(438);
-
-	var _TodoItemDeleteView2 = _interopRequireDefault(_TodoItemDeleteView);
-
-	var _TodoItemCompleteView = __webpack_require__(439);
-
-	var _TodoItemCompleteView2 = _interopRequireDefault(_TodoItemCompleteView);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  TodoItemView: {
-	    displayName: 'TodoItemView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: ItemView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: ...
-	   */
-
-
-	var TodoItemView = _wrapComponent('TodoItemView')((_temp2 = _class = function (_Component) {
-	  _inherits(TodoItemView, _Component);
-
-	  function TodoItemView() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, TodoItemView);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoItemView.__proto__ || Object.getPrototypeOf(TodoItemView)).call.apply(_ref, [this].concat(args))), _this), _this.deleteTodo = function () {
-	      _this.props.deleteTodo(_this.props.todoItem.id);
-	    }, _this.completeTodo = function () {
-	      _this.props.completeTodo(_this.props.todoItem.id);
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  _createClass(TodoItemView, [{
-	    key: 'render',
-	    value: function render() {
-	      var todoItem = this.props.todoItem;
-
-	      return _react3.default.createElement(
-	        'li',
-	        null,
-	        _react3.default.createElement(_TodoItemTextView2.default, { todoItem: todoItem }),
-	        _react3.default.createElement(_TodoItemDeleteView2.default, { deleteTodo: this.deleteTodo }),
-	        _react3.default.createElement(_TodoItemCompleteView2.default, { completeTodo: this.completeTodo, completed: todoItem.completed })
-	      );
-	    }
-	  }]);
-
-	  return TodoItemView;
-	}(_react2.Component), _class.propTypes = {
-	  todoItem: _react2.PropTypes.object.isRequired,
-	  deleteTodo: _react2.PropTypes.func.isRequired,
-	  completeTodo: _react2.PropTypes.func.isRequired
-	}, _temp2));
-
-	exports.default = TodoItemView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 437 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp2;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  ItemTextView: {
-	    displayName: 'ItemTextView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemTextView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemTextView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: ItemTextView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: ...
-	   */
-
-	var ItemTextView = _wrapComponent('ItemTextView')((_temp2 = _class = function (_Component) {
-	  _inherits(ItemTextView, _Component);
-
-	  function ItemTextView() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, ItemTextView);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ItemTextView.__proto__ || Object.getPrototypeOf(ItemTextView)).call.apply(_ref, [this].concat(args))), _this), _this.getClassName = function () {
-	      var extralClass = _this.props.todoItem.completed === true ? 'isCompleted' : '';
-	      return 'itemText ' + extralClass;
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  _createClass(ItemTextView, [{
-	    key: 'render',
-	    value: function render() {
-	      console.info('ItemTextView-render');
-	      return _react3.default.createElement(
-	        'span',
-	        { className: this.getClassName() },
-	        this.props.todoItem.text
-	      );
-	    }
-	  }]);
-
-	  return ItemTextView;
-	}(_react2.Component), _class.propTypes = {
-	  todoItem: _react2.PropTypes.object.isRequired
-	}, _temp2));
-
-	exports.default = ItemTextView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 438 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  ItemDeleteView: {
-	    displayName: 'ItemDeleteView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemDeleteView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemDeleteView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: ItemDeleteView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-10
-	   * Description: ...
-	   */
-
-	var ItemDeleteView = _wrapComponent('ItemDeleteView')((_temp = _class = function (_Component) {
-	  _inherits(ItemDeleteView, _Component);
-
-	  function ItemDeleteView() {
-	    _classCallCheck(this, ItemDeleteView);
-
-	    return _possibleConstructorReturn(this, (ItemDeleteView.__proto__ || Object.getPrototypeOf(ItemDeleteView)).apply(this, arguments));
-	  }
-
-	  _createClass(ItemDeleteView, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react3.default.createElement(
-	        'div',
-	        { className: 'todoBtn deleteBtn', onClick: this.props.deleteTodo, title: 'delete' },
-	        '\xD7'
-	      );
-	    }
-	  }]);
-
-	  return ItemDeleteView;
-	}(_react2.Component), _class.propTypes = {
-	  deleteTodo: _react2.PropTypes.func.isRequired
-	}, _temp));
-
-	exports.default = ItemDeleteView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 439 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  ItemCompleteView: {
-	    displayName: 'ItemCompleteView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemCompleteView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemCompleteView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: ItemCompleteView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-10
-	   * Description: ...
-	   */
-
-	var ItemCompleteView = _wrapComponent('ItemCompleteView')((_temp = _class = function (_Component) {
-	  _inherits(ItemCompleteView, _Component);
-
-	  function ItemCompleteView() {
-	    _classCallCheck(this, ItemCompleteView);
-
-	    return _possibleConstructorReturn(this, (ItemCompleteView.__proto__ || Object.getPrototypeOf(ItemCompleteView)).apply(this, arguments));
-	  }
-
-	  _createClass(ItemCompleteView, [{
-	    key: 'getClassName',
-	    value: function getClassName() {
-	      var extralClass = this.props.completed === true ? 'undoneBtn' : 'completeBtn';
-	      return 'todoBtn ' + extralClass;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react3.default.createElement(
-	        'div',
-	        {
-	          title: 'complete',
-	          className: this.getClassName(),
-	          onClick: this.props.completeTodo
-	        },
-	        this.props.completed === true ? '＋' : '√'
-	      );
-	    }
-	  }]);
-
-	  return ItemCompleteView;
-	}(_react2.Component), _class.propTypes = {
-	  completeTodo: _react2.PropTypes.func.isRequired,
-	  completed: _react2.PropTypes.bool.isRequired
-	}, _temp));
-
-	exports.default = ItemCompleteView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
 
 /***/ }
 /******/ ]);

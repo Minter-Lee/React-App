@@ -32,9 +32,17 @@ export default class TodoInputView extends Component {
 		this.setState({inputValue: e.target.value});
 	}
 
-	//
+	shouldComponentUpdate (nextProps, nextState) {
+		if (nextProps.addTodo === this.props.addTodo 
+			&& nextState.inputValue === this.state.inputValue) {
+			console.log("TodoInputView-拦截")
+			return false;
+		}
+		return true;
+	}
+	
 	render() {
-		console.info('todoInput-render');
+		console.info('TodoInputView-render');
 		return <input 
 			className="todoInput"
 			type = "text" 
