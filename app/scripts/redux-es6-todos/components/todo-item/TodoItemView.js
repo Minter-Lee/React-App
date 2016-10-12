@@ -10,17 +10,23 @@
  import TodoItemCompleteView from './TodoItemCompleteView';
 
  export default class TodoItemView extends Component {
+ 	constructor(props, context) {
+ 		super(props, context);
+ 		this.deleteTodo = this.deleteTodo.bind(this);
+ 		this.completeTodo = this.completeTodo.bind(this);
+ 	}
+
  	static propTypes = {
  		todoItem: PropTypes.object.isRequired,
  		deleteTodo: PropTypes.func.isRequired,
  		completeTodo: PropTypes.func.isRequired
  	}
 
- 	deleteTodo = () => {
+ 	deleteTodo(){
  		this.props.deleteTodo(this.props.todoItem.id);
  	}
 
- 	completeTodo = () => {
+ 	completeTodo(){
  		this.props.completeTodo(this.props.todoItem.id);
  	}
 

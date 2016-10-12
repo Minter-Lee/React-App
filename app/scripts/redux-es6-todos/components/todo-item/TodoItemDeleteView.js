@@ -8,6 +8,10 @@
  import React, {Component, PropTypes} from 'react';
 
  export default class ItemDeleteView extends Component {
+	constructor(props, context) {
+ 		super(props, context);
+ 	}
+
  	static propTypes = {
  		deleteTodo: PropTypes.func.isRequired
  	}

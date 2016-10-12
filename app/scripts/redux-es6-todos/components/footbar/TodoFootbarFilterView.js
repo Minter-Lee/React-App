@@ -9,12 +9,19 @@ import React, { PropTypes, Component } from 'react'
 import {SHOW_ALL, SHOW_COMPLETE, SHOW_UNDONE} from '../../constants/FilterTypes'
 
 export default class TodoFootbarFilterView extends Component {
+	constructor(props, context) {
+ 		super(props, context);
+ 		this.getDefaultClassName = this.getDefaultClassName.bind(this);
+ 		this.getClassNames = this.getClassNames.bind(this);
+ 		this.changeFilter = this.changeFilter.bind(this);
+ 	}
+
 	static propTypes = {
   		filter: PropTypes.string.isRequired,
   		changeFilter: PropTypes.func.isRequired
   	}
 
-	getDefaultClassName = () => {
+	getDefaultClassName() {
 		return {
 			classNameAll: 'all',
 			classNameComplete: 'complete',
@@ -23,7 +30,7 @@ export default class TodoFootbarFilterView extends Component {
 	}
 
 	// 固化按钮样式
-	getClassNames = (filter) => {
+	getClassNames(filter) {
 		const defaultClassName = this.getDefaultClassName();
 		switch(filter) {
 			case SHOW_ALL:
@@ -37,7 +44,7 @@ export default class TodoFootbarFilterView extends Component {
 		}
 	}
 
-	changeFilter = (e) => {
+	changeFilter(e){
 		const type = e.target.getAttribute('data-filter-type');
 		this.props.changeFilter(type);
 	}

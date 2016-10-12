@@ -7,6 +7,12 @@
 import React, { PropTypes, Component } from 'react'
 
 export default class TodoInputView extends Component {
+	constructor(props, context){
+		super(props, context);
+		this.handleSave = this.handleSave.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+	}
+
 	static propTypes = {
 		addTodo: PropTypes.func.isRequired
 	}
@@ -15,7 +21,7 @@ export default class TodoInputView extends Component {
 		inputValue: ''
 	}
 
-	handleSave = e => {
+	handleSave(e) {
 		// 获取数值
 		const inputValue = e.target.value.trim();
 		if (inputValue.length !== 0 && e.which === 13) {
@@ -27,9 +33,11 @@ export default class TodoInputView extends Component {
 	}
 
 	// 由于使用state保存当前input数据，所以需要实时进行对state的更新
-	handleChange = e => {
+	handleChange(e) {
 		// 组件中间状态(state)，此类不需要通过action保留记录
-		this.setState({inputValue: e.target.value});
+		this.setState({
+			inputValue: e.target.value
+		});
 	}
 
 	shouldComponentUpdate (nextProps, nextState) {

@@ -7,6 +7,11 @@
 import React, { PropTypes, Component } from 'react'
 
 export default class TodoTitleView extends Component {
+
+	constructor(props, context) {
+		super(props, context);
+	}
+
 	// 类型验证 title 字符串 必填
 	static propTypes = {
 		title: PropTypes.string.isRequired

@@ -9,6 +9,10 @@
  import TodoItemView from './TodoItemView'
 
  export default class TodoListView extends Component {
+ 	constructor(props, context) {
+ 		super(props, context);
+ 	}
+
  	static propTypes = {
  		todoItems: PropTypes.array.isRequired,
  		actions: PropTypes.object.isRequired

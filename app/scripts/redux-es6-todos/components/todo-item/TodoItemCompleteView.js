@@ -8,6 +8,11 @@
  import React, {Component, PropTypes} from 'react';
 
  export default class ItemCompleteView extends Component {
+	constructor(props, context) {
+ 		super(props, context);
+ 		this.getClassName = this.getClassName.bind(this);
+ 	}
+
  	static propTypes = {
  		completeTodo: PropTypes.func.isRequired,
  		completed: PropTypes.bool.isRequired

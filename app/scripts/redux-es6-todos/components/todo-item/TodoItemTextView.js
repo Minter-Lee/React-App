@@ -8,11 +8,15 @@
  import React, {Component, PropTypes} from 'react';
 
  export default class ItemTextView extends Component {
+ 	constructor(props, context) {
+ 		super(props, context);
+ 		this.getClassName = this.getClassName.bind(this);
+ 	}
  	static propTypes = {
  		todoItem : PropTypes.object.isRequired
  	}
 
- 	getClassName = () => {
+ 	getClassName() {
  		const extralClass = this.props.todoItem.completed === true ? 'isCompleted' : '';
  		return `itemText ${extralClass}`;
  	}

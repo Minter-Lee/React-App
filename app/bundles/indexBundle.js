@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c0f7474eda4c2e43e7b1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a48c040df09014456ebb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -23725,7 +23725,33 @@
 		actions: _react.PropTypes.object.isRequired
 	};
 
-	// 利用connect传递App使用的todo数据
+	// 利用connect传递App使用的todo数据  
+	// 在APP中处理完成的数据在进行渲染，保证了数据从前到后的一致性，
+	// 但是在此处处理也就意味着，所有action触发state所产生的APP重新渲
+	// 染都需要重新处理一遍数据，这其中仅有部分action可能影响这些数据
+	// 处理，剩余的可能毫无关联，这还仅仅是1个数据的处理和计算，若这
+	// 类本地处理的数据很多，性能上一定有影响，虽然后续业务开发中很少
+	// 出现本地数据处理，但是针对这部分我觉得大部分情况下还是由使用该
+	// 的Compoents进行处理比较合适。
+	// const mapStateToProps = state => {
+	// 	const {filter, items} = state.todos;
+	// 	todos: {...state.todos, 
+	// 		items: getFilterTodoItems(filter, items)
+	// 	}
+	// };
+	// getFilterTodoItems = (filter, items) => {
+	// 	switch (filter) {
+	// 		case SHOW_ALL:
+	// 			return items;
+	// 		case SHOW_COMPLETE:
+	// 			return items.filter(item => item.completed === true);
+	// 		case SHOW_UNDONE:
+	// 			return items.filter(item => item.completed === false);
+	// 		default:
+	// 			return items;
+	// 	}
+	// }
+
 	var mapStateToProps = function mapStateToProps(state) {
 		return {
 			todos: state.todos
@@ -23814,11 +23840,14 @@
 	var TodoTitleView = _wrapComponent('TodoTitleView')((_temp = _class = function (_Component) {
 		_inherits(TodoTitleView, _Component);
 
-		function TodoTitleView() {
+		function TodoTitleView(props, context) {
 			_classCallCheck(this, TodoTitleView);
 
-			return _possibleConstructorReturn(this, (TodoTitleView.__proto__ || Object.getPrototypeOf(TodoTitleView)).apply(this, arguments));
+			return _possibleConstructorReturn(this, (TodoTitleView.__proto__ || Object.getPrototypeOf(TodoTitleView)).call(this, props, context));
 		}
+
+		// 类型验证 title 字符串 必填
+
 
 		_createClass(TodoTitleView, [{
 			key: 'shouldComponentUpdate',
@@ -23832,8 +23861,6 @@
 				}
 				return true;
 			}
-			// 类型验证 title 字符串 必填
-
 		}, {
 			key: 'render',
 			value: function render() {
@@ -30492,7 +30519,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _temp2;
+	var _class, _temp;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30534,41 +30561,47 @@
 	   */
 
 
-	var TodoInputView = _wrapComponent('TodoInputView')((_temp2 = _class = function (_Component) {
+	var TodoInputView = _wrapComponent('TodoInputView')((_temp = _class = function (_Component) {
 		_inherits(TodoInputView, _Component);
 
-		function TodoInputView() {
-			var _ref;
-
-			var _temp, _this, _ret;
-
+		function TodoInputView(props, context) {
 			_classCallCheck(this, TodoInputView);
 
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
+			var _this = _possibleConstructorReturn(this, (TodoInputView.__proto__ || Object.getPrototypeOf(TodoInputView)).call(this, props, context));
 
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoInputView.__proto__ || Object.getPrototypeOf(TodoInputView)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+			_this.state = {
 				inputValue: ''
-			}, _this.handleSave = function (e) {
+			};
+
+			_this.handleSave = _this.handleSave.bind(_this);
+			_this.handleChange = _this.handleChange.bind(_this);
+			return _this;
+		}
+
+		_createClass(TodoInputView, [{
+			key: 'handleSave',
+			value: function handleSave(e) {
 				// 获取数值
 				var inputValue = e.target.value.trim();
 				if (inputValue.length !== 0 && e.which === 13) {
 					// 触发相应的action
-					_this.props.addTodo(inputValue);
+					this.props.addTodo(inputValue);
 					// 清空残留的state
-					_this.setState({ inputValue: '' });
+					this.setState({ inputValue: '' });
 				}
-			}, _this.handleChange = function (e) {
+			}
+
+			// 由于使用state保存当前input数据，所以需要实时进行对state的更新
+
+		}, {
+			key: 'handleChange',
+			value: function handleChange(e) {
 				// 组件中间状态(state)，此类不需要通过action保留记录
-				_this.setState({ inputValue: e.target.value });
-			}, _temp), _possibleConstructorReturn(_this, _ret);
-		}
-
-		// 由于使用state保存当前input数据，所以需要实时进行对state的更新
-
-
-		_createClass(TodoInputView, [{
+				this.setState({
+					inputValue: e.target.value
+				});
+			}
+		}, {
 			key: 'shouldComponentUpdate',
 			value: function shouldComponentUpdate(nextProps, nextState) {
 				if (nextProps.addTodo === this.props.addTodo && nextState.inputValue === this.state.inputValue) {
@@ -30596,7 +30629,7 @@
 		return TodoInputView;
 	}(_react2.Component), _class.propTypes = {
 		addTodo: _react2.PropTypes.func.isRequired
-	}, _temp2));
+	}, _temp));
 
 	exports.default = TodoInputView;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
@@ -30629,7 +30662,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _temp2;
+	var _class, _temp;
 
 	var _TodoListView = __webpack_require__(358);
 
@@ -30680,29 +30713,35 @@
 	   * Description: 列表 + 工具栏
 	   */
 
-	var TodoSectionView = _wrapComponent('TodoSectionView')((_temp2 = _class = function (_Component) {
+	var TodoSectionView = _wrapComponent('TodoSectionView')((_temp = _class = function (_Component) {
 	  _inherits(TodoSectionView, _Component);
 
-	  function TodoSectionView() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
+	  function TodoSectionView(props, context) {
 	    _classCallCheck(this, TodoSectionView);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    var _this = _possibleConstructorReturn(this, (TodoSectionView.__proto__ || Object.getPrototypeOf(TodoSectionView)).call(this, props, context));
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoSectionView.__proto__ || Object.getPrototypeOf(TodoSectionView)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	    _this.state = {
 	      filter: 'SHOW_ALL'
-	    }, _this.changeFilter = function (filter) {
-	      _this.setState({
+	    };
+
+	    _this.changeFilter = _this.changeFilter.bind(_this);
+	    _this.getFilterTodoItems = _this.getFilterTodoItems.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(TodoSectionView, [{
+	    key: 'changeFilter',
+	    value: function changeFilter(filter) {
+	      this.setState({
 	        filter: filter
 	      });
-	    }, _this.getFilterTodoItems = function () {
-	      var filter = _this.state.filter;
-	      var todoItems = _this.props.todoItems;
+	    }
+	  }, {
+	    key: 'getFilterTodoItems',
+	    value: function getFilterTodoItems() {
+	      var filter = this.state.filter;
+	      var todoItems = this.props.todoItems;
 
 	      switch (filter) {
 	        case _FilterTypes.SHOW_ALL:
@@ -30718,14 +30757,6 @@
 	        default:
 	          return todoItems;
 	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  _createClass(TodoSectionView, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps, nextState) {
-
-	      return true;
 	    }
 	  }, {
 	    key: 'render',
@@ -30762,7 +30793,7 @@
 	  deleteTodo: _react2.PropTypes.func.isRequired,
 	  completeTodo: _react2.PropTypes.func.isRequired,
 	  todoItems: _react2.PropTypes.array.isRequired
-	}, _temp2));
+	}, _temp));
 
 	exports.default = TodoSectionView;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
@@ -30845,10 +30876,10 @@
 	var TodoListView = _wrapComponent('TodoListView')((_temp = _class = function (_Component) {
 	  _inherits(TodoListView, _Component);
 
-	  function TodoListView() {
+	  function TodoListView(props, context) {
 	    _classCallCheck(this, TodoListView);
 
-	    return _possibleConstructorReturn(this, (TodoListView.__proto__ || Object.getPrototypeOf(TodoListView)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (TodoListView.__proto__ || Object.getPrototypeOf(TodoListView)).call(this, props, context));
 	  }
 
 	  _createClass(TodoListView, [{
@@ -30904,7 +30935,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _temp2;
+	var _class, _temp;
 
 	var _TodoItemTextView = __webpack_require__(360);
 
@@ -30958,28 +30989,30 @@
 	   */
 
 
-	var TodoItemView = _wrapComponent('TodoItemView')((_temp2 = _class = function (_Component) {
+	var TodoItemView = _wrapComponent('TodoItemView')((_temp = _class = function (_Component) {
 	   _inherits(TodoItemView, _Component);
 
-	   function TodoItemView() {
-	      var _ref;
-
-	      var _temp, _this, _ret;
-
+	   function TodoItemView(props, context) {
 	      _classCallCheck(this, TodoItemView);
 
-	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	         args[_key] = arguments[_key];
-	      }
+	      var _this = _possibleConstructorReturn(this, (TodoItemView.__proto__ || Object.getPrototypeOf(TodoItemView)).call(this, props, context));
 
-	      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoItemView.__proto__ || Object.getPrototypeOf(TodoItemView)).call.apply(_ref, [this].concat(args))), _this), _this.deleteTodo = function () {
-	         _this.props.deleteTodo(_this.props.todoItem.id);
-	      }, _this.completeTodo = function () {
-	         _this.props.completeTodo(_this.props.todoItem.id);
-	      }, _temp), _possibleConstructorReturn(_this, _ret);
+	      _this.deleteTodo = _this.deleteTodo.bind(_this);
+	      _this.completeTodo = _this.completeTodo.bind(_this);
+	      return _this;
 	   }
 
 	   _createClass(TodoItemView, [{
+	      key: 'deleteTodo',
+	      value: function deleteTodo() {
+	         this.props.deleteTodo(this.props.todoItem.id);
+	      }
+	   }, {
+	      key: 'completeTodo',
+	      value: function completeTodo() {
+	         this.props.completeTodo(this.props.todoItem.id);
+	      }
+	   }, {
 	      key: 'shouldComponentUpdate',
 	      value: function shouldComponentUpdate(nextProps, nextState) {
 	         var _props = this.props;
@@ -31017,7 +31050,7 @@
 	   todoItem: _react2.PropTypes.object.isRequired,
 	   deleteTodo: _react2.PropTypes.func.isRequired,
 	   completeTodo: _react2.PropTypes.func.isRequired
-	}, _temp2));
+	}, _temp));
 
 	exports.default = TodoItemView;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
@@ -31050,7 +31083,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _temp2;
+	var _class, _temp;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31091,27 +31124,25 @@
 	   * Description: ...
 	   */
 
-	var ItemTextView = _wrapComponent('ItemTextView')((_temp2 = _class = function (_Component) {
+	var ItemTextView = _wrapComponent('ItemTextView')((_temp = _class = function (_Component) {
 	   _inherits(ItemTextView, _Component);
 
-	   function ItemTextView() {
-	      var _ref;
-
-	      var _temp, _this, _ret;
-
+	   function ItemTextView(props, context) {
 	      _classCallCheck(this, ItemTextView);
 
-	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	         args[_key] = arguments[_key];
-	      }
+	      var _this = _possibleConstructorReturn(this, (ItemTextView.__proto__ || Object.getPrototypeOf(ItemTextView)).call(this, props, context));
 
-	      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ItemTextView.__proto__ || Object.getPrototypeOf(ItemTextView)).call.apply(_ref, [this].concat(args))), _this), _this.getClassName = function () {
-	         var extralClass = _this.props.todoItem.completed === true ? 'isCompleted' : '';
-	         return 'itemText ' + extralClass;
-	      }, _temp), _possibleConstructorReturn(_this, _ret);
+	      _this.getClassName = _this.getClassName.bind(_this);
+	      return _this;
 	   }
 
 	   _createClass(ItemTextView, [{
+	      key: 'getClassName',
+	      value: function getClassName() {
+	         var extralClass = this.props.todoItem.completed === true ? 'isCompleted' : '';
+	         return 'itemText ' + extralClass;
+	      }
+	   }, {
 	      key: 'shouldComponentUpdate',
 	      value: function shouldComponentUpdate(nextProps, nextState) {
 	         if (nextProps.todoItem === this.props.todoItem) {
@@ -31135,7 +31166,7 @@
 	   return ItemTextView;
 	}(_react2.Component), _class.propTypes = {
 	   todoItem: _react2.PropTypes.object.isRequired
-	}, _temp2));
+	}, _temp));
 
 	exports.default = ItemTextView;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
@@ -31212,10 +31243,10 @@
 	var ItemDeleteView = _wrapComponent("ItemDeleteView")((_temp = _class = function (_Component) {
 	   _inherits(ItemDeleteView, _Component);
 
-	   function ItemDeleteView() {
+	   function ItemDeleteView(props, context) {
 	      _classCallCheck(this, ItemDeleteView);
 
-	      return _possibleConstructorReturn(this, (ItemDeleteView.__proto__ || Object.getPrototypeOf(ItemDeleteView)).apply(this, arguments));
+	      return _possibleConstructorReturn(this, (ItemDeleteView.__proto__ || Object.getPrototypeOf(ItemDeleteView)).call(this, props, context));
 	   }
 
 	   _createClass(ItemDeleteView, [{
@@ -31319,10 +31350,13 @@
 	var ItemCompleteView = _wrapComponent('ItemCompleteView')((_temp = _class = function (_Component) {
 	  _inherits(ItemCompleteView, _Component);
 
-	  function ItemCompleteView() {
+	  function ItemCompleteView(props, context) {
 	    _classCallCheck(this, ItemCompleteView);
 
-	    return _possibleConstructorReturn(this, (ItemCompleteView.__proto__ || Object.getPrototypeOf(ItemCompleteView)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (ItemCompleteView.__proto__ || Object.getPrototypeOf(ItemCompleteView)).call(this, props, context));
+
+	    _this.getClassName = _this.getClassName.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(ItemCompleteView, [{
@@ -31452,10 +31486,10 @@
 	var TodoFootbarView = _wrapComponent('TodoFootbarView')((_temp = _class = function (_Component) {
 	  _inherits(TodoFootbarView, _Component);
 
-	  function TodoFootbarView() {
+	  function TodoFootbarView(props, context) {
 	    _classCallCheck(this, TodoFootbarView);
 
-	    return _possibleConstructorReturn(this, (TodoFootbarView.__proto__ || Object.getPrototypeOf(TodoFootbarView)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (TodoFootbarView.__proto__ || Object.getPrototypeOf(TodoFootbarView)).call(this, props, context));
 	  }
 
 	  _createClass(TodoFootbarView, [{
@@ -31579,10 +31613,10 @@
 	var TodoFootbarCountView = _wrapComponent('TodoFootbarCountView')((_temp = _class = function (_Component) {
 	  _inherits(TodoFootbarCountView, _Component);
 
-	  function TodoFootbarCountView() {
+	  function TodoFootbarCountView(props, context) {
 	    _classCallCheck(this, TodoFootbarCountView);
 
-	    return _possibleConstructorReturn(this, (TodoFootbarCountView.__proto__ || Object.getPrototypeOf(TodoFootbarCountView)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (TodoFootbarCountView.__proto__ || Object.getPrototypeOf(TodoFootbarCountView)).call(this, props, context));
 	  }
 
 	  _createClass(TodoFootbarCountView, [{
@@ -31666,7 +31700,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _temp2;
+	var _class, _temp;
 
 	var _FilterTypes = __webpack_require__(365);
 
@@ -31709,28 +31743,36 @@
 	   * Description: ...
 	   */
 
-	var TodoFootbarFilterView = _wrapComponent('TodoFootbarFilterView')((_temp2 = _class = function (_Component) {
+	var TodoFootbarFilterView = _wrapComponent('TodoFootbarFilterView')((_temp = _class = function (_Component) {
 	  _inherits(TodoFootbarFilterView, _Component);
 
-	  function TodoFootbarFilterView() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
+	  function TodoFootbarFilterView(props, context) {
 	    _classCallCheck(this, TodoFootbarFilterView);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    var _this = _possibleConstructorReturn(this, (TodoFootbarFilterView.__proto__ || Object.getPrototypeOf(TodoFootbarFilterView)).call(this, props, context));
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TodoFootbarFilterView.__proto__ || Object.getPrototypeOf(TodoFootbarFilterView)).call.apply(_ref, [this].concat(args))), _this), _this.getDefaultClassName = function () {
+	    _this.getDefaultClassName = _this.getDefaultClassName.bind(_this);
+	    _this.getClassNames = _this.getClassNames.bind(_this);
+	    _this.changeFilter = _this.changeFilter.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(TodoFootbarFilterView, [{
+	    key: 'getDefaultClassName',
+	    value: function getDefaultClassName() {
 	      return {
 	        classNameAll: 'all',
 	        classNameComplete: 'complete',
 	        classNameUndone: 'undone'
 	      };
-	    }, _this.getClassNames = function (filter) {
-	      var defaultClassName = _this.getDefaultClassName();
+	    }
+
+	    // 固化按钮样式
+
+	  }, {
+	    key: 'getClassNames',
+	    value: function getClassNames(filter) {
+	      var defaultClassName = this.getDefaultClassName();
 	      switch (filter) {
 	        case _FilterTypes.SHOW_ALL:
 	          return _extends({}, defaultClassName, { classNameAll: 'all on' });
@@ -31741,16 +31783,14 @@
 	        default:
 	          return _extends({}, defaultClassName, { classNameAll: 'all on' });
 	      }
-	    }, _this.changeFilter = function (e) {
+	    }
+	  }, {
+	    key: 'changeFilter',
+	    value: function changeFilter(e) {
 	      var type = e.target.getAttribute('data-filter-type');
-	      _this.props.changeFilter(type);
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  // 固化按钮样式
-
-
-	  _createClass(TodoFootbarFilterView, [{
+	      this.props.changeFilter(type);
+	    }
+	  }, {
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
 	      var _props = this.props;
@@ -31805,7 +31845,7 @@
 	}(_react2.Component), _class.propTypes = {
 	  filter: _react2.PropTypes.string.isRequired,
 	  changeFilter: _react2.PropTypes.func.isRequired
-	}, _temp2));
+	}, _temp));
 
 	exports.default = TodoFootbarFilterView;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
@@ -31819,7 +31859,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.completeTodo = exports.deleteTodo = exports.addTodo = undefined;
+	exports.changeFilter = exports.completeTodo = exports.deleteTodo = exports.addTodo = undefined;
 
 	var _ActionTypes = __webpack_require__(368);
 
@@ -31842,6 +31882,9 @@
 	var completeTodo = exports.completeTodo = function completeTodo(id) {
 	  return { type: types.COMPLETE_TODO, id: id };
 	};
+	var changeFilter = exports.changeFilter = function changeFilter(filter) {
+	  return { type: types.CHANGE_FILTER, filter: filter };
+	};
 
 /***/ },
 /* 368 */
@@ -31862,6 +31905,7 @@
 	var ADD_TODO = exports.ADD_TODO = 'ADD_TODO';
 	var DELETE_TODO = exports.DELETE_TODO = 'DELETE_TODO';
 	var COMPLETE_TODO = exports.COMPLETE_TODO = 'COMPLETE_TODO';
+	var CHANG_FILTER = exports.CHANG_FILTER = 'CHANG_FILTER';
 
 /***/ },
 /* 369 */
@@ -31943,7 +31987,7 @@
 /* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -31954,6 +31998,8 @@
 	exports.default = todos;
 
 	var _ActionTypes = __webpack_require__(368);
+
+	var _FilterTypes = __webpack_require__(365);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /*
 	                                                                                                                                                                                                     * Title: reducer for todos
@@ -31966,6 +32012,8 @@
 	// 默认的State
 	var initialState = {
 		title: "Todos",
+		// filter: SHOW_ALL,
+		// completedCount: 0,
 		items: []
 	};
 
@@ -31973,27 +32021,31 @@
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 		var action = arguments[1];
 
+		var items = [];
 		switch (action.type) {
 			case _ActionTypes.ADD_TODO:
-				state.items = [{
+				items = [{
 					id: state.items.reduce(function (maxId, todo) {
 						return Math.max(todo.id, maxId);
 					}, 0) + 1,
 					completed: false,
 					text: action.text
 				}].concat(_toConsumableArray(state.items));
+
 				// 需返回新的state对象
-				return Object.assign({}, state);
+				return Object.assign({}, _extends({}, state, { items: items }));
 			case _ActionTypes.DELETE_TODO:
-				state.items = state.items.filter(function (item) {
+				items = state.items.filter(function (item) {
 					return item.id !== action.id;
 				});
-				return Object.assign({}, state);
+				return Object.assign({}, _extends({}, state, { items: items }));
 			case _ActionTypes.COMPLETE_TODO:
-				state.items = state.items.map(function (item) {
+				items = state.items.map(function (item) {
 					return item.id === action.id ? _extends({}, item, { completed: !item.completed }) : item;
 				});
-				return Object.assign({}, state);
+				return Object.assign({}, _extends({}, state, { items: items }));
+			// case CHANGE_FILTER:
+			// 	return Object.assign({},{...state, filter: action.filter})
 			default:
 				return state;
 		}

@@ -9,6 +9,11 @@ import React, { PropTypes, Component } from 'react'
 import {SHOW_ALL, SHOW_COMPLETE, SHOW_UNDONE} from '../../constants/FilterTypes'
 
 export default class TodoFootbarCountView extends Component {
+
+    constructor(props, context) {
+      super(props, context);
+    }
+
 	static propTypes = {
   		completedCount: PropTypes.number.isRequired
   	}

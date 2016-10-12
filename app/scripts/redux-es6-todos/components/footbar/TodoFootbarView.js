@@ -9,6 +9,10 @@ import TodoFootbarCountView from './TodoFootbarCountView'
 import TodoFootbarFilterView from './TodoFootbarFilterView'
 
 export default class TodoFootbarView extends Component {
+	constructor(props, context) {
+ 		super(props, context);
+ 	}
+
 	static propTypes = {
 		filter: PropTypes.string.isRequired,
 		changeFilter: PropTypes.func.isRequired,

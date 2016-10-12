@@ -11,6 +11,13 @@ import TodoFootbarView from './footbar/TodoFootbarView'
 import {SHOW_ALL, SHOW_COMPLETE, SHOW_UNDONE} from '../constants/FilterTypes'
 
 export default class TodoSectionView extends Component {
+
+    constructor(props, context) {
+      super(props, context);
+      this.changeFilter = this.changeFilter.bind(this);
+      this.getFilterTodoItems = this.getFilterTodoItems.bind(this);
+    }
+
 	static propTypes = {
 		deleteTodo: PropTypes.func.isRequired,
 		completeTodo: PropTypes.func.isRequired,
@@ -21,13 +28,13 @@ export default class TodoSectionView extends Component {
 		filter: 'SHOW_ALL'
 	}
 
-	changeFilter = filter => {
+	changeFilter(filter) {
 		this.setState({
 			filter: filter
 		})
 	}
 
-  	getFilterTodoItems = () => {
+  	getFilterTodoItems() {
   		const {filter} = this.state;
   		const {todoItems} = this.props;
   		switch (filter) {
@@ -42,12 +49,7 @@ export default class TodoSectionView extends Component {
   		}
   	}
 
-    shouldComponentUpdate(nextProps, nextState) {
-      
-      return true;
-    }
-
-  	render () {
+  	render() {
   		console.info("TodoSectionView-render");
   		const { deleteTodo, completeTodo, todoItems} = this.props;
   		return <div>
