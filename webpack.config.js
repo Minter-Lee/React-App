@@ -13,8 +13,8 @@ var WebpackCfg = {
     //页面入口文件
     entry: {
         "index": [
-            // './scripts/index.js',
-            './scripts/redux-es6-index.js',
+            './scripts/index.js',
+            // './scripts/redux-es6-index.js',
             'webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:9090/'
         ]

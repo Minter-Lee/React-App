@@ -31,7 +31,12 @@ var TodoIndexView = React.createClass({
 		return <div className = "todos" >
 			<TodoTitleView title = {this.state.title}/>  
 			<TodoInputView addTodos = {this.addTodos}/>  
-			<TodoListView getRenderInputDatas = {this.getRenderInputDatas} checkTodo = {this.checkTodo} completeTodo = {this.completeTodo} deleteTodo = {this.deleteTodo}/> 
+			<TodoListView 
+				getRenderInputDatas = {this.getRenderInputDatas} 
+				checkTodo = {this.checkTodo} 
+				completeTodo = {this.completeTodo} 
+				deleteTodo = {this.deleteTodo}
+			/> 
 			<TodoFootbarView 
 				deleteTodos = {this.deleteTodos} 
 				changeQueryType = {this.changeQueryType} 

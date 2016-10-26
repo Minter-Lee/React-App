@@ -8,7 +8,7 @@
     },
     "scripts": {
         "server": "webpack-dev-server --inline --hot",
-        "startDevServer": "node webpack-dev-server.js",
+        "startDS": "node webpack-dev-server.js",
         "start": "node server/server.js"
     },
 
@@ -50,6 +50,15 @@
         "babel-preset-es2015": "",
         "eslint": "",
 
-        "webpack-dev-server": ""
+        "webpack-dev-server": "",
+
+        "grunt": "",  
+        "grunt-contrib-jshint": "",  
+        "grunt-contrib-concat": "",  
+        "grunt-contrib-uglify": "",  
+        "grunt-contrib-requirejs": "",  
+        "grunt-contrib-copy": "",  
+        "grunt-contrib-clean": "",  
+        "grunt-strip": ""  
     }
 }

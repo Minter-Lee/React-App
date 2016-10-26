@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a48c040df09014456ebb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ddc6c50305335cc02991"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -584,56 +584,32 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(372);
-	module.exports = __webpack_require__(374);
+	__webpack_require__(342);
+	module.exports = __webpack_require__(344);
 
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(React) {"use strict";
 
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(35);
-
-	var _reactRedux = __webpack_require__(173);
-
-	var _App = __webpack_require__(200);
-
-	var _App2 = _interopRequireDefault(_App);
-
-	var _index = __webpack_require__(369);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// 主容器视图
-	var store = (0, _index2.default)();
-
-	// 处理过的store构建器
-
-
-	// react-redux 相关
 	/*
 	 * Title: 页面入口JS
 	 * Author: MinterLee@hotmail.com
-	 * CreateDate: 2016-10-08
+	 * CreateDate: 2016-01-26
 	 * Description: 初始页面入口JS，用于页面主体结构向HTML的注入
 	 */
+	//告知该文件及其所有关联被修正时，进行热替换
+	if (true) {
+	  module.hot.accept();
+	}
+	var ReactDom = __webpack_require__(35);
 
-	// React 基础使用
+	var TodoIndexView = __webpack_require__(173);
 
-
-	(0, _reactDom.render)(_react2.default.createElement(
-	  _reactRedux.Provider,
-	  { store: store },
-	  _react2.default.createElement(_App2.default, null)
-	), document.getElementById('container'));
+	ReactDom.render(React.createElement(TodoIndexView, null), document.getElementById("container"));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 2 */
@@ -21945,1843 +21921,13 @@
 /* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(module, React) {"use strict";
 
-	exports.__esModule = true;
-	exports.connect = exports.Provider = undefined;
-
-	var _Provider = __webpack_require__(174);
-
-	var _Provider2 = _interopRequireDefault(_Provider);
-
-	var _connect = __webpack_require__(177);
-
-	var _connect2 = _interopRequireDefault(_connect);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	exports.Provider = _Provider2["default"];
-	exports.connect = _connect2["default"];
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = undefined;
-
-	var _react = __webpack_require__(2);
-
-	var _storeShape = __webpack_require__(175);
-
-	var _storeShape2 = _interopRequireDefault(_storeShape);
-
-	var _warning = __webpack_require__(176);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var didWarnAboutReceivingStore = false;
-	function warnAboutReceivingStore() {
-	  if (didWarnAboutReceivingStore) {
-	    return;
-	  }
-	  didWarnAboutReceivingStore = true;
-
-	  (0, _warning2["default"])('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
-	}
-
-	var Provider = function (_Component) {
-	  _inherits(Provider, _Component);
-
-	  Provider.prototype.getChildContext = function getChildContext() {
-	    return { store: this.store };
-	  };
-
-	  function Provider(props, context) {
-	    _classCallCheck(this, Provider);
-
-	    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
-
-	    _this.store = props.store;
-	    return _this;
-	  }
-
-	  Provider.prototype.render = function render() {
-	    var children = this.props.children;
-
-	    return _react.Children.only(children);
-	  };
-
-	  return Provider;
-	}(_react.Component);
-
-	exports["default"] = Provider;
-
-	if (process.env.NODE_ENV !== 'production') {
-	  Provider.prototype.componentWillReceiveProps = function (nextProps) {
-	    var store = this.store;
-	    var nextStore = nextProps.store;
-
-	    if (store !== nextStore) {
-	      warnAboutReceivingStore();
-	    }
-	  };
-	}
-
-	Provider.propTypes = {
-	  store: _storeShape2["default"].isRequired,
-	  children: _react.PropTypes.element.isRequired
-	};
-	Provider.childContextTypes = {
-	  store: _storeShape2["default"].isRequired
-	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 175 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(2);
-
-	exports["default"] = _react.PropTypes.shape({
-	  subscribe: _react.PropTypes.func.isRequired,
-	  dispatch: _react.PropTypes.func.isRequired,
-	  getState: _react.PropTypes.func.isRequired
-	});
-
-/***/ },
-/* 176 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = warning;
-	/**
-	 * Prints a warning in the console if it exists.
-	 *
-	 * @param {String} message The warning message.
-	 * @returns {void}
-	 */
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-	  try {
-	    // This error was thrown as a convenience so that you can use this stack
-	    // to find the callsite that caused this warning to fire.
-	    throw new Error(message);
-	    /* eslint-disable no-empty */
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
-
-/***/ },
-/* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.__esModule = true;
-	exports["default"] = connect;
-
-	var _react = __webpack_require__(2);
-
-	var _storeShape = __webpack_require__(175);
-
-	var _storeShape2 = _interopRequireDefault(_storeShape);
-
-	var _shallowEqual = __webpack_require__(178);
-
-	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
-
-	var _wrapActionCreators = __webpack_require__(179);
-
-	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
-
-	var _warning = __webpack_require__(176);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	var _isPlainObject = __webpack_require__(194);
-
-	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
-
-	var _hoistNonReactStatics = __webpack_require__(198);
-
-	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
-
-	var _invariant = __webpack_require__(199);
-
-	var _invariant2 = _interopRequireDefault(_invariant);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var defaultMapStateToProps = function defaultMapStateToProps(state) {
-	  return {};
-	}; // eslint-disable-line no-unused-vars
-	var defaultMapDispatchToProps = function defaultMapDispatchToProps(dispatch) {
-	  return { dispatch: dispatch };
-	};
-	var defaultMergeProps = function defaultMergeProps(stateProps, dispatchProps, parentProps) {
-	  return _extends({}, parentProps, stateProps, dispatchProps);
-	};
-
-	function getDisplayName(WrappedComponent) {
-	  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-	}
-
-	var errorObject = { value: null };
-	function tryCatch(fn, ctx) {
-	  try {
-	    return fn.apply(ctx);
-	  } catch (e) {
-	    errorObject.value = e;
-	    return errorObject;
-	  }
-	}
-
-	// Helps track hot reloading.
-	var nextVersion = 0;
-
-	function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
-	  var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-
-	  var shouldSubscribe = Boolean(mapStateToProps);
-	  var mapState = mapStateToProps || defaultMapStateToProps;
-
-	  var mapDispatch = undefined;
-	  if (typeof mapDispatchToProps === 'function') {
-	    mapDispatch = mapDispatchToProps;
-	  } else if (!mapDispatchToProps) {
-	    mapDispatch = defaultMapDispatchToProps;
-	  } else {
-	    mapDispatch = (0, _wrapActionCreators2["default"])(mapDispatchToProps);
-	  }
-
-	  var finalMergeProps = mergeProps || defaultMergeProps;
-	  var _options$pure = options.pure;
-	  var pure = _options$pure === undefined ? true : _options$pure;
-	  var _options$withRef = options.withRef;
-	  var withRef = _options$withRef === undefined ? false : _options$withRef;
-
-	  var checkMergedEquals = pure && finalMergeProps !== defaultMergeProps;
-
-	  // Helps track hot reloading.
-	  var version = nextVersion++;
-
-	  return function wrapWithConnect(WrappedComponent) {
-	    var connectDisplayName = 'Connect(' + getDisplayName(WrappedComponent) + ')';
-
-	    function checkStateShape(props, methodName) {
-	      if (!(0, _isPlainObject2["default"])(props)) {
-	        (0, _warning2["default"])(methodName + '() in ' + connectDisplayName + ' must return a plain object. ' + ('Instead received ' + props + '.'));
-	      }
-	    }
-
-	    function computeMergedProps(stateProps, dispatchProps, parentProps) {
-	      var mergedProps = finalMergeProps(stateProps, dispatchProps, parentProps);
-	      if (process.env.NODE_ENV !== 'production') {
-	        checkStateShape(mergedProps, 'mergeProps');
-	      }
-	      return mergedProps;
-	    }
-
-	    var Connect = function (_Component) {
-	      _inherits(Connect, _Component);
-
-	      Connect.prototype.shouldComponentUpdate = function shouldComponentUpdate() {
-	        return !pure || this.haveOwnPropsChanged || this.hasStoreStateChanged;
-	      };
-
-	      function Connect(props, context) {
-	        _classCallCheck(this, Connect);
-
-	        var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
-
-	        _this.version = version;
-	        _this.store = props.store || context.store;
-
-	        (0, _invariant2["default"])(_this.store, 'Could not find "store" in either the context or ' + ('props of "' + connectDisplayName + '". ') + 'Either wrap the root component in a <Provider>, ' + ('or explicitly pass "store" as a prop to "' + connectDisplayName + '".'));
-
-	        var storeState = _this.store.getState();
-	        _this.state = { storeState: storeState };
-	        _this.clearCache();
-	        return _this;
-	      }
-
-	      Connect.prototype.computeStateProps = function computeStateProps(store, props) {
-	        if (!this.finalMapStateToProps) {
-	          return this.configureFinalMapState(store, props);
-	        }
-
-	        var state = store.getState();
-	        var stateProps = this.doStatePropsDependOnOwnProps ? this.finalMapStateToProps(state, props) : this.finalMapStateToProps(state);
-
-	        if (process.env.NODE_ENV !== 'production') {
-	          checkStateShape(stateProps, 'mapStateToProps');
-	        }
-	        return stateProps;
-	      };
-
-	      Connect.prototype.configureFinalMapState = function configureFinalMapState(store, props) {
-	        var mappedState = mapState(store.getState(), props);
-	        var isFactory = typeof mappedState === 'function';
-
-	        this.finalMapStateToProps = isFactory ? mappedState : mapState;
-	        this.doStatePropsDependOnOwnProps = this.finalMapStateToProps.length !== 1;
-
-	        if (isFactory) {
-	          return this.computeStateProps(store, props);
-	        }
-
-	        if (process.env.NODE_ENV !== 'production') {
-	          checkStateShape(mappedState, 'mapStateToProps');
-	        }
-	        return mappedState;
-	      };
-
-	      Connect.prototype.computeDispatchProps = function computeDispatchProps(store, props) {
-	        if (!this.finalMapDispatchToProps) {
-	          return this.configureFinalMapDispatch(store, props);
-	        }
-
-	        var dispatch = store.dispatch;
-
-	        var dispatchProps = this.doDispatchPropsDependOnOwnProps ? this.finalMapDispatchToProps(dispatch, props) : this.finalMapDispatchToProps(dispatch);
-
-	        if (process.env.NODE_ENV !== 'production') {
-	          checkStateShape(dispatchProps, 'mapDispatchToProps');
-	        }
-	        return dispatchProps;
-	      };
-
-	      Connect.prototype.configureFinalMapDispatch = function configureFinalMapDispatch(store, props) {
-	        var mappedDispatch = mapDispatch(store.dispatch, props);
-	        var isFactory = typeof mappedDispatch === 'function';
-
-	        this.finalMapDispatchToProps = isFactory ? mappedDispatch : mapDispatch;
-	        this.doDispatchPropsDependOnOwnProps = this.finalMapDispatchToProps.length !== 1;
-
-	        if (isFactory) {
-	          return this.computeDispatchProps(store, props);
-	        }
-
-	        if (process.env.NODE_ENV !== 'production') {
-	          checkStateShape(mappedDispatch, 'mapDispatchToProps');
-	        }
-	        return mappedDispatch;
-	      };
-
-	      Connect.prototype.updateStatePropsIfNeeded = function updateStatePropsIfNeeded() {
-	        var nextStateProps = this.computeStateProps(this.store, this.props);
-	        if (this.stateProps && (0, _shallowEqual2["default"])(nextStateProps, this.stateProps)) {
-	          return false;
-	        }
-
-	        this.stateProps = nextStateProps;
-	        return true;
-	      };
-
-	      Connect.prototype.updateDispatchPropsIfNeeded = function updateDispatchPropsIfNeeded() {
-	        var nextDispatchProps = this.computeDispatchProps(this.store, this.props);
-	        if (this.dispatchProps && (0, _shallowEqual2["default"])(nextDispatchProps, this.dispatchProps)) {
-	          return false;
-	        }
-
-	        this.dispatchProps = nextDispatchProps;
-	        return true;
-	      };
-
-	      Connect.prototype.updateMergedPropsIfNeeded = function updateMergedPropsIfNeeded() {
-	        var nextMergedProps = computeMergedProps(this.stateProps, this.dispatchProps, this.props);
-	        if (this.mergedProps && checkMergedEquals && (0, _shallowEqual2["default"])(nextMergedProps, this.mergedProps)) {
-	          return false;
-	        }
-
-	        this.mergedProps = nextMergedProps;
-	        return true;
-	      };
-
-	      Connect.prototype.isSubscribed = function isSubscribed() {
-	        return typeof this.unsubscribe === 'function';
-	      };
-
-	      Connect.prototype.trySubscribe = function trySubscribe() {
-	        if (shouldSubscribe && !this.unsubscribe) {
-	          this.unsubscribe = this.store.subscribe(this.handleChange.bind(this));
-	          this.handleChange();
-	        }
-	      };
-
-	      Connect.prototype.tryUnsubscribe = function tryUnsubscribe() {
-	        if (this.unsubscribe) {
-	          this.unsubscribe();
-	          this.unsubscribe = null;
-	        }
-	      };
-
-	      Connect.prototype.componentDidMount = function componentDidMount() {
-	        this.trySubscribe();
-	      };
-
-	      Connect.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        if (!pure || !(0, _shallowEqual2["default"])(nextProps, this.props)) {
-	          this.haveOwnPropsChanged = true;
-	        }
-	      };
-
-	      Connect.prototype.componentWillUnmount = function componentWillUnmount() {
-	        this.tryUnsubscribe();
-	        this.clearCache();
-	      };
-
-	      Connect.prototype.clearCache = function clearCache() {
-	        this.dispatchProps = null;
-	        this.stateProps = null;
-	        this.mergedProps = null;
-	        this.haveOwnPropsChanged = true;
-	        this.hasStoreStateChanged = true;
-	        this.haveStatePropsBeenPrecalculated = false;
-	        this.statePropsPrecalculationError = null;
-	        this.renderedElement = null;
-	        this.finalMapDispatchToProps = null;
-	        this.finalMapStateToProps = null;
-	      };
-
-	      Connect.prototype.handleChange = function handleChange() {
-	        if (!this.unsubscribe) {
-	          return;
-	        }
-
-	        var storeState = this.store.getState();
-	        var prevStoreState = this.state.storeState;
-	        if (pure && prevStoreState === storeState) {
-	          return;
-	        }
-
-	        if (pure && !this.doStatePropsDependOnOwnProps) {
-	          var haveStatePropsChanged = tryCatch(this.updateStatePropsIfNeeded, this);
-	          if (!haveStatePropsChanged) {
-	            return;
-	          }
-	          if (haveStatePropsChanged === errorObject) {
-	            this.statePropsPrecalculationError = errorObject.value;
-	          }
-	          this.haveStatePropsBeenPrecalculated = true;
-	        }
-
-	        this.hasStoreStateChanged = true;
-	        this.setState({ storeState: storeState });
-	      };
-
-	      Connect.prototype.getWrappedInstance = function getWrappedInstance() {
-	        (0, _invariant2["default"])(withRef, 'To access the wrapped instance, you need to specify ' + '{ withRef: true } as the fourth argument of the connect() call.');
-
-	        return this.refs.wrappedInstance;
-	      };
-
-	      Connect.prototype.render = function render() {
-	        var haveOwnPropsChanged = this.haveOwnPropsChanged;
-	        var hasStoreStateChanged = this.hasStoreStateChanged;
-	        var haveStatePropsBeenPrecalculated = this.haveStatePropsBeenPrecalculated;
-	        var statePropsPrecalculationError = this.statePropsPrecalculationError;
-	        var renderedElement = this.renderedElement;
-
-	        this.haveOwnPropsChanged = false;
-	        this.hasStoreStateChanged = false;
-	        this.haveStatePropsBeenPrecalculated = false;
-	        this.statePropsPrecalculationError = null;
-
-	        if (statePropsPrecalculationError) {
-	          throw statePropsPrecalculationError;
-	        }
-
-	        var shouldUpdateStateProps = true;
-	        var shouldUpdateDispatchProps = true;
-	        if (pure && renderedElement) {
-	          shouldUpdateStateProps = hasStoreStateChanged || haveOwnPropsChanged && this.doStatePropsDependOnOwnProps;
-	          shouldUpdateDispatchProps = haveOwnPropsChanged && this.doDispatchPropsDependOnOwnProps;
-	        }
-
-	        var haveStatePropsChanged = false;
-	        var haveDispatchPropsChanged = false;
-	        if (haveStatePropsBeenPrecalculated) {
-	          haveStatePropsChanged = true;
-	        } else if (shouldUpdateStateProps) {
-	          haveStatePropsChanged = this.updateStatePropsIfNeeded();
-	        }
-	        if (shouldUpdateDispatchProps) {
-	          haveDispatchPropsChanged = this.updateDispatchPropsIfNeeded();
-	        }
-
-	        var haveMergedPropsChanged = true;
-	        if (haveStatePropsChanged || haveDispatchPropsChanged || haveOwnPropsChanged) {
-	          haveMergedPropsChanged = this.updateMergedPropsIfNeeded();
-	        } else {
-	          haveMergedPropsChanged = false;
-	        }
-
-	        if (!haveMergedPropsChanged && renderedElement) {
-	          return renderedElement;
-	        }
-
-	        if (withRef) {
-	          this.renderedElement = (0, _react.createElement)(WrappedComponent, _extends({}, this.mergedProps, {
-	            ref: 'wrappedInstance'
-	          }));
-	        } else {
-	          this.renderedElement = (0, _react.createElement)(WrappedComponent, this.mergedProps);
-	        }
-
-	        return this.renderedElement;
-	      };
-
-	      return Connect;
-	    }(_react.Component);
-
-	    Connect.displayName = connectDisplayName;
-	    Connect.WrappedComponent = WrappedComponent;
-	    Connect.contextTypes = {
-	      store: _storeShape2["default"]
-	    };
-	    Connect.propTypes = {
-	      store: _storeShape2["default"]
-	    };
-
-	    if (process.env.NODE_ENV !== 'production') {
-	      Connect.prototype.componentWillUpdate = function componentWillUpdate() {
-	        if (this.version === version) {
-	          return;
-	        }
-
-	        // We are hot reloading!
-	        this.version = version;
-	        this.trySubscribe();
-	        this.clearCache();
-	      };
-	    }
-
-	    return (0, _hoistNonReactStatics2["default"])(Connect, WrappedComponent);
-	  };
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 178 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	exports.__esModule = true;
-	exports["default"] = shallowEqual;
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-
-	  var keysA = Object.keys(objA);
-	  var keysB = Object.keys(objB);
-
-	  if (keysA.length !== keysB.length) {
-	    return false;
-	  }
-
-	  // Test for A's keys different from B.
-	  var hasOwn = Object.prototype.hasOwnProperty;
-	  for (var i = 0; i < keysA.length; i++) {
-	    if (!hasOwn.call(objB, keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
-	      return false;
-	    }
-	  }
-
-	  return true;
-	}
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = wrapActionCreators;
-
-	var _redux = __webpack_require__(180);
-
-	function wrapActionCreators(actionCreators) {
-	  return function (dispatch) {
-	    return (0, _redux.bindActionCreators)(actionCreators, dispatch);
-	  };
-	}
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	exports.__esModule = true;
-	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
-
-	var _createStore = __webpack_require__(181);
-
-	var _createStore2 = _interopRequireDefault(_createStore);
-
-	var _combineReducers = __webpack_require__(189);
-
-	var _combineReducers2 = _interopRequireDefault(_combineReducers);
-
-	var _bindActionCreators = __webpack_require__(191);
-
-	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
-
-	var _applyMiddleware = __webpack_require__(192);
-
-	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
-
-	var _compose = __webpack_require__(193);
-
-	var _compose2 = _interopRequireDefault(_compose);
-
-	var _warning = __webpack_require__(190);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	/*
-	* This is a dummy function to check if the function name has been altered by minification.
-	* If the function has been minified and NODE_ENV !== 'production', warn the user.
-	*/
-	function isCrushed() {}
-
-	if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-	  (0, _warning2['default'])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
-	}
-
-	exports.createStore = _createStore2['default'];
-	exports.combineReducers = _combineReducers2['default'];
-	exports.bindActionCreators = _bindActionCreators2['default'];
-	exports.applyMiddleware = _applyMiddleware2['default'];
-	exports.compose = _compose2['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.ActionTypes = undefined;
-	exports['default'] = createStore;
-
-	var _isPlainObject = __webpack_require__(182);
-
-	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
-
-	var _symbolObservable = __webpack_require__(186);
-
-	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	/**
-	 * These are private action types reserved by Redux.
-	 * For any unknown actions, you must return the current state.
-	 * If the current state is undefined, you must return the initial state.
-	 * Do not reference these action types directly in your code.
-	 */
-	var ActionTypes = exports.ActionTypes = {
-	  INIT: '@@redux/INIT'
-	};
-
-	/**
-	 * Creates a Redux store that holds the state tree.
-	 * The only way to change the data in the store is to call `dispatch()` on it.
-	 *
-	 * There should only be a single store in your app. To specify how different
-	 * parts of the state tree respond to actions, you may combine several reducers
-	 * into a single reducer function by using `combineReducers`.
-	 *
-	 * @param {Function} reducer A function that returns the next state tree, given
-	 * the current state tree and the action to handle.
-	 *
-	 * @param {any} [preloadedState] The initial state. You may optionally specify it
-	 * to hydrate the state from the server in universal apps, or to restore a
-	 * previously serialized user session.
-	 * If you use `combineReducers` to produce the root reducer function, this must be
-	 * an object with the same shape as `combineReducers` keys.
-	 *
-	 * @param {Function} enhancer The store enhancer. You may optionally specify it
-	 * to enhance the store with third-party capabilities such as middleware,
-	 * time travel, persistence, etc. The only store enhancer that ships with Redux
-	 * is `applyMiddleware()`.
-	 *
-	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
-	 * and subscribe to changes.
-	 */
-	function createStore(reducer, preloadedState, enhancer) {
-	  var _ref2;
-
-	  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
-	    enhancer = preloadedState;
-	    preloadedState = undefined;
-	  }
-
-	  if (typeof enhancer !== 'undefined') {
-	    if (typeof enhancer !== 'function') {
-	      throw new Error('Expected the enhancer to be a function.');
-	    }
-
-	    return enhancer(createStore)(reducer, preloadedState);
-	  }
-
-	  if (typeof reducer !== 'function') {
-	    throw new Error('Expected the reducer to be a function.');
-	  }
-
-	  var currentReducer = reducer;
-	  var currentState = preloadedState;
-	  var currentListeners = [];
-	  var nextListeners = currentListeners;
-	  var isDispatching = false;
-
-	  function ensureCanMutateNextListeners() {
-	    if (nextListeners === currentListeners) {
-	      nextListeners = currentListeners.slice();
-	    }
-	  }
-
-	  /**
-	   * Reads the state tree managed by the store.
-	   *
-	   * @returns {any} The current state tree of your application.
-	   */
-	  function getState() {
-	    return currentState;
-	  }
-
-	  /**
-	   * Adds a change listener. It will be called any time an action is dispatched,
-	   * and some part of the state tree may potentially have changed. You may then
-	   * call `getState()` to read the current state tree inside the callback.
-	   *
-	   * You may call `dispatch()` from a change listener, with the following
-	   * caveats:
-	   *
-	   * 1. The subscriptions are snapshotted just before every `dispatch()` call.
-	   * If you subscribe or unsubscribe while the listeners are being invoked, this
-	   * will not have any effect on the `dispatch()` that is currently in progress.
-	   * However, the next `dispatch()` call, whether nested or not, will use a more
-	   * recent snapshot of the subscription list.
-	   *
-	   * 2. The listener should not expect to see all state changes, as the state
-	   * might have been updated multiple times during a nested `dispatch()` before
-	   * the listener is called. It is, however, guaranteed that all subscribers
-	   * registered before the `dispatch()` started will be called with the latest
-	   * state by the time it exits.
-	   *
-	   * @param {Function} listener A callback to be invoked on every dispatch.
-	   * @returns {Function} A function to remove this change listener.
-	   */
-	  function subscribe(listener) {
-	    if (typeof listener !== 'function') {
-	      throw new Error('Expected listener to be a function.');
-	    }
-
-	    var isSubscribed = true;
-
-	    ensureCanMutateNextListeners();
-	    nextListeners.push(listener);
-
-	    return function unsubscribe() {
-	      if (!isSubscribed) {
-	        return;
-	      }
-
-	      isSubscribed = false;
-
-	      ensureCanMutateNextListeners();
-	      var index = nextListeners.indexOf(listener);
-	      nextListeners.splice(index, 1);
-	    };
-	  }
-
-	  /**
-	   * Dispatches an action. It is the only way to trigger a state change.
-	   *
-	   * The `reducer` function, used to create the store, will be called with the
-	   * current state tree and the given `action`. Its return value will
-	   * be considered the **next** state of the tree, and the change listeners
-	   * will be notified.
-	   *
-	   * The base implementation only supports plain object actions. If you want to
-	   * dispatch a Promise, an Observable, a thunk, or something else, you need to
-	   * wrap your store creating function into the corresponding middleware. For
-	   * example, see the documentation for the `redux-thunk` package. Even the
-	   * middleware will eventually dispatch plain object actions using this method.
-	   *
-	   * @param {Object} action A plain object representing “what changed”. It is
-	   * a good idea to keep actions serializable so you can record and replay user
-	   * sessions, or use the time travelling `redux-devtools`. An action must have
-	   * a `type` property which may not be `undefined`. It is a good idea to use
-	   * string constants for action types.
-	   *
-	   * @returns {Object} For convenience, the same action object you dispatched.
-	   *
-	   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
-	   * return something else (for example, a Promise you can await).
-	   */
-	  function dispatch(action) {
-	    if (!(0, _isPlainObject2['default'])(action)) {
-	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
-	    }
-
-	    if (typeof action.type === 'undefined') {
-	      throw new Error('Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?');
-	    }
-
-	    if (isDispatching) {
-	      throw new Error('Reducers may not dispatch actions.');
-	    }
-
-	    try {
-	      isDispatching = true;
-	      currentState = currentReducer(currentState, action);
-	    } finally {
-	      isDispatching = false;
-	    }
-
-	    var listeners = currentListeners = nextListeners;
-	    for (var i = 0; i < listeners.length; i++) {
-	      listeners[i]();
-	    }
-
-	    return action;
-	  }
-
-	  /**
-	   * Replaces the reducer currently used by the store to calculate the state.
-	   *
-	   * You might need this if your app implements code splitting and you want to
-	   * load some of the reducers dynamically. You might also need this if you
-	   * implement a hot reloading mechanism for Redux.
-	   *
-	   * @param {Function} nextReducer The reducer for the store to use instead.
-	   * @returns {void}
-	   */
-	  function replaceReducer(nextReducer) {
-	    if (typeof nextReducer !== 'function') {
-	      throw new Error('Expected the nextReducer to be a function.');
-	    }
-
-	    currentReducer = nextReducer;
-	    dispatch({ type: ActionTypes.INIT });
-	  }
-
-	  /**
-	   * Interoperability point for observable/reactive libraries.
-	   * @returns {observable} A minimal observable of state changes.
-	   * For more information, see the observable proposal:
-	   * https://github.com/zenparsing/es-observable
-	   */
-	  function observable() {
-	    var _ref;
-
-	    var outerSubscribe = subscribe;
-	    return _ref = {
-	      /**
-	       * The minimal observable subscription method.
-	       * @param {Object} observer Any object that can be used as an observer.
-	       * The observer object should have a `next` method.
-	       * @returns {subscription} An object with an `unsubscribe` method that can
-	       * be used to unsubscribe the observable from the store, and prevent further
-	       * emission of values from the observable.
-	       */
-	      subscribe: function subscribe(observer) {
-	        if (typeof observer !== 'object') {
-	          throw new TypeError('Expected the observer to be an object.');
-	        }
-
-	        function observeState() {
-	          if (observer.next) {
-	            observer.next(getState());
-	          }
-	        }
-
-	        observeState();
-	        var unsubscribe = outerSubscribe(observeState);
-	        return { unsubscribe: unsubscribe };
-	      }
-	    }, _ref[_symbolObservable2['default']] = function () {
-	      return this;
-	    }, _ref;
-	  }
-
-	  // When a store is created, an "INIT" action is dispatched so that every
-	  // reducer returns their initial state. This effectively populates
-	  // the initial state tree.
-	  dispatch({ type: ActionTypes.INIT });
-
-	  return _ref2 = {
-	    dispatch: dispatch,
-	    subscribe: subscribe,
-	    getState: getState,
-	    replaceReducer: replaceReducer
-	  }, _ref2[_symbolObservable2['default']] = observable, _ref2;
-	}
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getPrototype = __webpack_require__(183),
-	    isObjectLike = __webpack_require__(185);
-
-	/** `Object#toString` result references. */
-	var objectTag = '[object Object]';
-
-	/** Used for built-in method references. */
-	var funcProto = Function.prototype,
-	    objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = funcProto.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to infer the `Object` constructor. */
-	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag) {
-	    return false;
-	  }
-	  var proto = getPrototype(value);
-	  if (proto === null) {
-	    return true;
-	  }
-	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	  return (typeof Ctor == 'function' &&
-	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
-	}
-
-	module.exports = isPlainObject;
-
-
-/***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var overArg = __webpack_require__(184);
-
-	/** Built-in value references. */
-	var getPrototype = overArg(Object.getPrototypeOf, Object);
-
-	module.exports = getPrototype;
-
-
-/***/ },
-/* 184 */
-/***/ function(module, exports) {
-
-	/**
-	 * Creates a unary function that invokes `func` with its argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-	function overArg(func, transform) {
-	  return function(arg) {
-	    return func(transform(arg));
-	  };
-	}
-
-	module.exports = overArg;
-
-
-/***/ },
-/* 185 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return value != null && typeof value == 'object';
-	}
-
-	module.exports = isObjectLike;
-
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(187);
-
-
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _ponyfill = __webpack_require__(188);
-
-	var _ponyfill2 = _interopRequireDefault(_ponyfill);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var root = undefined; /* global window */
-
-	if (typeof global !== 'undefined') {
-		root = global;
-	} else if (typeof window !== 'undefined') {
-		root = window;
-	}
-
-	var result = (0, _ponyfill2['default'])(root);
-	exports['default'] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 188 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports['default'] = symbolObservablePonyfill;
-	function symbolObservablePonyfill(root) {
-		var result;
-		var _Symbol = root.Symbol;
-
-		if (typeof _Symbol === 'function') {
-			if (_Symbol.observable) {
-				result = _Symbol.observable;
-			} else {
-				result = _Symbol('observable');
-				_Symbol.observable = result;
-			}
-		} else {
-			result = '@@observable';
-		}
-
-		return result;
-	};
-
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = combineReducers;
-
-	var _createStore = __webpack_require__(181);
-
-	var _isPlainObject = __webpack_require__(182);
-
-	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
-
-	var _warning = __webpack_require__(190);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function getUndefinedStateErrorMessage(key, action) {
-	  var actionType = action && action.type;
-	  var actionName = actionType && '"' + actionType.toString() + '"' || 'an action';
-
-	  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
-	}
-
-	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
-	  var reducerKeys = Object.keys(reducers);
-	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
-
-	  if (reducerKeys.length === 0) {
-	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
-	  }
-
-	  if (!(0, _isPlainObject2['default'])(inputState)) {
-	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
-	  }
-
-	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
-	    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
-	  });
-
-	  unexpectedKeys.forEach(function (key) {
-	    unexpectedKeyCache[key] = true;
-	  });
-
-	  if (unexpectedKeys.length > 0) {
-	    return 'Unexpected ' + (unexpectedKeys.length > 1 ? 'keys' : 'key') + ' ' + ('"' + unexpectedKeys.join('", "') + '" found in ' + argumentName + '. ') + 'Expected to find one of the known reducer keys instead: ' + ('"' + reducerKeys.join('", "') + '". Unexpected keys will be ignored.');
-	  }
-	}
-
-	function assertReducerSanity(reducers) {
-	  Object.keys(reducers).forEach(function (key) {
-	    var reducer = reducers[key];
-	    var initialState = reducer(undefined, { type: _createStore.ActionTypes.INIT });
-
-	    if (typeof initialState === 'undefined') {
-	      throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + 'not be undefined.');
-	    }
-
-	    var type = '@@redux/PROBE_UNKNOWN_ACTION_' + Math.random().toString(36).substring(7).split('').join('.');
-	    if (typeof reducer(undefined, { type: type }) === 'undefined') {
-	      throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ('Don\'t try to handle ' + _createStore.ActionTypes.INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined.');
-	    }
-	  });
-	}
-
-	/**
-	 * Turns an object whose values are different reducer functions, into a single
-	 * reducer function. It will call every child reducer, and gather their results
-	 * into a single state object, whose keys correspond to the keys of the passed
-	 * reducer functions.
-	 *
-	 * @param {Object} reducers An object whose values correspond to different
-	 * reducer functions that need to be combined into one. One handy way to obtain
-	 * it is to use ES6 `import * as reducers` syntax. The reducers may never return
-	 * undefined for any action. Instead, they should return their initial state
-	 * if the state passed to them was undefined, and the current state for any
-	 * unrecognized action.
-	 *
-	 * @returns {Function} A reducer function that invokes every reducer inside the
-	 * passed object, and builds a state object with the same shape.
-	 */
-	function combineReducers(reducers) {
-	  var reducerKeys = Object.keys(reducers);
-	  var finalReducers = {};
-	  for (var i = 0; i < reducerKeys.length; i++) {
-	    var key = reducerKeys[i];
-
-	    if (process.env.NODE_ENV !== 'production') {
-	      if (typeof reducers[key] === 'undefined') {
-	        (0, _warning2['default'])('No reducer provided for key "' + key + '"');
-	      }
-	    }
-
-	    if (typeof reducers[key] === 'function') {
-	      finalReducers[key] = reducers[key];
-	    }
-	  }
-	  var finalReducerKeys = Object.keys(finalReducers);
-
-	  if (process.env.NODE_ENV !== 'production') {
-	    var unexpectedKeyCache = {};
-	  }
-
-	  var sanityError;
-	  try {
-	    assertReducerSanity(finalReducers);
-	  } catch (e) {
-	    sanityError = e;
-	  }
-
-	  return function combination() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	    var action = arguments[1];
-
-	    if (sanityError) {
-	      throw sanityError;
-	    }
-
-	    if (process.env.NODE_ENV !== 'production') {
-	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
-	      if (warningMessage) {
-	        (0, _warning2['default'])(warningMessage);
-	      }
-	    }
-
-	    var hasChanged = false;
-	    var nextState = {};
-	    for (var i = 0; i < finalReducerKeys.length; i++) {
-	      var key = finalReducerKeys[i];
-	      var reducer = finalReducers[key];
-	      var previousStateForKey = state[key];
-	      var nextStateForKey = reducer(previousStateForKey, action);
-	      if (typeof nextStateForKey === 'undefined') {
-	        var errorMessage = getUndefinedStateErrorMessage(key, action);
-	        throw new Error(errorMessage);
-	      }
-	      nextState[key] = nextStateForKey;
-	      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
-	    }
-	    return hasChanged ? nextState : state;
-	  };
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 190 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = warning;
-	/**
-	 * Prints a warning in the console if it exists.
-	 *
-	 * @param {String} message The warning message.
-	 * @returns {void}
-	 */
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-	  try {
-	    // This error was thrown as a convenience so that if you enable
-	    // "break on all exceptions" in your console,
-	    // it would pause the execution at this line.
-	    throw new Error(message);
-	    /* eslint-disable no-empty */
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
-
-/***/ },
-/* 191 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = bindActionCreators;
-	function bindActionCreator(actionCreator, dispatch) {
-	  return function () {
-	    return dispatch(actionCreator.apply(undefined, arguments));
-	  };
-	}
-
-	/**
-	 * Turns an object whose values are action creators, into an object with the
-	 * same keys, but with every function wrapped into a `dispatch` call so they
-	 * may be invoked directly. This is just a convenience method, as you can call
-	 * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
-	 *
-	 * For convenience, you can also pass a single function as the first argument,
-	 * and get a function in return.
-	 *
-	 * @param {Function|Object} actionCreators An object whose values are action
-	 * creator functions. One handy way to obtain it is to use ES6 `import * as`
-	 * syntax. You may also pass a single function.
-	 *
-	 * @param {Function} dispatch The `dispatch` function available on your Redux
-	 * store.
-	 *
-	 * @returns {Function|Object} The object mimicking the original object, but with
-	 * every action creator wrapped into the `dispatch` call. If you passed a
-	 * function as `actionCreators`, the return value will also be a single
-	 * function.
-	 */
-	function bindActionCreators(actionCreators, dispatch) {
-	  if (typeof actionCreators === 'function') {
-	    return bindActionCreator(actionCreators, dispatch);
-	  }
-
-	  if (typeof actionCreators !== 'object' || actionCreators === null) {
-	    throw new Error('bindActionCreators expected an object or a function, instead received ' + (actionCreators === null ? 'null' : typeof actionCreators) + '. ' + 'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?');
-	  }
-
-	  var keys = Object.keys(actionCreators);
-	  var boundActionCreators = {};
-	  for (var i = 0; i < keys.length; i++) {
-	    var key = keys[i];
-	    var actionCreator = actionCreators[key];
-	    if (typeof actionCreator === 'function') {
-	      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
-	    }
-	  }
-	  return boundActionCreators;
-	}
-
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports['default'] = applyMiddleware;
-
-	var _compose = __webpack_require__(193);
-
-	var _compose2 = _interopRequireDefault(_compose);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	/**
-	 * Creates a store enhancer that applies middleware to the dispatch method
-	 * of the Redux store. This is handy for a variety of tasks, such as expressing
-	 * asynchronous actions in a concise manner, or logging every action payload.
-	 *
-	 * See `redux-thunk` package as an example of the Redux middleware.
-	 *
-	 * Because middleware is potentially asynchronous, this should be the first
-	 * store enhancer in the composition chain.
-	 *
-	 * Note that each middleware will be given the `dispatch` and `getState` functions
-	 * as named arguments.
-	 *
-	 * @param {...Function} middlewares The middleware chain to be applied.
-	 * @returns {Function} A store enhancer applying the middleware.
-	 */
-	function applyMiddleware() {
-	  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
-	    middlewares[_key] = arguments[_key];
-	  }
-
-	  return function (createStore) {
-	    return function (reducer, preloadedState, enhancer) {
-	      var store = createStore(reducer, preloadedState, enhancer);
-	      var _dispatch = store.dispatch;
-	      var chain = [];
-
-	      var middlewareAPI = {
-	        getState: store.getState,
-	        dispatch: function dispatch(action) {
-	          return _dispatch(action);
-	        }
-	      };
-	      chain = middlewares.map(function (middleware) {
-	        return middleware(middlewareAPI);
-	      });
-	      _dispatch = _compose2['default'].apply(undefined, chain)(store.dispatch);
-
-	      return _extends({}, store, {
-	        dispatch: _dispatch
-	      });
-	    };
-	  };
-	}
-
-/***/ },
-/* 193 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	exports.__esModule = true;
-	exports["default"] = compose;
-	/**
-	 * Composes single-argument functions from right to left. The rightmost
-	 * function can take multiple arguments as it provides the signature for
-	 * the resulting composite function.
-	 *
-	 * @param {...Function} funcs The functions to compose.
-	 * @returns {Function} A function obtained by composing the argument functions
-	 * from right to left. For example, compose(f, g, h) is identical to doing
-	 * (...args) => f(g(h(...args))).
-	 */
-
-	function compose() {
-	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
-	    funcs[_key] = arguments[_key];
-	  }
-
-	  if (funcs.length === 0) {
-	    return function (arg) {
-	      return arg;
-	    };
-	  }
-
-	  if (funcs.length === 1) {
-	    return funcs[0];
-	  }
-
-	  var last = funcs[funcs.length - 1];
-	  var rest = funcs.slice(0, -1);
-	  return function () {
-	    return rest.reduceRight(function (composed, f) {
-	      return f(composed);
-	    }, last.apply(undefined, arguments));
-	  };
-	}
-
-/***/ },
-/* 194 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getPrototype = __webpack_require__(195),
-	    isObjectLike = __webpack_require__(197);
-
-	/** `Object#toString` result references. */
-	var objectTag = '[object Object]';
-
-	/** Used for built-in method references. */
-	var funcProto = Function.prototype,
-	    objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = funcProto.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to infer the `Object` constructor. */
-	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag) {
-	    return false;
-	  }
-	  var proto = getPrototype(value);
-	  if (proto === null) {
-	    return true;
-	  }
-	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	  return (typeof Ctor == 'function' &&
-	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
-	}
-
-	module.exports = isPlainObject;
-
-
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var overArg = __webpack_require__(196);
-
-	/** Built-in value references. */
-	var getPrototype = overArg(Object.getPrototypeOf, Object);
-
-	module.exports = getPrototype;
-
-
-/***/ },
-/* 196 */
-/***/ function(module, exports) {
-
-	/**
-	 * Creates a unary function that invokes `func` with its argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-	function overArg(func, transform) {
-	  return function(arg) {
-	    return func(transform(arg));
-	  };
-	}
-
-	module.exports = overArg;
-
-
-/***/ },
-/* 197 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return value != null && typeof value == 'object';
-	}
-
-	module.exports = isObjectLike;
-
-
-/***/ },
-/* 198 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2015, Yahoo! Inc.
-	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
-	 */
-	'use strict';
-
-	var REACT_STATICS = {
-	    childContextTypes: true,
-	    contextTypes: true,
-	    defaultProps: true,
-	    displayName: true,
-	    getDefaultProps: true,
-	    mixins: true,
-	    propTypes: true,
-	    type: true
-	};
-
-	var KNOWN_STATICS = {
-	    name: true,
-	    length: true,
-	    prototype: true,
-	    caller: true,
-	    arguments: true,
-	    arity: true
-	};
-
-	var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
-
-	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
-	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-	        var keys = Object.getOwnPropertyNames(sourceComponent);
-
-	        /* istanbul ignore else */
-	        if (isGetOwnPropertySymbolsAvailable) {
-	            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
-	        }
-
-	        for (var i = 0; i < keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
-	                try {
-	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
-	                } catch (error) {
-
-	                }
-	            }
-	        }
-	    }
-
-	    return targetComponent;
-	};
-
-
-/***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	'use strict';
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var invariant = function(condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error(
-	        'Minified exception occurred; use the non-minified dev environment ' +
-	        'for the full error message and additional helpful warnings.'
-	      );
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(
-	        format.replace(/%s/g, function() { return args[argIndex++]; })
-	      );
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-
-	module.exports = invariant;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
-	                                                                                                                                                                                                                                                                   * Title: 主容器视图
-	                                                                                                                                                                                                                                                                   * Author: MinterLee@hotmail.com
-	                                                                                                                                                                                                                                                                   * CreateDate: 2016-10-09
-	                                                                                                                                                                                                                                                                   * Description: 传递Action，提供数据等
-	                                                                                                                                                                                                                                                                   */
-
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(180);
-
-	var _reactRedux = __webpack_require__(173);
-
-	var _TodoTitleView = __webpack_require__(201);
-
-	var _TodoTitleView2 = _interopRequireDefault(_TodoTitleView);
-
-	var _TodoInputView = __webpack_require__(356);
-
-	var _TodoInputView2 = _interopRequireDefault(_TodoInputView);
-
-	var _TodoSectionView = __webpack_require__(357);
-
-	var _TodoSectionView2 = _interopRequireDefault(_TodoSectionView);
-
-	var _actions = __webpack_require__(367);
-
-	var TodoActions = _interopRequireWildcard(_actions);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// 单纯的构建功能，无需继承React的Component
-	var App = function App(_ref) {
-		var todos = _ref.todos;
-		var actions = _ref.actions;
-		return _react2.default.createElement(
-			'div',
-			{ className: 'todos' },
-			_react2.default.createElement(_TodoTitleView2.default, { title: todos.title }),
-			_react2.default.createElement(_TodoInputView2.default, { addTodo: actions.addTodo }),
-			_react2.default.createElement(_TodoSectionView2.default, _extends({
-				todoItems: todos.items
-			}, actions))
-		);
-	};
-
-	// 验证propType类型
-	App.propTypes = {
-		todos: _react.PropTypes.object.isRequired,
-		actions: _react.PropTypes.object.isRequired
-	};
-
-	// 利用connect传递App使用的todo数据  
-	// 在APP中处理完成的数据在进行渲染，保证了数据从前到后的一致性，
-	// 但是在此处处理也就意味着，所有action触发state所产生的APP重新渲
-	// 染都需要重新处理一遍数据，这其中仅有部分action可能影响这些数据
-	// 处理，剩余的可能毫无关联，这还仅仅是1个数据的处理和计算，若这
-	// 类本地处理的数据很多，性能上一定有影响，虽然后续业务开发中很少
-	// 出现本地数据处理，但是针对这部分我觉得大部分情况下还是由使用该
-	// 的Compoents进行处理比较合适。
-	// const mapStateToProps = state => {
-	// 	const {filter, items} = state.todos;
-	// 	todos: {...state.todos, 
-	// 		items: getFilterTodoItems(filter, items)
-	// 	}
-	// };
-	// getFilterTodoItems = (filter, items) => {
-	// 	switch (filter) {
-	// 		case SHOW_ALL:
-	// 			return items;
-	// 		case SHOW_COMPLETE:
-	// 			return items.filter(item => item.completed === true);
-	// 		case SHOW_UNDONE:
-	// 			return items.filter(item => item.completed === false);
-	// 		default:
-	// 			return items;
-	// 	}
-	// }
-
-	var mapStateToProps = function mapStateToProps(state) {
-		return {
-			todos: state.todos
-		};
-	};
-
-	// 利用connect传递App使用的绑定过的Action
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-		return {
-			actions: (0, _redux.bindActionCreators)(TodoActions, dispatch)
-		};
-	};
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
-
-/***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
+	var _reactTransformHmr3 = __webpack_require__(175);
 
 	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
 
-	var _redboxReact2 = __webpack_require__(350);
+	var _redboxReact2 = __webpack_require__(322);
 
 	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
 
@@ -23789,37 +21935,25 @@
 
 	var _react3 = _interopRequireDefault(_react2);
 
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
 
 	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	var _components = {
-		TodoTitleView: {
-			displayName: 'TodoTitleView'
-		}
+		_component: {}
 	};
 
 	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-		filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoTitleView.js',
+		filename: "/bsps/react-app/app/scripts/todos/index-page-view.js",
 		components: _components,
 		locals: [],
 		imports: [_react3.default, _redboxReact3.default]
 	});
 
 	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-		filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoTitleView.js',
+		filename: "/bsps/react-app/app/scripts/todos/index-page-view.js",
 		components: _components,
 		locals: [module],
 		imports: [_react3.default]
@@ -23829,62 +21963,252 @@
 		return function (Component) {
 			return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
 		};
-	} /*
-	   * Title: TitleView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: ...
-	   */
+	}
 
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-07-05
+	 * Description: Todos
+	 */
+	var TodoTitleView = __webpack_require__(328);
+	var TodoInputView = __webpack_require__(329);
+	var TodoListView = __webpack_require__(330);
+	var TodoFootbarView = __webpack_require__(336);
 
-	var TodoTitleView = _wrapComponent('TodoTitleView')((_temp = _class = function (_Component) {
-		_inherits(TodoTitleView, _Component);
+	var TodoIndexView = _wrapComponent("_component")(React.createClass({
+		displayName: "TodoIndexView",
 
-		function TodoTitleView(props, context) {
-			_classCallCheck(this, TodoTitleView);
+		// 页面初始化数据
+		getInitialState: function getInitialState() {
+			this.idCount = 0;
+			this.queryTypeData = {
+				all: 'All',
+				complete: 'Complete',
+				undone: 'Undone'
+			};
 
-			return _possibleConstructorReturn(this, (TodoTitleView.__proto__ || Object.getPrototypeOf(TodoTitleView)).call(this, props, context));
+			return {
+				title: 'Todos',
+				queryType: this.queryTypeData.all,
+				inputDatas: []
+			};
+		},
+
+		render: function render() {
+			console.info('^(*￣(oo)￣)^');
+			return React.createElement(
+				"div",
+				{ className: "todos" },
+				React.createElement(TodoTitleView, { title: this.state.title }),
+				React.createElement(TodoInputView, { addTodos: this.addTodos }),
+				React.createElement(TodoListView, {
+					getRenderInputDatas: this.getRenderInputDatas,
+					checkTodo: this.checkTodo,
+					completeTodo: this.completeTodo,
+					deleteTodo: this.deleteTodo
+				}),
+				React.createElement(TodoFootbarView, {
+					deleteTodos: this.deleteTodos,
+					changeQueryType: this.changeQueryType,
+					updateCompleteState: this.updateCompleteState,
+					queryTypeData: this.queryTypeData,
+					queryType: this.state.queryType,
+					getInputDataCounts: this.getInputDataCounts,
+					checkAllTodos: this.checkAllTodos,
+					checkRenderInputDatasState: this.checkRenderInputDatasState
+				})
+			);
+		},
+
+		addTodos: function addTodos(value) {
+			var inputDatas = this.state.inputDatas;
+			var id = this.idCount++;
+			inputDatas.push({
+				isChecked: false,
+				isCompleted: false,
+				id: id,
+				value: value
+			});
+			this.setState({
+				inputDatas: inputDatas
+			});
+		},
+
+		// 选中todo
+		checkTodo: function checkTodo(id, isChecked) {
+			this.updateTodo(id, 'isChecked', isChecked);
+		},
+
+		// 选中或取消选中所有
+		checkAllTodos: function checkAllTodos(checked) {
+			var self = this;
+			var inputDatas = this.state.inputDatas;
+			var isCompleted = '';
+			switch (this.state.queryType) {
+				case this.queryTypeData.all:
+					break;
+				case this.queryTypeData.complete:
+					isCompleted = true;
+					break;
+				case this.queryTypeData.undone:
+					isCompleted = false;
+					break;
+				default:
+					break;
+			}
+			inputDatas.map(function (item) {
+				// 获取数据
+				if (!(item.isCompleted != isCompleted)) {
+					item.isChecked = checked;
+				}
+			});
+			this.setState({
+				inputDatas: inputDatas
+			});
+		},
+
+		// 标记完成
+		completeTodo: function completeTodo(id, isCompleted) {
+			this.updateTodo(id, 'isCompleted', isCompleted);
+		},
+
+		// 标记完成
+		updateCompleteState: function updateCompleteState(value) {
+			this.updateTodos('isCompleted', value);
+		},
+
+		// 更新属性
+		updateTodo: function updateTodo(id, attrName, value) {
+			console.info('更新属性 : ', attrName);
+			var inputDatas = this.state.inputDatas;
+			for (var i in inputDatas) {
+				var inputData = inputDatas[i];
+				if (inputData.id === id) {
+					inputData[attrName] = value;
+					break;
+				}
+			}
+			this.setState({
+				inputDatas: inputDatas
+			});
+		},
+
+		// 更新属性--批量
+		updateTodos: function updateTodos(attrName, value) {
+			var inputDatas = this.state.inputDatas;
+			inputDatas.map(function (item) {
+				if (item.isChecked === true) {
+					item[attrName] = value;
+					// 还原选中
+					item.isChecked = false;
+				}
+			});
+			this.setState({
+				inputDatas: inputDatas
+			});
+		},
+
+		// 删除属性
+		deleteTodo: function deleteTodo(id) {
+			var inputDatas = this.state.inputDatas;
+			for (var i in inputDatas) {
+				var inputData = inputDatas[i];
+				if (inputData.id === id) {
+					inputDatas.splice(i, 1);
+					break;
+				}
+			}
+			this.setState({
+				inputDatas: inputDatas
+			});
+		},
+
+		// 删除-批量
+		deleteTodos: function deleteTodos() {
+			var newInputDatas = this.filterInputDatas('isChecked', false);
+			if (newInputDatas.length === this.state.inputDatas.length) {
+				alert("请先选择要删除的todo!");
+			} else {
+				this.setState({
+					inputDatas: newInputDatas
+				});
+			}
+		},
+
+		// 获取需要渲染的inputDatas
+		getRenderInputDatas: function getRenderInputDatas() {
+			var queryType = this.state.queryType;
+			var datas = this.state.inputDatas;
+			switch (queryType) {
+				// case 'All':
+				// 	datas = this.state.inputDatas;
+				// 	break;
+				case this.queryTypeData.complete:
+					datas = this.filterInputDatas('isCompleted', true);
+					break;
+				case this.queryTypeData.undone:
+					datas = this.filterInputDatas('isCompleted', false);
+					break;
+				default:
+					break;
+			}
+
+			return datas;
+		},
+
+		// 过滤输入的数据
+		filterInputDatas: function filterInputDatas(attrName, filterFlag) {
+			var filterDatas = [];
+			this.state.inputDatas.map(function (item) {
+				if (item[attrName] === filterFlag) {
+					filterDatas.push(item);
+				}
+			});
+			return filterDatas;
+		},
+
+		// 动态查询不同状态的数据
+		changeQueryType: function changeQueryType(queryType) {
+			console.info('Before', this.state.queryType);
+			this.setState({
+				queryType: queryType
+			}, function () {
+				console.info('After', this.state.queryType);
+			});
+		},
+
+		// 获取计数数量
+		getInputDataCounts: function getInputDataCounts() {
+			var totalCount = this.state.inputDatas.length;
+			var completedCount = this.filterInputDatas('isCompleted', true).length;
+			return {
+				totalCount: totalCount,
+				completedCount: completedCount,
+				undoneCount: totalCount - completedCount
+			};
+		},
+
+		// 获取当前查询选中数量
+		checkRenderInputDatasState: function checkRenderInputDatasState() {
+			var isCheckAll = true;
+			var renderData = this.getRenderInputDatas();
+			if (renderData.length == 0) return false;
+			for (var i in renderData) {
+				if (renderData[i].isChecked === false) {
+					isCheckAll = false;
+					break;
+				}
+			}
+			return isCheckAll;
 		}
 
-		// 类型验证 title 字符串 必填
-
-
-		_createClass(TodoTitleView, [{
-			key: 'shouldComponentUpdate',
-
-
-			// 拦截没必要的render 对比过程 提高效能
-			value: function shouldComponentUpdate(nextProps, nextState) {
-				if (nextProps.title === this.props.title) {
-					console.log("TodoTitleView-拦截");
-					return false;
-				}
-				return true;
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				console.info('TodoTitleView-render');
-				var title = this.props.title;
-
-				return _react3.default.createElement(
-					'h1',
-					{ className: 'title' },
-					title
-				);
-			}
-		}]);
-
-		return TodoTitleView;
-	}(_react2.Component), _class.propTypes = {
-		title: _react2.PropTypes.string.isRequired
-	}, _temp));
-
-	exports.default = TodoTitleView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+	}));
+	module.exports = TodoIndexView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
 
 /***/ },
-/* 202 */
+/* 174 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -23900,7 +22224,7 @@
 
 
 /***/ },
-/* 203 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23915,9 +22239,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _reactProxy = __webpack_require__(204);
+	var _reactProxy = __webpack_require__(176);
 
-	var _globalWindow = __webpack_require__(349);
+	var _globalWindow = __webpack_require__(321);
 
 	var _globalWindow2 = _interopRequireDefault(_globalWindow);
 
@@ -24000,7 +22324,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 204 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24010,15 +22334,15 @@
 	});
 	exports.getForceUpdate = exports.createProxy = undefined;
 
-	var _supportsProtoAssignment = __webpack_require__(205);
+	var _supportsProtoAssignment = __webpack_require__(177);
 
 	var _supportsProtoAssignment2 = _interopRequireDefault(_supportsProtoAssignment);
 
-	var _createClassProxy = __webpack_require__(206);
+	var _createClassProxy = __webpack_require__(178);
 
 	var _createClassProxy2 = _interopRequireDefault(_createClassProxy);
 
-	var _reactDeepForceUpdate = __webpack_require__(348);
+	var _reactDeepForceUpdate = __webpack_require__(320);
 
 	var _reactDeepForceUpdate2 = _interopRequireDefault(_reactDeepForceUpdate);
 
@@ -24032,7 +22356,7 @@
 	exports.getForceUpdate = _reactDeepForceUpdate2.default;
 
 /***/ },
-/* 205 */
+/* 177 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24052,7 +22376,7 @@
 	};
 
 /***/ },
-/* 206 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24068,23 +22392,23 @@
 	exports.default = proxyClass;
 	exports.default = createClassProxy;
 
-	var _find = __webpack_require__(207);
+	var _find = __webpack_require__(179);
 
 	var _find2 = _interopRequireDefault(_find);
 
-	var _createPrototypeProxy = __webpack_require__(320);
+	var _createPrototypeProxy = __webpack_require__(292);
 
 	var _createPrototypeProxy2 = _interopRequireDefault(_createPrototypeProxy);
 
-	var _bindAutoBindMethods = __webpack_require__(346);
+	var _bindAutoBindMethods = __webpack_require__(318);
 
 	var _bindAutoBindMethods2 = _interopRequireDefault(_bindAutoBindMethods);
 
-	var _deleteUnknownAutoBindMethods = __webpack_require__(347);
+	var _deleteUnknownAutoBindMethods = __webpack_require__(319);
 
 	var _deleteUnknownAutoBindMethods2 = _interopRequireDefault(_deleteUnknownAutoBindMethods);
 
-	var _supportsProtoAssignment = __webpack_require__(205);
+	var _supportsProtoAssignment = __webpack_require__(177);
 
 	var _supportsProtoAssignment2 = _interopRequireDefault(_supportsProtoAssignment);
 
@@ -24302,11 +22626,11 @@
 	}
 
 /***/ },
-/* 207 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createFind = __webpack_require__(208),
-	    findIndex = __webpack_require__(315);
+	var createFind = __webpack_require__(180),
+	    findIndex = __webpack_require__(287);
 
 	/**
 	 * Iterates over elements of `collection`, returning the first element
@@ -24351,12 +22675,12 @@
 
 
 /***/ },
-/* 208 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIteratee = __webpack_require__(209),
-	    isArrayLike = __webpack_require__(285),
-	    keys = __webpack_require__(266);
+	var baseIteratee = __webpack_require__(181),
+	    isArrayLike = __webpack_require__(257),
+	    keys = __webpack_require__(238);
 
 	/**
 	 * Creates a `_.find` or `_.findLast` function.
@@ -24382,14 +22706,14 @@
 
 
 /***/ },
-/* 209 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(210),
-	    baseMatchesProperty = __webpack_require__(295),
-	    identity = __webpack_require__(311),
-	    isArray = __webpack_require__(272),
-	    property = __webpack_require__(312);
+	var baseMatches = __webpack_require__(182),
+	    baseMatchesProperty = __webpack_require__(267),
+	    identity = __webpack_require__(283),
+	    isArray = __webpack_require__(244),
+	    property = __webpack_require__(284);
 
 	/**
 	 * The base implementation of `_.iteratee`.
@@ -24419,12 +22743,12 @@
 
 
 /***/ },
-/* 210 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(211),
-	    getMatchData = __webpack_require__(292),
-	    matchesStrictComparable = __webpack_require__(294);
+	var baseIsMatch = __webpack_require__(183),
+	    getMatchData = __webpack_require__(264),
+	    matchesStrictComparable = __webpack_require__(266);
 
 	/**
 	 * The base implementation of `_.matches` which doesn't clone `source`.
@@ -24447,11 +22771,11 @@
 
 
 /***/ },
-/* 211 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(212),
-	    baseIsEqual = __webpack_require__(252);
+	var Stack = __webpack_require__(184),
+	    baseIsEqual = __webpack_require__(224);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -24515,15 +22839,15 @@
 
 
 /***/ },
-/* 212 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(213),
-	    stackClear = __webpack_require__(221),
-	    stackDelete = __webpack_require__(222),
-	    stackGet = __webpack_require__(223),
-	    stackHas = __webpack_require__(224),
-	    stackSet = __webpack_require__(225);
+	var ListCache = __webpack_require__(185),
+	    stackClear = __webpack_require__(193),
+	    stackDelete = __webpack_require__(194),
+	    stackGet = __webpack_require__(195),
+	    stackHas = __webpack_require__(196),
+	    stackSet = __webpack_require__(197);
 
 	/**
 	 * Creates a stack cache object to store key-value pairs.
@@ -24548,14 +22872,14 @@
 
 
 /***/ },
-/* 213 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var listCacheClear = __webpack_require__(214),
-	    listCacheDelete = __webpack_require__(215),
-	    listCacheGet = __webpack_require__(218),
-	    listCacheHas = __webpack_require__(219),
-	    listCacheSet = __webpack_require__(220);
+	var listCacheClear = __webpack_require__(186),
+	    listCacheDelete = __webpack_require__(187),
+	    listCacheGet = __webpack_require__(190),
+	    listCacheHas = __webpack_require__(191),
+	    listCacheSet = __webpack_require__(192);
 
 	/**
 	 * Creates an list cache object.
@@ -24586,7 +22910,7 @@
 
 
 /***/ },
-/* 214 */
+/* 186 */
 /***/ function(module, exports) {
 
 	/**
@@ -24605,10 +22929,10 @@
 
 
 /***/ },
-/* 215 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(216);
+	var assocIndexOf = __webpack_require__(188);
 
 	/** Used for built-in method references. */
 	var arrayProto = Array.prototype;
@@ -24646,10 +22970,10 @@
 
 
 /***/ },
-/* 216 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(217);
+	var eq = __webpack_require__(189);
 
 	/**
 	 * Gets the index at which the `key` is found in `array` of key-value pairs.
@@ -24673,7 +22997,7 @@
 
 
 /***/ },
-/* 217 */
+/* 189 */
 /***/ function(module, exports) {
 
 	/**
@@ -24716,10 +23040,10 @@
 
 
 /***/ },
-/* 218 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(216);
+	var assocIndexOf = __webpack_require__(188);
 
 	/**
 	 * Gets the list cache value for `key`.
@@ -24741,10 +23065,10 @@
 
 
 /***/ },
-/* 219 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(216);
+	var assocIndexOf = __webpack_require__(188);
 
 	/**
 	 * Checks if a list cache value for `key` exists.
@@ -24763,10 +23087,10 @@
 
 
 /***/ },
-/* 220 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(216);
+	var assocIndexOf = __webpack_require__(188);
 
 	/**
 	 * Sets the list cache `key` to `value`.
@@ -24795,10 +23119,10 @@
 
 
 /***/ },
-/* 221 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(213);
+	var ListCache = __webpack_require__(185);
 
 	/**
 	 * Removes all key-value entries from the stack.
@@ -24816,7 +23140,7 @@
 
 
 /***/ },
-/* 222 */
+/* 194 */
 /***/ function(module, exports) {
 
 	/**
@@ -24840,7 +23164,7 @@
 
 
 /***/ },
-/* 223 */
+/* 195 */
 /***/ function(module, exports) {
 
 	/**
@@ -24860,7 +23184,7 @@
 
 
 /***/ },
-/* 224 */
+/* 196 */
 /***/ function(module, exports) {
 
 	/**
@@ -24880,12 +23204,12 @@
 
 
 /***/ },
-/* 225 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(213),
-	    Map = __webpack_require__(226),
-	    MapCache = __webpack_require__(237);
+	var ListCache = __webpack_require__(185),
+	    Map = __webpack_require__(198),
+	    MapCache = __webpack_require__(209);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -24920,11 +23244,11 @@
 
 
 /***/ },
-/* 226 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(227),
-	    root = __webpack_require__(233);
+	var getNative = __webpack_require__(199),
+	    root = __webpack_require__(205);
 
 	/* Built-in method references that are verified to be native. */
 	var Map = getNative(root, 'Map');
@@ -24933,11 +23257,11 @@
 
 
 /***/ },
-/* 227 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsNative = __webpack_require__(228),
-	    getValue = __webpack_require__(236);
+	var baseIsNative = __webpack_require__(200),
+	    getValue = __webpack_require__(208);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -24956,13 +23280,13 @@
 
 
 /***/ },
-/* 228 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(229),
-	    isMasked = __webpack_require__(231),
-	    isObject = __webpack_require__(230),
-	    toSource = __webpack_require__(235);
+	var isFunction = __webpack_require__(201),
+	    isMasked = __webpack_require__(203),
+	    isObject = __webpack_require__(202),
+	    toSource = __webpack_require__(207);
 
 	/**
 	 * Used to match `RegExp`
@@ -25009,10 +23333,10 @@
 
 
 /***/ },
-/* 229 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(230);
+	var isObject = __webpack_require__(202);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]',
@@ -25057,7 +23381,7 @@
 
 
 /***/ },
-/* 230 */
+/* 202 */
 /***/ function(module, exports) {
 
 	/**
@@ -25094,10 +23418,10 @@
 
 
 /***/ },
-/* 231 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var coreJsData = __webpack_require__(232);
+	var coreJsData = __webpack_require__(204);
 
 	/** Used to detect methods masquerading as native. */
 	var maskSrcKey = (function() {
@@ -25120,10 +23444,10 @@
 
 
 /***/ },
-/* 232 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(233);
+	var root = __webpack_require__(205);
 
 	/** Used to detect overreaching core-js shims. */
 	var coreJsData = root['__core-js_shared__'];
@@ -25132,10 +23456,10 @@
 
 
 /***/ },
-/* 233 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var freeGlobal = __webpack_require__(234);
+	var freeGlobal = __webpack_require__(206);
 
 	/** Detect free variable `self`. */
 	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -25147,7 +23471,7 @@
 
 
 /***/ },
-/* 234 */
+/* 206 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -25158,7 +23482,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 235 */
+/* 207 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -25190,7 +23514,7 @@
 
 
 /***/ },
-/* 236 */
+/* 208 */
 /***/ function(module, exports) {
 
 	/**
@@ -25209,14 +23533,14 @@
 
 
 /***/ },
-/* 237 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mapCacheClear = __webpack_require__(238),
-	    mapCacheDelete = __webpack_require__(246),
-	    mapCacheGet = __webpack_require__(249),
-	    mapCacheHas = __webpack_require__(250),
-	    mapCacheSet = __webpack_require__(251);
+	var mapCacheClear = __webpack_require__(210),
+	    mapCacheDelete = __webpack_require__(218),
+	    mapCacheGet = __webpack_require__(221),
+	    mapCacheHas = __webpack_require__(222),
+	    mapCacheSet = __webpack_require__(223);
 
 	/**
 	 * Creates a map cache object to store key-value pairs.
@@ -25247,12 +23571,12 @@
 
 
 /***/ },
-/* 238 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Hash = __webpack_require__(239),
-	    ListCache = __webpack_require__(213),
-	    Map = __webpack_require__(226);
+	var Hash = __webpack_require__(211),
+	    ListCache = __webpack_require__(185),
+	    Map = __webpack_require__(198);
 
 	/**
 	 * Removes all key-value entries from the map.
@@ -25274,14 +23598,14 @@
 
 
 /***/ },
-/* 239 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var hashClear = __webpack_require__(240),
-	    hashDelete = __webpack_require__(242),
-	    hashGet = __webpack_require__(243),
-	    hashHas = __webpack_require__(244),
-	    hashSet = __webpack_require__(245);
+	var hashClear = __webpack_require__(212),
+	    hashDelete = __webpack_require__(214),
+	    hashGet = __webpack_require__(215),
+	    hashHas = __webpack_require__(216),
+	    hashSet = __webpack_require__(217);
 
 	/**
 	 * Creates a hash object.
@@ -25312,10 +23636,10 @@
 
 
 /***/ },
-/* 240 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(241);
+	var nativeCreate = __webpack_require__(213);
 
 	/**
 	 * Removes all key-value entries from the hash.
@@ -25333,10 +23657,10 @@
 
 
 /***/ },
-/* 241 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(227);
+	var getNative = __webpack_require__(199);
 
 	/* Built-in method references that are verified to be native. */
 	var nativeCreate = getNative(Object, 'create');
@@ -25345,7 +23669,7 @@
 
 
 /***/ },
-/* 242 */
+/* 214 */
 /***/ function(module, exports) {
 
 	/**
@@ -25368,10 +23692,10 @@
 
 
 /***/ },
-/* 243 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(241);
+	var nativeCreate = __webpack_require__(213);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -25404,10 +23728,10 @@
 
 
 /***/ },
-/* 244 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(241);
+	var nativeCreate = __webpack_require__(213);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -25433,10 +23757,10 @@
 
 
 /***/ },
-/* 245 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(241);
+	var nativeCreate = __webpack_require__(213);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -25462,10 +23786,10 @@
 
 
 /***/ },
-/* 246 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(247);
+	var getMapData = __webpack_require__(219);
 
 	/**
 	 * Removes `key` and its value from the map.
@@ -25486,10 +23810,10 @@
 
 
 /***/ },
-/* 247 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isKeyable = __webpack_require__(248);
+	var isKeyable = __webpack_require__(220);
 
 	/**
 	 * Gets the data for `map`.
@@ -25510,7 +23834,7 @@
 
 
 /***/ },
-/* 248 */
+/* 220 */
 /***/ function(module, exports) {
 
 	/**
@@ -25531,10 +23855,10 @@
 
 
 /***/ },
-/* 249 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(247);
+	var getMapData = __webpack_require__(219);
 
 	/**
 	 * Gets the map value for `key`.
@@ -25553,10 +23877,10 @@
 
 
 /***/ },
-/* 250 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(247);
+	var getMapData = __webpack_require__(219);
 
 	/**
 	 * Checks if a map value for `key` exists.
@@ -25575,10 +23899,10 @@
 
 
 /***/ },
-/* 251 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(247);
+	var getMapData = __webpack_require__(219);
 
 	/**
 	 * Sets the map `key` to `value`.
@@ -25603,12 +23927,12 @@
 
 
 /***/ },
-/* 252 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(253),
-	    isObject = __webpack_require__(230),
-	    isObjectLike = __webpack_require__(271);
+	var baseIsEqualDeep = __webpack_require__(225),
+	    isObject = __webpack_require__(202),
+	    isObjectLike = __webpack_require__(243);
 
 	/**
 	 * The base implementation of `_.isEqual` which supports partial comparisons
@@ -25639,17 +23963,17 @@
 
 
 /***/ },
-/* 253 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(212),
-	    equalArrays = __webpack_require__(254),
-	    equalByTag = __webpack_require__(260),
-	    equalObjects = __webpack_require__(265),
-	    getTag = __webpack_require__(286),
-	    isArray = __webpack_require__(272),
-	    isBuffer = __webpack_require__(273),
-	    isTypedArray = __webpack_require__(276);
+	var Stack = __webpack_require__(184),
+	    equalArrays = __webpack_require__(226),
+	    equalByTag = __webpack_require__(232),
+	    equalObjects = __webpack_require__(237),
+	    getTag = __webpack_require__(258),
+	    isArray = __webpack_require__(244),
+	    isBuffer = __webpack_require__(245),
+	    isTypedArray = __webpack_require__(248);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var PARTIAL_COMPARE_FLAG = 2;
@@ -25734,12 +24058,12 @@
 
 
 /***/ },
-/* 254 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SetCache = __webpack_require__(255),
-	    arraySome = __webpack_require__(258),
-	    cacheHas = __webpack_require__(259);
+	var SetCache = __webpack_require__(227),
+	    arraySome = __webpack_require__(230),
+	    cacheHas = __webpack_require__(231);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -25824,12 +24148,12 @@
 
 
 /***/ },
-/* 255 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(237),
-	    setCacheAdd = __webpack_require__(256),
-	    setCacheHas = __webpack_require__(257);
+	var MapCache = __webpack_require__(209),
+	    setCacheAdd = __webpack_require__(228),
+	    setCacheHas = __webpack_require__(229);
 
 	/**
 	 *
@@ -25857,7 +24181,7 @@
 
 
 /***/ },
-/* 256 */
+/* 228 */
 /***/ function(module, exports) {
 
 	/** Used to stand-in for `undefined` hash values. */
@@ -25882,7 +24206,7 @@
 
 
 /***/ },
-/* 257 */
+/* 229 */
 /***/ function(module, exports) {
 
 	/**
@@ -25902,7 +24226,7 @@
 
 
 /***/ },
-/* 258 */
+/* 230 */
 /***/ function(module, exports) {
 
 	/**
@@ -25931,7 +24255,7 @@
 
 
 /***/ },
-/* 259 */
+/* 231 */
 /***/ function(module, exports) {
 
 	/**
@@ -25950,15 +24274,15 @@
 
 
 /***/ },
-/* 260 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(261),
-	    Uint8Array = __webpack_require__(262),
-	    eq = __webpack_require__(217),
-	    equalArrays = __webpack_require__(254),
-	    mapToArray = __webpack_require__(263),
-	    setToArray = __webpack_require__(264);
+	var Symbol = __webpack_require__(233),
+	    Uint8Array = __webpack_require__(234),
+	    eq = __webpack_require__(189),
+	    equalArrays = __webpack_require__(226),
+	    mapToArray = __webpack_require__(235),
+	    setToArray = __webpack_require__(236);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -26069,10 +24393,10 @@
 
 
 /***/ },
-/* 261 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(233);
+	var root = __webpack_require__(205);
 
 	/** Built-in value references. */
 	var Symbol = root.Symbol;
@@ -26081,10 +24405,10 @@
 
 
 /***/ },
-/* 262 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(233);
+	var root = __webpack_require__(205);
 
 	/** Built-in value references. */
 	var Uint8Array = root.Uint8Array;
@@ -26093,7 +24417,7 @@
 
 
 /***/ },
-/* 263 */
+/* 235 */
 /***/ function(module, exports) {
 
 	/**
@@ -26117,7 +24441,7 @@
 
 
 /***/ },
-/* 264 */
+/* 236 */
 /***/ function(module, exports) {
 
 	/**
@@ -26141,10 +24465,10 @@
 
 
 /***/ },
-/* 265 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(266);
+	var keys = __webpack_require__(238);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var PARTIAL_COMPARE_FLAG = 2;
@@ -26237,12 +24561,12 @@
 
 
 /***/ },
-/* 266 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayLikeKeys = __webpack_require__(267),
-	    baseKeys = __webpack_require__(281),
-	    isArrayLike = __webpack_require__(285);
+	var arrayLikeKeys = __webpack_require__(239),
+	    baseKeys = __webpack_require__(253),
+	    isArrayLike = __webpack_require__(257);
 
 	/**
 	 * Creates an array of the own enumerable property names of `object`.
@@ -26280,15 +24604,15 @@
 
 
 /***/ },
-/* 267 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseTimes = __webpack_require__(268),
-	    isArguments = __webpack_require__(269),
-	    isArray = __webpack_require__(272),
-	    isBuffer = __webpack_require__(273),
-	    isIndex = __webpack_require__(275),
-	    isTypedArray = __webpack_require__(276);
+	var baseTimes = __webpack_require__(240),
+	    isArguments = __webpack_require__(241),
+	    isArray = __webpack_require__(244),
+	    isBuffer = __webpack_require__(245),
+	    isIndex = __webpack_require__(247),
+	    isTypedArray = __webpack_require__(248);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -26335,7 +24659,7 @@
 
 
 /***/ },
-/* 268 */
+/* 240 */
 /***/ function(module, exports) {
 
 	/**
@@ -26361,11 +24685,11 @@
 
 
 /***/ },
-/* 269 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsArguments = __webpack_require__(270),
-	    isObjectLike = __webpack_require__(271);
+	var baseIsArguments = __webpack_require__(242),
+	    isObjectLike = __webpack_require__(243);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -26403,10 +24727,10 @@
 
 
 /***/ },
-/* 270 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObjectLike = __webpack_require__(271);
+	var isObjectLike = __webpack_require__(243);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]';
@@ -26436,7 +24760,7 @@
 
 
 /***/ },
-/* 271 */
+/* 243 */
 /***/ function(module, exports) {
 
 	/**
@@ -26471,7 +24795,7 @@
 
 
 /***/ },
-/* 272 */
+/* 244 */
 /***/ function(module, exports) {
 
 	/**
@@ -26503,11 +24827,11 @@
 
 
 /***/ },
-/* 273 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(233),
-	    stubFalse = __webpack_require__(274);
+	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(205),
+	    stubFalse = __webpack_require__(246);
 
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -26545,10 +24869,10 @@
 
 	module.exports = isBuffer;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module)))
 
 /***/ },
-/* 274 */
+/* 246 */
 /***/ function(module, exports) {
 
 	/**
@@ -26572,7 +24896,7 @@
 
 
 /***/ },
-/* 275 */
+/* 247 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -26600,12 +24924,12 @@
 
 
 /***/ },
-/* 276 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsTypedArray = __webpack_require__(277),
-	    baseUnary = __webpack_require__(279),
-	    nodeUtil = __webpack_require__(280);
+	var baseIsTypedArray = __webpack_require__(249),
+	    baseUnary = __webpack_require__(251),
+	    nodeUtil = __webpack_require__(252);
 
 	/* Node.js helper references. */
 	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -26633,11 +24957,11 @@
 
 
 /***/ },
-/* 277 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isLength = __webpack_require__(278),
-	    isObjectLike = __webpack_require__(271);
+	var isLength = __webpack_require__(250),
+	    isObjectLike = __webpack_require__(243);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -26708,7 +25032,7 @@
 
 
 /***/ },
-/* 278 */
+/* 250 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -26749,7 +25073,7 @@
 
 
 /***/ },
-/* 279 */
+/* 251 */
 /***/ function(module, exports) {
 
 	/**
@@ -26769,10 +25093,10 @@
 
 
 /***/ },
-/* 280 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(234);
+	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(206);
 
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -26795,14 +25119,14 @@
 
 	module.exports = nodeUtil;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module)))
 
 /***/ },
-/* 281 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isPrototype = __webpack_require__(282),
-	    nativeKeys = __webpack_require__(283);
+	var isPrototype = __webpack_require__(254),
+	    nativeKeys = __webpack_require__(255);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -26834,7 +25158,7 @@
 
 
 /***/ },
-/* 282 */
+/* 254 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -26858,10 +25182,10 @@
 
 
 /***/ },
-/* 283 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(284);
+	var overArg = __webpack_require__(256);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = overArg(Object.keys, Object);
@@ -26870,7 +25194,7 @@
 
 
 /***/ },
-/* 284 */
+/* 256 */
 /***/ function(module, exports) {
 
 	/**
@@ -26891,11 +25215,11 @@
 
 
 /***/ },
-/* 285 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(229),
-	    isLength = __webpack_require__(278);
+	var isFunction = __webpack_require__(201),
+	    isLength = __webpack_require__(250);
 
 	/**
 	 * Checks if `value` is array-like. A value is considered array-like if it's
@@ -26930,16 +25254,16 @@
 
 
 /***/ },
-/* 286 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataView = __webpack_require__(287),
-	    Map = __webpack_require__(226),
-	    Promise = __webpack_require__(288),
-	    Set = __webpack_require__(289),
-	    WeakMap = __webpack_require__(290),
-	    baseGetTag = __webpack_require__(291),
-	    toSource = __webpack_require__(235);
+	var DataView = __webpack_require__(259),
+	    Map = __webpack_require__(198),
+	    Promise = __webpack_require__(260),
+	    Set = __webpack_require__(261),
+	    WeakMap = __webpack_require__(262),
+	    baseGetTag = __webpack_require__(263),
+	    toSource = __webpack_require__(207);
 
 	/** `Object#toString` result references. */
 	var mapTag = '[object Map]',
@@ -27004,11 +25328,11 @@
 
 
 /***/ },
-/* 287 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(227),
-	    root = __webpack_require__(233);
+	var getNative = __webpack_require__(199),
+	    root = __webpack_require__(205);
 
 	/* Built-in method references that are verified to be native. */
 	var DataView = getNative(root, 'DataView');
@@ -27017,11 +25341,11 @@
 
 
 /***/ },
-/* 288 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(227),
-	    root = __webpack_require__(233);
+	var getNative = __webpack_require__(199),
+	    root = __webpack_require__(205);
 
 	/* Built-in method references that are verified to be native. */
 	var Promise = getNative(root, 'Promise');
@@ -27030,11 +25354,11 @@
 
 
 /***/ },
-/* 289 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(227),
-	    root = __webpack_require__(233);
+	var getNative = __webpack_require__(199),
+	    root = __webpack_require__(205);
 
 	/* Built-in method references that are verified to be native. */
 	var Set = getNative(root, 'Set');
@@ -27043,11 +25367,11 @@
 
 
 /***/ },
-/* 290 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(227),
-	    root = __webpack_require__(233);
+	var getNative = __webpack_require__(199),
+	    root = __webpack_require__(205);
 
 	/* Built-in method references that are verified to be native. */
 	var WeakMap = getNative(root, 'WeakMap');
@@ -27056,7 +25380,7 @@
 
 
 /***/ },
-/* 291 */
+/* 263 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -27084,11 +25408,11 @@
 
 
 /***/ },
-/* 292 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(293),
-	    keys = __webpack_require__(266);
+	var isStrictComparable = __webpack_require__(265),
+	    keys = __webpack_require__(238);
 
 	/**
 	 * Gets the property names, values, and compare flags of `object`.
@@ -27114,10 +25438,10 @@
 
 
 /***/ },
-/* 293 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(230);
+	var isObject = __webpack_require__(202);
 
 	/**
 	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -27135,7 +25459,7 @@
 
 
 /***/ },
-/* 294 */
+/* 266 */
 /***/ function(module, exports) {
 
 	/**
@@ -27161,16 +25485,16 @@
 
 
 /***/ },
-/* 295 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(252),
-	    get = __webpack_require__(296),
-	    hasIn = __webpack_require__(308),
-	    isKey = __webpack_require__(306),
-	    isStrictComparable = __webpack_require__(293),
-	    matchesStrictComparable = __webpack_require__(294),
-	    toKey = __webpack_require__(307);
+	var baseIsEqual = __webpack_require__(224),
+	    get = __webpack_require__(268),
+	    hasIn = __webpack_require__(280),
+	    isKey = __webpack_require__(278),
+	    isStrictComparable = __webpack_require__(265),
+	    matchesStrictComparable = __webpack_require__(266),
+	    toKey = __webpack_require__(279);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -27200,10 +25524,10 @@
 
 
 /***/ },
-/* 296 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(297);
+	var baseGet = __webpack_require__(269);
 
 	/**
 	 * Gets the value at `path` of `object`. If the resolved value is
@@ -27239,12 +25563,12 @@
 
 
 /***/ },
-/* 297 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(298),
-	    isKey = __webpack_require__(306),
-	    toKey = __webpack_require__(307);
+	var castPath = __webpack_require__(270),
+	    isKey = __webpack_require__(278),
+	    toKey = __webpack_require__(279);
 
 	/**
 	 * The base implementation of `_.get` without support for default values.
@@ -27270,11 +25594,11 @@
 
 
 /***/ },
-/* 298 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(272),
-	    stringToPath = __webpack_require__(299);
+	var isArray = __webpack_require__(244),
+	    stringToPath = __webpack_require__(271);
 
 	/**
 	 * Casts `value` to a path array if it's not one.
@@ -27291,11 +25615,11 @@
 
 
 /***/ },
-/* 299 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var memoizeCapped = __webpack_require__(300),
-	    toString = __webpack_require__(302);
+	var memoizeCapped = __webpack_require__(272),
+	    toString = __webpack_require__(274);
 
 	/** Used to match property names within property paths. */
 	var reLeadingDot = /^\./,
@@ -27328,10 +25652,10 @@
 
 
 /***/ },
-/* 300 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var memoize = __webpack_require__(301);
+	var memoize = __webpack_require__(273);
 
 	/** Used as the maximum memoize cache size. */
 	var MAX_MEMOIZE_SIZE = 500;
@@ -27360,10 +25684,10 @@
 
 
 /***/ },
-/* 301 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(237);
+	var MapCache = __webpack_require__(209);
 
 	/** Error message constants. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -27439,10 +25763,10 @@
 
 
 /***/ },
-/* 302 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseToString = __webpack_require__(303);
+	var baseToString = __webpack_require__(275);
 
 	/**
 	 * Converts `value` to a string. An empty string is returned for `null`
@@ -27473,13 +25797,13 @@
 
 
 /***/ },
-/* 303 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(261),
-	    arrayMap = __webpack_require__(304),
-	    isArray = __webpack_require__(272),
-	    isSymbol = __webpack_require__(305);
+	var Symbol = __webpack_require__(233),
+	    arrayMap = __webpack_require__(276),
+	    isArray = __webpack_require__(244),
+	    isSymbol = __webpack_require__(277);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -27516,7 +25840,7 @@
 
 
 /***/ },
-/* 304 */
+/* 276 */
 /***/ function(module, exports) {
 
 	/**
@@ -27543,10 +25867,10 @@
 
 
 /***/ },
-/* 305 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObjectLike = __webpack_require__(271);
+	var isObjectLike = __webpack_require__(243);
 
 	/** `Object#toString` result references. */
 	var symbolTag = '[object Symbol]';
@@ -27587,11 +25911,11 @@
 
 
 /***/ },
-/* 306 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(272),
-	    isSymbol = __webpack_require__(305);
+	var isArray = __webpack_require__(244),
+	    isSymbol = __webpack_require__(277);
 
 	/** Used to match property names within property paths. */
 	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
@@ -27622,10 +25946,10 @@
 
 
 /***/ },
-/* 307 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isSymbol = __webpack_require__(305);
+	var isSymbol = __webpack_require__(277);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -27649,11 +25973,11 @@
 
 
 /***/ },
-/* 308 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseHasIn = __webpack_require__(309),
-	    hasPath = __webpack_require__(310);
+	var baseHasIn = __webpack_require__(281),
+	    hasPath = __webpack_require__(282);
 
 	/**
 	 * Checks if `path` is a direct or inherited property of `object`.
@@ -27689,7 +26013,7 @@
 
 
 /***/ },
-/* 309 */
+/* 281 */
 /***/ function(module, exports) {
 
 	/**
@@ -27708,16 +26032,16 @@
 
 
 /***/ },
-/* 310 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(298),
-	    isArguments = __webpack_require__(269),
-	    isArray = __webpack_require__(272),
-	    isIndex = __webpack_require__(275),
-	    isKey = __webpack_require__(306),
-	    isLength = __webpack_require__(278),
-	    toKey = __webpack_require__(307);
+	var castPath = __webpack_require__(270),
+	    isArguments = __webpack_require__(241),
+	    isArray = __webpack_require__(244),
+	    isIndex = __webpack_require__(247),
+	    isKey = __webpack_require__(278),
+	    isLength = __webpack_require__(250),
+	    toKey = __webpack_require__(279);
 
 	/**
 	 * Checks if `path` exists on `object`.
@@ -27754,7 +26078,7 @@
 
 
 /***/ },
-/* 311 */
+/* 283 */
 /***/ function(module, exports) {
 
 	/**
@@ -27781,13 +26105,13 @@
 
 
 /***/ },
-/* 312 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(313),
-	    basePropertyDeep = __webpack_require__(314),
-	    isKey = __webpack_require__(306),
-	    toKey = __webpack_require__(307);
+	var baseProperty = __webpack_require__(285),
+	    basePropertyDeep = __webpack_require__(286),
+	    isKey = __webpack_require__(278),
+	    toKey = __webpack_require__(279);
 
 	/**
 	 * Creates a function that returns the value at `path` of a given object.
@@ -27819,7 +26143,7 @@
 
 
 /***/ },
-/* 313 */
+/* 285 */
 /***/ function(module, exports) {
 
 	/**
@@ -27839,10 +26163,10 @@
 
 
 /***/ },
-/* 314 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(297);
+	var baseGet = __webpack_require__(269);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -27861,12 +26185,12 @@
 
 
 /***/ },
-/* 315 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFindIndex = __webpack_require__(316),
-	    baseIteratee = __webpack_require__(209),
-	    toInteger = __webpack_require__(317);
+	var baseFindIndex = __webpack_require__(288),
+	    baseIteratee = __webpack_require__(181),
+	    toInteger = __webpack_require__(289);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
@@ -27923,7 +26247,7 @@
 
 
 /***/ },
-/* 316 */
+/* 288 */
 /***/ function(module, exports) {
 
 	/**
@@ -27953,10 +26277,10 @@
 
 
 /***/ },
-/* 317 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toFinite = __webpack_require__(318);
+	var toFinite = __webpack_require__(290);
 
 	/**
 	 * Converts `value` to an integer.
@@ -27995,10 +26319,10 @@
 
 
 /***/ },
-/* 318 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toNumber = __webpack_require__(319);
+	var toNumber = __webpack_require__(291);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0,
@@ -28043,11 +26367,11 @@
 
 
 /***/ },
-/* 319 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(230),
-	    isSymbol = __webpack_require__(305);
+	var isObject = __webpack_require__(202),
+	    isSymbol = __webpack_require__(277);
 
 	/** Used as references for various `Number` constants. */
 	var NAN = 0 / 0;
@@ -28115,7 +26439,7 @@
 
 
 /***/ },
-/* 320 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28125,11 +26449,11 @@
 	});
 	exports.default = createPrototypeProxy;
 
-	var _assign = __webpack_require__(321);
+	var _assign = __webpack_require__(293);
 
 	var _assign2 = _interopRequireDefault(_assign);
 
-	var _difference = __webpack_require__(335);
+	var _difference = __webpack_require__(307);
 
 	var _difference2 = _interopRequireDefault(_difference);
 
@@ -28322,15 +26646,15 @@
 	};
 
 /***/ },
-/* 321 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(322),
-	    copyObject = __webpack_require__(325),
-	    createAssigner = __webpack_require__(326),
-	    isArrayLike = __webpack_require__(285),
-	    isPrototype = __webpack_require__(282),
-	    keys = __webpack_require__(266);
+	var assignValue = __webpack_require__(294),
+	    copyObject = __webpack_require__(297),
+	    createAssigner = __webpack_require__(298),
+	    isArrayLike = __webpack_require__(257),
+	    isPrototype = __webpack_require__(254),
+	    keys = __webpack_require__(238);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -28386,11 +26710,11 @@
 
 
 /***/ },
-/* 322 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseAssignValue = __webpack_require__(323),
-	    eq = __webpack_require__(217);
+	var baseAssignValue = __webpack_require__(295),
+	    eq = __webpack_require__(189);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -28420,10 +26744,10 @@
 
 
 /***/ },
-/* 323 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var defineProperty = __webpack_require__(324);
+	var defineProperty = __webpack_require__(296);
 
 	/**
 	 * The base implementation of `assignValue` and `assignMergeValue` without
@@ -28451,10 +26775,10 @@
 
 
 /***/ },
-/* 324 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(227);
+	var getNative = __webpack_require__(199);
 
 	var defineProperty = (function() {
 	  try {
@@ -28468,11 +26792,11 @@
 
 
 /***/ },
-/* 325 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(322),
-	    baseAssignValue = __webpack_require__(323);
+	var assignValue = __webpack_require__(294),
+	    baseAssignValue = __webpack_require__(295);
 
 	/**
 	 * Copies properties of `source` to `object`.
@@ -28514,11 +26838,11 @@
 
 
 /***/ },
-/* 326 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseRest = __webpack_require__(327),
-	    isIterateeCall = __webpack_require__(334);
+	var baseRest = __webpack_require__(299),
+	    isIterateeCall = __webpack_require__(306);
 
 	/**
 	 * Creates a function like `_.assign`.
@@ -28557,12 +26881,12 @@
 
 
 /***/ },
-/* 327 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(311),
-	    overRest = __webpack_require__(328),
-	    setToString = __webpack_require__(330);
+	var identity = __webpack_require__(283),
+	    overRest = __webpack_require__(300),
+	    setToString = __webpack_require__(302);
 
 	/**
 	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -28580,10 +26904,10 @@
 
 
 /***/ },
-/* 328 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var apply = __webpack_require__(329);
+	var apply = __webpack_require__(301);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
@@ -28622,7 +26946,7 @@
 
 
 /***/ },
-/* 329 */
+/* 301 */
 /***/ function(module, exports) {
 
 	/**
@@ -28649,11 +26973,11 @@
 
 
 /***/ },
-/* 330 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseSetToString = __webpack_require__(331),
-	    shortOut = __webpack_require__(333);
+	var baseSetToString = __webpack_require__(303),
+	    shortOut = __webpack_require__(305);
 
 	/**
 	 * Sets the `toString` method of `func` to return `string`.
@@ -28669,12 +26993,12 @@
 
 
 /***/ },
-/* 331 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var constant = __webpack_require__(332),
-	    defineProperty = __webpack_require__(324),
-	    identity = __webpack_require__(311);
+	var constant = __webpack_require__(304),
+	    defineProperty = __webpack_require__(296),
+	    identity = __webpack_require__(283);
 
 	/**
 	 * The base implementation of `setToString` without support for hot loop shorting.
@@ -28697,7 +27021,7 @@
 
 
 /***/ },
-/* 332 */
+/* 304 */
 /***/ function(module, exports) {
 
 	/**
@@ -28729,7 +27053,7 @@
 
 
 /***/ },
-/* 333 */
+/* 305 */
 /***/ function(module, exports) {
 
 	/** Used to detect hot functions by number of calls within a span of milliseconds. */
@@ -28772,13 +27096,13 @@
 
 
 /***/ },
-/* 334 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(217),
-	    isArrayLike = __webpack_require__(285),
-	    isIndex = __webpack_require__(275),
-	    isObject = __webpack_require__(230);
+	var eq = __webpack_require__(189),
+	    isArrayLike = __webpack_require__(257),
+	    isIndex = __webpack_require__(247),
+	    isObject = __webpack_require__(202);
 
 	/**
 	 * Checks if the given arguments are from an iteratee call.
@@ -28808,13 +27132,13 @@
 
 
 /***/ },
-/* 335 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseDifference = __webpack_require__(336),
-	    baseFlatten = __webpack_require__(342),
-	    baseRest = __webpack_require__(327),
-	    isArrayLikeObject = __webpack_require__(345);
+	var baseDifference = __webpack_require__(308),
+	    baseFlatten = __webpack_require__(314),
+	    baseRest = __webpack_require__(299),
+	    isArrayLikeObject = __webpack_require__(317);
 
 	/**
 	 * Creates an array of `array` values not included in the other given arrays
@@ -28847,15 +27171,15 @@
 
 
 /***/ },
-/* 336 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SetCache = __webpack_require__(255),
-	    arrayIncludes = __webpack_require__(337),
-	    arrayIncludesWith = __webpack_require__(341),
-	    arrayMap = __webpack_require__(304),
-	    baseUnary = __webpack_require__(279),
-	    cacheHas = __webpack_require__(259);
+	var SetCache = __webpack_require__(227),
+	    arrayIncludes = __webpack_require__(309),
+	    arrayIncludesWith = __webpack_require__(313),
+	    arrayMap = __webpack_require__(276),
+	    baseUnary = __webpack_require__(251),
+	    cacheHas = __webpack_require__(231);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -28920,10 +27244,10 @@
 
 
 /***/ },
-/* 337 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIndexOf = __webpack_require__(338);
+	var baseIndexOf = __webpack_require__(310);
 
 	/**
 	 * A specialized version of `_.includes` for arrays without support for
@@ -28943,12 +27267,12 @@
 
 
 /***/ },
-/* 338 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFindIndex = __webpack_require__(316),
-	    baseIsNaN = __webpack_require__(339),
-	    strictIndexOf = __webpack_require__(340);
+	var baseFindIndex = __webpack_require__(288),
+	    baseIsNaN = __webpack_require__(311),
+	    strictIndexOf = __webpack_require__(312);
 
 	/**
 	 * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
@@ -28969,7 +27293,7 @@
 
 
 /***/ },
-/* 339 */
+/* 311 */
 /***/ function(module, exports) {
 
 	/**
@@ -28987,7 +27311,7 @@
 
 
 /***/ },
-/* 340 */
+/* 312 */
 /***/ function(module, exports) {
 
 	/**
@@ -29016,7 +27340,7 @@
 
 
 /***/ },
-/* 341 */
+/* 313 */
 /***/ function(module, exports) {
 
 	/**
@@ -29044,11 +27368,11 @@
 
 
 /***/ },
-/* 342 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(343),
-	    isFlattenable = __webpack_require__(344);
+	var arrayPush = __webpack_require__(315),
+	    isFlattenable = __webpack_require__(316);
 
 	/**
 	 * The base implementation of `_.flatten` with support for restricting flattening.
@@ -29088,7 +27412,7 @@
 
 
 /***/ },
-/* 343 */
+/* 315 */
 /***/ function(module, exports) {
 
 	/**
@@ -29114,12 +27438,12 @@
 
 
 /***/ },
-/* 344 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(261),
-	    isArguments = __webpack_require__(269),
-	    isArray = __webpack_require__(272);
+	var Symbol = __webpack_require__(233),
+	    isArguments = __webpack_require__(241),
+	    isArray = __webpack_require__(244);
 
 	/** Built-in value references. */
 	var spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
@@ -29140,11 +27464,11 @@
 
 
 /***/ },
-/* 345 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(285),
-	    isObjectLike = __webpack_require__(271);
+	var isArrayLike = __webpack_require__(257),
+	    isObjectLike = __webpack_require__(243);
 
 	/**
 	 * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -29179,7 +27503,7 @@
 
 
 /***/ },
-/* 346 */
+/* 318 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29277,7 +27601,7 @@
 	}
 
 /***/ },
-/* 347 */
+/* 319 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29365,7 +27689,7 @@
 	}
 
 /***/ },
-/* 348 */
+/* 320 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -29410,7 +27734,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 349 */
+/* 321 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {if (typeof window !== "undefined") {
@@ -29426,7 +27750,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 350 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29448,11 +27772,11 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _style = __webpack_require__(351);
+	var _style = __webpack_require__(323);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _errorStackParser = __webpack_require__(352);
+	var _errorStackParser = __webpack_require__(324);
 
 	var _errorStackParser2 = _interopRequireDefault(_errorStackParser);
 
@@ -29460,7 +27784,7 @@
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _lib = __webpack_require__(354);
+	var _lib = __webpack_require__(326);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29833,7 +28157,7 @@
 	exports.__RewireAPI__ = _RewireAPI__;
 
 /***/ },
-/* 351 */
+/* 323 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29882,7 +28206,7 @@
 	exports.default = _DefaultExportValue;
 
 /***/ },
-/* 352 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
@@ -29891,7 +28215,7 @@
 
 	    /* istanbul ignore next */
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(353)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(325)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports === 'object') {
 	        module.exports = factory(require('stackframe'));
 	    } else {
@@ -30105,7 +28429,7 @@
 
 
 /***/ },
-/* 353 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -30218,7 +28542,7 @@
 
 
 /***/ },
-/* 354 */
+/* 326 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30427,7 +28751,7 @@
 	exports.default = _RewireAPI__;
 
 /***/ },
-/* 355 */
+/* 327 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30492,20 +28816,16 @@
 	}
 
 /***/ },
-/* 356 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
+	var _reactTransformHmr3 = __webpack_require__(175);
 
 	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
 
-	var _redboxReact2 = __webpack_require__(350);
+	var _redboxReact2 = __webpack_require__(322);
 
 	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
 
@@ -30513,37 +28833,94 @@
 
 	var _react3 = _interopRequireDefault(_react2);
 
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
 
 	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	var _components = {
-		TodoInputView: {
-			displayName: 'TodoInputView'
-		}
+	  _component: {}
 	};
 
 	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-		filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoInputView.js',
+	  filename: '/bsps/react-app/app/scripts/todos/todo-title-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-title-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-07-05
+	 * Description: Todos
+	 */
+	var TodoTitleView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'TodoTitleView',
+
+	  render: function render() {
+	    return React.createElement(
+	      'h1',
+	      { className: 'title' },
+	      this.props.title
+	    );
+	  }
+	}));
+
+	module.exports = TodoTitleView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 329 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {"use strict";
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+		_component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+		filename: "/bsps/react-app/app/scripts/todos/todo-input-view.js",
 		components: _components,
 		locals: [],
 		imports: [_react3.default, _redboxReact3.default]
 	});
 
 	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-		filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoInputView.js',
+		filename: "/bsps/react-app/app/scripts/todos/todo-input-view.js",
 		components: _components,
 		locals: [module],
 		imports: [_react3.default]
@@ -30553,1506 +28930,1136 @@
 		return function (Component) {
 			return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
 		};
-	} /*
-	   * Title: InputView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: ...
-	   */
+	}
 
+	/*
+	 * Title: Todos输入页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-09-16
+	 * Description: Todos
+	 */
 
-	var TodoInputView = _wrapComponent('TodoInputView')((_temp = _class = function (_Component) {
-		_inherits(TodoInputView, _Component);
+	var ENTER_KEY = 13;
 
-		function TodoInputView(props, context) {
-			_classCallCheck(this, TodoInputView);
+	var TodoInputView = _wrapComponent("_component")(React.createClass({
+		displayName: "TodoInputView",
 
-			var _this = _possibleConstructorReturn(this, (TodoInputView.__proto__ || Object.getPrototypeOf(TodoInputView)).call(this, props, context));
-
-			_this.state = {
+		getInitialState: function getInitialState() {
+			var self = this;
+			return {
 				inputValue: ''
 			};
+		},
 
-			_this.handleSave = _this.handleSave.bind(_this);
-			_this.handleChange = _this.handleChange.bind(_this);
-			return _this;
-		}
-
-		_createClass(TodoInputView, [{
-			key: 'handleSave',
-			value: function handleSave(e) {
-				// 获取数值
-				var inputValue = e.target.value.trim();
-				if (inputValue.length !== 0 && e.which === 13) {
-					// 触发相应的action
-					this.props.addTodo(inputValue);
-					// 清空残留的state
-					this.setState({ inputValue: '' });
-				}
-			}
-
-			// 由于使用state保存当前input数据，所以需要实时进行对state的更新
-
-		}, {
-			key: 'handleChange',
-			value: function handleChange(e) {
-				// 组件中间状态(state)，此类不需要通过action保留记录
-				this.setState({
-					inputValue: e.target.value
-				});
-			}
-		}, {
-			key: 'shouldComponentUpdate',
-			value: function shouldComponentUpdate(nextProps, nextState) {
-				if (nextProps.addTodo === this.props.addTodo && nextState.inputValue === this.state.inputValue) {
-					console.log("TodoInputView-拦截");
-					return false;
-				}
-				return true;
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				console.info('TodoInputView-render');
-				return _react3.default.createElement('input', {
-					className: 'todoInput',
-					type: 'text',
-					autoFocus: 'true',
-					placeholder: 'Todos',
+		render: function render() {
+			var self = this;
+			console.info("todoInputView-render");
+			return React.createElement(
+				"div",
+				null,
+				React.createElement("input", {
+					className: "todoInput",
+					placeholder: "Todos",
+					ref: function ref(el) {
+						self.inputEl = el;
+					},
 					value: this.state.inputValue,
-					onChange: this.handleChange,
-					onKeyDown: this.handleSave
+					onChange: this.handelChange,
+					onKeyDown: this.handleKeyDown
+				})
+			);
+		},
+
+		handelChange: function handelChange(e) {
+			this.setState({
+				inputValue: e.target.value
+			});
+		},
+
+		handleKeyDown: function handleKeyDown(e) {
+			if (e.which === 13) {
+				var inputValue = this.inputEl.value;
+				if (inputValue == '') return;
+				this.props.addTodos(inputValue);
+				this.setState({
+					inputValue: ''
 				});
 			}
-		}]);
-
-		return TodoInputView;
-	}(_react2.Component), _class.propTypes = {
-		addTodo: _react2.PropTypes.func.isRequired
-	}, _temp));
-
-	exports.default = TodoInputView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 357 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	var _TodoListView = __webpack_require__(358);
-
-	var _TodoListView2 = _interopRequireDefault(_TodoListView);
-
-	var _TodoFootbarView = __webpack_require__(363);
-
-	var _TodoFootbarView2 = _interopRequireDefault(_TodoFootbarView);
-
-	var _FilterTypes = __webpack_require__(365);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  TodoSectionView: {
-	    displayName: 'TodoSectionView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoSectionView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/TodoSectionView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: todo Section
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: 列表 + 工具栏
-	   */
-
-	var TodoSectionView = _wrapComponent('TodoSectionView')((_temp = _class = function (_Component) {
-	  _inherits(TodoSectionView, _Component);
-
-	  function TodoSectionView(props, context) {
-	    _classCallCheck(this, TodoSectionView);
-
-	    var _this = _possibleConstructorReturn(this, (TodoSectionView.__proto__ || Object.getPrototypeOf(TodoSectionView)).call(this, props, context));
-
-	    _this.state = {
-	      filter: 'SHOW_ALL'
-	    };
-
-	    _this.changeFilter = _this.changeFilter.bind(_this);
-	    _this.getFilterTodoItems = _this.getFilterTodoItems.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(TodoSectionView, [{
-	    key: 'changeFilter',
-	    value: function changeFilter(filter) {
-	      this.setState({
-	        filter: filter
-	      });
-	    }
-	  }, {
-	    key: 'getFilterTodoItems',
-	    value: function getFilterTodoItems() {
-	      var filter = this.state.filter;
-	      var todoItems = this.props.todoItems;
-
-	      switch (filter) {
-	        case _FilterTypes.SHOW_ALL:
-	          return todoItems;
-	        case _FilterTypes.SHOW_COMPLETE:
-	          return todoItems.filter(function (item) {
-	            return item.completed === true;
-	          });
-	        case _FilterTypes.SHOW_UNDONE:
-	          return todoItems.filter(function (item) {
-	            return item.completed === false;
-	          });
-	        default:
-	          return todoItems;
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      console.info("TodoSectionView-render");
-	      var _props = this.props;
-	      var deleteTodo = _props.deleteTodo;
-	      var completeTodo = _props.completeTodo;
-	      var todoItems = _props.todoItems;
-
-	      return _react3.default.createElement(
-	        'div',
-	        null,
-	        _react3.default.createElement(_TodoListView2.default, {
-	          todoItems: this.getFilterTodoItems(),
-	          actions: {
-	            deleteTodo: deleteTodo,
-	            completeTodo: completeTodo
-	          }
-	        }),
-	        _react3.default.createElement(_TodoFootbarView2.default, {
-	          filter: this.state.filter,
-	          changeFilter: this.changeFilter,
-	          completedCount: todoItems.filter(function (item) {
-	            return item.completed === true;
-	          }).length
-	        })
-	      );
-	    }
-	  }]);
-
-	  return TodoSectionView;
-	}(_react2.Component), _class.propTypes = {
-	  deleteTodo: _react2.PropTypes.func.isRequired,
-	  completeTodo: _react2.PropTypes.func.isRequired,
-	  todoItems: _react2.PropTypes.array.isRequired
-	}, _temp));
-
-	exports.default = TodoSectionView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 358 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	var _TodoItemView = __webpack_require__(359);
-
-	var _TodoItemView2 = _interopRequireDefault(_TodoItemView);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  TodoListView: {
-	    displayName: 'TodoListView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoListView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoListView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: todo 列表
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: 列表
-	   */
-
-	var TodoListView = _wrapComponent('TodoListView')((_temp = _class = function (_Component) {
-	  _inherits(TodoListView, _Component);
-
-	  function TodoListView(props, context) {
-	    _classCallCheck(this, TodoListView);
-
-	    return _possibleConstructorReturn(this, (TodoListView.__proto__ || Object.getPrototypeOf(TodoListView)).call(this, props, context));
-	  }
-
-	  _createClass(TodoListView, [{
-	    key: 'render',
-	    value: function render() {
-	      console.info("TodoListView-render");
-	      var actions = this.props.actions;
-
-	      return _react3.default.createElement(
-	        'ul',
-	        { className: 'todoList' },
-	        this.props.todoItems.map(function (item, index) {
-	          return _react3.default.createElement(_TodoItemView2.default, _extends({ key: item.id, todoItem: item }, actions));
-	        })
-	      );
-	    }
-	  }]);
-
-	  return TodoListView;
-	}(_react2.Component), _class.propTypes = {
-	  todoItems: _react2.PropTypes.array.isRequired,
-	  actions: _react2.PropTypes.object.isRequired
-	}, _temp));
-
-	exports.default = TodoListView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 359 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	var _TodoItemTextView = __webpack_require__(360);
-
-	var _TodoItemTextView2 = _interopRequireDefault(_TodoItemTextView);
-
-	var _TodoItemDeleteView = __webpack_require__(361);
-
-	var _TodoItemDeleteView2 = _interopRequireDefault(_TodoItemDeleteView);
-
-	var _TodoItemCompleteView = __webpack_require__(362);
-
-	var _TodoItemCompleteView2 = _interopRequireDefault(_TodoItemCompleteView);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	   TodoItemView: {
-	      displayName: 'TodoItemView'
-	   }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemView.js',
-	   components: _components,
-	   locals: [],
-	   imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemView.js',
-	   components: _components,
-	   locals: [module],
-	   imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	   return function (Component) {
-	      return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	   };
-	} /*
-	   * Title: ItemView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: ...
-	   */
-
-
-	var TodoItemView = _wrapComponent('TodoItemView')((_temp = _class = function (_Component) {
-	   _inherits(TodoItemView, _Component);
-
-	   function TodoItemView(props, context) {
-	      _classCallCheck(this, TodoItemView);
-
-	      var _this = _possibleConstructorReturn(this, (TodoItemView.__proto__ || Object.getPrototypeOf(TodoItemView)).call(this, props, context));
-
-	      _this.deleteTodo = _this.deleteTodo.bind(_this);
-	      _this.completeTodo = _this.completeTodo.bind(_this);
-	      return _this;
-	   }
-
-	   _createClass(TodoItemView, [{
-	      key: 'deleteTodo',
-	      value: function deleteTodo() {
-	         this.props.deleteTodo(this.props.todoItem.id);
-	      }
-	   }, {
-	      key: 'completeTodo',
-	      value: function completeTodo() {
-	         this.props.completeTodo(this.props.todoItem.id);
-	      }
-	   }, {
-	      key: 'shouldComponentUpdate',
-	      value: function shouldComponentUpdate(nextProps, nextState) {
-	         var _props = this.props;
-	         var todoItem = _props.todoItem;
-	         var deleteTodo = _props.deleteTodo;
-	         var completeTodo = _props.completeTodo;
-	         var todoItemNext = nextProps.todoItem;
-	         var deleteTodoNext = nextProps.deleteTodo;
-	         var completeTodoNext = nextProps.completeTodo;
-
-	         if (todoItemNext === todoItem && deleteTodoNext === deleteTodo && completeTodoNext === completeTodo) {
-	            console.log("TodoItemView-拦截");
-	            return false;
-	         }
-	         return true;
-	      }
-	   }, {
-	      key: 'render',
-	      value: function render() {
-	         console.info("TodoItemView-render");
-	         var todoItem = this.props.todoItem;
-
-	         return _react3.default.createElement(
-	            'li',
-	            null,
-	            _react3.default.createElement(_TodoItemTextView2.default, { todoItem: todoItem }),
-	            _react3.default.createElement(_TodoItemDeleteView2.default, { deleteTodo: this.deleteTodo }),
-	            _react3.default.createElement(_TodoItemCompleteView2.default, { completeTodo: this.completeTodo, completed: todoItem.completed })
-	         );
-	      }
-	   }]);
-
-	   return TodoItemView;
-	}(_react2.Component), _class.propTypes = {
-	   todoItem: _react2.PropTypes.object.isRequired,
-	   deleteTodo: _react2.PropTypes.func.isRequired,
-	   completeTodo: _react2.PropTypes.func.isRequired
-	}, _temp));
-
-	exports.default = TodoItemView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 360 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	   ItemTextView: {
-	      displayName: 'ItemTextView'
-	   }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemTextView.js',
-	   components: _components,
-	   locals: [],
-	   imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	   filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemTextView.js',
-	   components: _components,
-	   locals: [module],
-	   imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	   return function (Component) {
-	      return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	   };
-	} /*
-	   * Title: ItemTextView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-09
-	   * Description: ...
-	   */
-
-	var ItemTextView = _wrapComponent('ItemTextView')((_temp = _class = function (_Component) {
-	   _inherits(ItemTextView, _Component);
-
-	   function ItemTextView(props, context) {
-	      _classCallCheck(this, ItemTextView);
-
-	      var _this = _possibleConstructorReturn(this, (ItemTextView.__proto__ || Object.getPrototypeOf(ItemTextView)).call(this, props, context));
-
-	      _this.getClassName = _this.getClassName.bind(_this);
-	      return _this;
-	   }
-
-	   _createClass(ItemTextView, [{
-	      key: 'getClassName',
-	      value: function getClassName() {
-	         var extralClass = this.props.todoItem.completed === true ? 'isCompleted' : '';
-	         return 'itemText ' + extralClass;
-	      }
-	   }, {
-	      key: 'shouldComponentUpdate',
-	      value: function shouldComponentUpdate(nextProps, nextState) {
-	         if (nextProps.todoItem === this.props.todoItem) {
-	            console.log("ItemTextView-拦截");
-	            return false;
-	         }
-	         return true;
-	      }
-	   }, {
-	      key: 'render',
-	      value: function render() {
-	         console.info('ItemTextView-render');
-	         return _react3.default.createElement(
-	            'span',
-	            { className: this.getClassName() },
-	            this.props.todoItem.text
-	         );
-	      }
-	   }]);
-
-	   return ItemTextView;
-	}(_react2.Component), _class.propTypes = {
-	   todoItem: _react2.PropTypes.object.isRequired
-	}, _temp));
-
-	exports.default = ItemTextView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 361 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	   ItemDeleteView: {
-	      displayName: "ItemDeleteView"
-	   }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	   filename: "/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemDeleteView.js",
-	   components: _components,
-	   locals: [],
-	   imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	   filename: "/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemDeleteView.js",
-	   components: _components,
-	   locals: [module],
-	   imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	   return function (Component) {
-	      return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	   };
-	} /*
-	   * Title: ItemDeleteView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-10
-	   * Description: ...
-	   */
-
-	var ItemDeleteView = _wrapComponent("ItemDeleteView")((_temp = _class = function (_Component) {
-	   _inherits(ItemDeleteView, _Component);
-
-	   function ItemDeleteView(props, context) {
-	      _classCallCheck(this, ItemDeleteView);
-
-	      return _possibleConstructorReturn(this, (ItemDeleteView.__proto__ || Object.getPrototypeOf(ItemDeleteView)).call(this, props, context));
-	   }
-
-	   _createClass(ItemDeleteView, [{
-	      key: "shouldComponentUpdate",
-	      value: function shouldComponentUpdate(nextProps, nextState) {
-	         if (nextProps.deleteTodo === this.props.deleteTodo) {
-	            console.log("ItemDeleteView-拦截");
-	            return false;
-	         }
-	         return true;
-	      }
-	   }, {
-	      key: "render",
-	      value: function render() {
-	         console.info("ItemDeleteView-render");
-	         return _react3.default.createElement(
-	            "div",
-	            { className: "todoBtn deleteBtn", onClick: this.props.deleteTodo, title: "delete" },
-	            "\xD7"
-	         );
-	      }
-	   }]);
-
-	   return ItemDeleteView;
-	}(_react2.Component), _class.propTypes = {
-	   deleteTodo: _react2.PropTypes.func.isRequired
-	}, _temp));
-
-	exports.default = ItemDeleteView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 362 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  ItemCompleteView: {
-	    displayName: 'ItemCompleteView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemCompleteView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/todo-item/TodoItemCompleteView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: ItemCompleteView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-10
-	   * Description: ...
-	   */
-
-	var ItemCompleteView = _wrapComponent('ItemCompleteView')((_temp = _class = function (_Component) {
-	  _inherits(ItemCompleteView, _Component);
-
-	  function ItemCompleteView(props, context) {
-	    _classCallCheck(this, ItemCompleteView);
-
-	    var _this = _possibleConstructorReturn(this, (ItemCompleteView.__proto__ || Object.getPrototypeOf(ItemCompleteView)).call(this, props, context));
-
-	    _this.getClassName = _this.getClassName.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(ItemCompleteView, [{
-	    key: 'getClassName',
-	    value: function getClassName() {
-	      var extralClass = this.props.completed === true ? 'undoneBtn' : 'completeBtn';
-	      return 'todoBtn ' + extralClass;
-	    }
-	  }, {
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps, nextState) {
-	      var _props = this.props;
-	      var completeTodo = _props.completeTodo;
-	      var completed = _props.completed;
-	      var completeTodoNext = nextProps.completeTodo;
-	      var completedNext = nextProps.completed;
-
-	      if (completeTodoNext === completeTodo && completedNext === completed) {
-	        console.log("ItemCompleteView-拦截");
-	        return false;
-	      }
-	      return true;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      console.info("ItemCompleteView-render");
-	      return _react3.default.createElement(
-	        'div',
-	        {
-	          title: 'complete',
-	          className: this.getClassName(),
-	          onClick: this.props.completeTodo
-	        },
-	        this.props.completed === true ? '＋' : '√'
-	      );
-	    }
-	  }]);
-
-	  return ItemCompleteView;
-	}(_react2.Component), _class.propTypes = {
-	  completeTodo: _react2.PropTypes.func.isRequired,
-	  completed: _react2.PropTypes.bool.isRequired
-	}, _temp));
-
-	exports.default = ItemCompleteView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 363 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	var _TodoFootbarCountView = __webpack_require__(364);
-
-	var _TodoFootbarCountView2 = _interopRequireDefault(_TodoFootbarCountView);
-
-	var _TodoFootbarFilterView = __webpack_require__(366);
-
-	var _TodoFootbarFilterView2 = _interopRequireDefault(_TodoFootbarFilterView);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  TodoFootbarView: {
-	    displayName: 'TodoFootbarView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: TodoFootbarView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-10
-	   * Description: ...
-	   */
-
-
-	var TodoFootbarView = _wrapComponent('TodoFootbarView')((_temp = _class = function (_Component) {
-	  _inherits(TodoFootbarView, _Component);
-
-	  function TodoFootbarView(props, context) {
-	    _classCallCheck(this, TodoFootbarView);
-
-	    return _possibleConstructorReturn(this, (TodoFootbarView.__proto__ || Object.getPrototypeOf(TodoFootbarView)).call(this, props, context));
-	  }
-
-	  _createClass(TodoFootbarView, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps, nextState) {
-	      var _props = this.props;
-	      var filter = _props.filter;
-	      var changeFilter = _props.changeFilter;
-	      var completedCount = _props.completedCount;
-
-	      if (nextProps.filter === filter && nextProps.changeFilter === changeFilter && nextProps.completedCount === completedCount) {
-	        console.log("TodoFootbarView-拦截");
-	        return false;
-	      }
-	      return true;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      console.info("TodoFootbarView-render");
-	      var _props2 = this.props;
-	      var filter = _props2.filter;
-	      var changeFilter = _props2.changeFilter;
-	      var completedCount = _props2.completedCount;
-
-	      return _react3.default.createElement(
-	        'div',
-	        { className: 'todoFootbar' },
-	        _react3.default.createElement(_TodoFootbarCountView2.default, {
-	          completedCount: completedCount
-	        }),
-	        _react3.default.createElement(_TodoFootbarFilterView2.default, {
-	          filter: filter,
-	          changeFilter: changeFilter
-	        })
-	      );
-	    }
-	  }]);
-
-	  return TodoFootbarView;
-	}(_react2.Component), _class.propTypes = {
-	  filter: _react2.PropTypes.string.isRequired,
-	  changeFilter: _react2.PropTypes.func.isRequired,
-	  completedCount: _react2.PropTypes.number.isRequired
-	}, _temp));
-
-	exports.default = TodoFootbarView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 364 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	var _FilterTypes = __webpack_require__(365);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  TodoFootbarCountView: {
-	    displayName: 'TodoFootbarCountView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarCountView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarCountView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: TodoFootbarCountView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-10
-	   * Description: ...
-	   */
-
-	var TodoFootbarCountView = _wrapComponent('TodoFootbarCountView')((_temp = _class = function (_Component) {
-	  _inherits(TodoFootbarCountView, _Component);
-
-	  function TodoFootbarCountView(props, context) {
-	    _classCallCheck(this, TodoFootbarCountView);
-
-	    return _possibleConstructorReturn(this, (TodoFootbarCountView.__proto__ || Object.getPrototypeOf(TodoFootbarCountView)).call(this, props, context));
-	  }
-
-	  _createClass(TodoFootbarCountView, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps, nextState) {
-	      if (nextProps.completedCount === this.props.completedCount) {
-	        console.log("TodoFootbarCountView-拦截");
-	        return false;
-	      }
-	      return true;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      console.info("TodoFootbarCountView-render");
-	      return _react3.default.createElement(
-	        'span',
-	        null,
-	        '\u5DF2\u5B8C\u6210',
-	        this.props.completedCount,
-	        '\u6761'
-	      );
-	    }
-	  }]);
-
-	  return TodoFootbarCountView;
-	}(_react2.Component), _class.propTypes = {
-	  completedCount: _react2.PropTypes.number.isRequired
-	}, _temp));
-
-	exports.default = TodoFootbarCountView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 365 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/*
-	 * Title: FilterType涉及所有常量
-	 * Author: MinterLee@hotmail.com
-	 * CreateDate: 2016-10-09
-	 * Description: 定义常量
-	 */
-
-	var SHOW_ALL = exports.SHOW_ALL = 'SHOW_ALL';
-	var SHOW_COMPLETE = exports.SHOW_COMPLETE = 'SHOW_COMPLETE';
-	var SHOW_UNDONE = exports.SHOW_UNDONE = 'SHOW_UNDONE';
-
-/***/ },
-/* 366 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactTransformHmr3 = __webpack_require__(203);
-
-	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
-
-	var _redboxReact2 = __webpack_require__(350);
-
-	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-	var _react2 = __webpack_require__(2);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _reactTransformCatchErrors3 = __webpack_require__(355);
-
-	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _temp;
-
-	var _FilterTypes = __webpack_require__(365);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  TodoFootbarFilterView: {
-	    displayName: 'TodoFootbarFilterView'
-	  }
-	};
-
-	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarFilterView.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _redboxReact3.default]
-	});
-
-	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
-	  filename: '/bsps/react-app/app/scripts/redux-es6-todos/components/footbar/TodoFootbarFilterView.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
-	  };
-	} /*
-	   * Title: TodoFootbarView
-	   * Author: MinterLee@hotmail.com
-	   * CreateDate: 2016-10-10
-	   * Description: ...
-	   */
-
-	var TodoFootbarFilterView = _wrapComponent('TodoFootbarFilterView')((_temp = _class = function (_Component) {
-	  _inherits(TodoFootbarFilterView, _Component);
-
-	  function TodoFootbarFilterView(props, context) {
-	    _classCallCheck(this, TodoFootbarFilterView);
-
-	    var _this = _possibleConstructorReturn(this, (TodoFootbarFilterView.__proto__ || Object.getPrototypeOf(TodoFootbarFilterView)).call(this, props, context));
-
-	    _this.getDefaultClassName = _this.getDefaultClassName.bind(_this);
-	    _this.getClassNames = _this.getClassNames.bind(_this);
-	    _this.changeFilter = _this.changeFilter.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(TodoFootbarFilterView, [{
-	    key: 'getDefaultClassName',
-	    value: function getDefaultClassName() {
-	      return {
-	        classNameAll: 'all',
-	        classNameComplete: 'complete',
-	        classNameUndone: 'undone'
-	      };
-	    }
-
-	    // 固化按钮样式
-
-	  }, {
-	    key: 'getClassNames',
-	    value: function getClassNames(filter) {
-	      var defaultClassName = this.getDefaultClassName();
-	      switch (filter) {
-	        case _FilterTypes.SHOW_ALL:
-	          return _extends({}, defaultClassName, { classNameAll: 'all on' });
-	        case _FilterTypes.SHOW_COMPLETE:
-	          return _extends({}, defaultClassName, { classNameComplete: 'complete on' });
-	        case _FilterTypes.SHOW_UNDONE:
-	          return _extends({}, defaultClassName, { classNameUndone: 'undone on' });
-	        default:
-	          return _extends({}, defaultClassName, { classNameAll: 'all on' });
-	      }
-	    }
-	  }, {
-	    key: 'changeFilter',
-	    value: function changeFilter(e) {
-	      var type = e.target.getAttribute('data-filter-type');
-	      this.props.changeFilter(type);
-	    }
-	  }, {
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps, nextState) {
-	      var _props = this.props;
-	      var filter = _props.filter;
-	      var changeFilter = _props.changeFilter;
-
-	      if (nextProps.filter === filter && nextProps.changeFilter === changeFilter) {
-	        console.log("TodoFootbarView-拦截");
-	        return false;
-	      }
-	      return true;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var filter = this.props.filter;
-
-	      var classNames = this.getClassNames(filter);
-	      console.info("TodoFootbarView-render");
-	      return _react3.default.createElement(
-	        'ul',
-	        { className: 'queryBtn' },
-	        _react3.default.createElement(
-	          'li',
-	          { className: classNames.classNameAll,
-	            'data-filter-type': _FilterTypes.SHOW_ALL,
-	            onClick: this.changeFilter
-	          },
-	          'A'
-	        ),
-	        _react3.default.createElement(
-	          'li',
-	          { className: classNames.classNameComplete,
-	            'data-filter-type': _FilterTypes.SHOW_COMPLETE,
-	            onClick: this.changeFilter
-	          },
-	          'C'
-	        ),
-	        _react3.default.createElement(
-	          'li',
-	          { className: classNames.classNameUndone,
-	            'data-filter-type': _FilterTypes.SHOW_UNDONE,
-	            onClick: this.changeFilter
-	          },
-	          'U'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return TodoFootbarFilterView;
-	}(_react2.Component), _class.propTypes = {
-	  filter: _react2.PropTypes.string.isRequired,
-	  changeFilter: _react2.PropTypes.func.isRequired
-	}, _temp));
-
-	exports.default = TodoFootbarFilterView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module)))
-
-/***/ },
-/* 367 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.changeFilter = exports.completeTodo = exports.deleteTodo = exports.addTodo = undefined;
-
-	var _ActionTypes = __webpack_require__(368);
-
-	var types = _interopRequireWildcard(_ActionTypes);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	var addTodo = exports.addTodo = function addTodo(text) {
-	  return { type: types.ADD_TODO, text: text };
-	}; /*
-	    * Title: action 注册
-	    * Author: MinterLee@hotmail.com
-	    * CreateDate: 2016-10-09
-	    * Description: ...
-	    */
-
-	var deleteTodo = exports.deleteTodo = function deleteTodo(id) {
-	  return { type: types.DELETE_TODO, id: id };
-	};
-	var completeTodo = exports.completeTodo = function completeTodo(id) {
-	  return { type: types.COMPLETE_TODO, id: id };
-	};
-	var changeFilter = exports.changeFilter = function changeFilter(filter) {
-	  return { type: types.CHANGE_FILTER, filter: filter };
-	};
-
-/***/ },
-/* 368 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/*
-	 * Title: action涉及所有常量
-	 * Author: MinterLee@hotmail.com
-	 * CreateDate: 2016-10-09
-	 * Description: 定义常量
-	 */
-
-	var ADD_TODO = exports.ADD_TODO = 'ADD_TODO';
-	var DELETE_TODO = exports.DELETE_TODO = 'DELETE_TODO';
-	var COMPLETE_TODO = exports.COMPLETE_TODO = 'COMPLETE_TODO';
-	var CHANG_FILTER = exports.CHANG_FILTER = 'CHANG_FILTER';
-
-/***/ },
-/* 369 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = configureStore;
-
-	var _index = __webpack_require__(370);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _redux = __webpack_require__(180);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// const configureStore = initialState => {
-	/*
-	 * Title: 页面入口JS
-	 * Author: MinterLee@hotmail.com
-	 * CreateDate: 2016-10-08
-	 * Description: store 构建器
-	 */
-
-	function configureStore(initialState) {
-		// 创建全局使用的store
-		var store = (0, _redux.createStore)(_index2.default, initialState);
-
-		//告知该文件及其所有关联被修正时，进行热替换，替换reducer
-		if (true) {
-			module.hot.accept(370, function () {
-				// 重新加载reducer
-				var nextReducer = __webpack_require__(370);
-				// 替换reducer
-				store.replaceReducer(nextReducer);
-			});
 		}
-		return store;
+	}));
+
+	module.exports = TodoInputView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 330 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+		_component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+		filename: '/bsps/react-app/app/scripts/todos/todo-list-view.js',
+		components: _components,
+		locals: [],
+		imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+		filename: '/bsps/react-app/app/scripts/todos/todo-list-view.js',
+		components: _components,
+		locals: [module],
+		imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+		return function (Component) {
+			return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+		};
 	}
 
-	// export default configureStore;
+	/*
+	 * Title: 列表页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-09-16
+	 * Description: Todos
+	 */
+
+	var TodoItemView = __webpack_require__(331);
+
+	var TodoListView = _wrapComponent('_component')(React.createClass({
+		displayName: 'TodoListView',
+
+		getInitialState: function getInitialState() {
+			return {
+				inputDatas: []
+			};
+		},
+
+		// 初次渲染前
+		componentWillMount: function componentWillMount() {
+			console.info('listView-初次渲染');
+			this.state.inputDatas = this.props.getRenderInputDatas();
+		},
+
+		// 新的props来之前
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			console.info('listView-父组件状态渲染');
+			// 渲染前确认需要渲染的是全部todo还是已完成\未完成的todo;
+			this.state.inputDatas = this.props.getRenderInputDatas();
+		},
+
+		render: function render() {
+			var self = this;
+			return React.createElement(
+				'ul',
+				{ className: 'todoList' },
+				this.state.inputDatas.map(function (data, index) {
+					return React.createElement(TodoItemView, { key: index, data: data, checkTodo: self.props.checkTodo, completeTodo: self.props.completeTodo, deleteTodo: self.props.deleteTodo });
+				})
+			);
+		}
+	}));
+	module.exports = TodoListView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
 
 /***/ },
-/* 370 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	var _reactTransformHmr3 = __webpack_require__(175);
 
-	var _redux = __webpack_require__(180);
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
 
-	var _todos = __webpack_require__(371);
+	var _redboxReact2 = __webpack_require__(322);
 
-	var _todos2 = _interopRequireDefault(_todos);
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/*
-	 * Title: reducer 聚合
-	 * Author: MinterLee@hotmail.com
-	 * CreateDate: 2016-10-09
-	 * Description: 虽然只有一个，但重在有此结构支持多reducer，方面管理
-	 */
-
-	var rootRducer = (0, _redux.combineReducers)({
-	  todos: _todos2.default
-	});
-
-	exports.default = rootRducer;
-
-/***/ },
-/* 371 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.default = todos;
-
-	var _ActionTypes = __webpack_require__(368);
-
-	var _FilterTypes = __webpack_require__(365);
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /*
-	                                                                                                                                                                                                     * Title: reducer for todos
-	                                                                                                                                                                                                     * Author: MinterLee@hotmail.com
-	                                                                                                                                                                                                     * CreateDate: 2016-10-09
-	                                                                                                                                                                                                     * Description: 新增 删除 标记完成 等等
-	                                                                                                                                                                                                     */
-
-
-	// 默认的State
-	var initialState = {
-		title: "Todos",
-		// filter: SHOW_ALL,
-		// completedCount: 0,
-		items: []
+	var _components = {
+	  _component: {}
 	};
 
-	function todos() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-		var action = arguments[1];
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
 
-		var items = [];
-		switch (action.type) {
-			case _ActionTypes.ADD_TODO:
-				items = [{
-					id: state.items.reduce(function (maxId, todo) {
-						return Math.max(todo.id, maxId);
-					}, 0) + 1,
-					completed: false,
-					text: action.text
-				}].concat(_toConsumableArray(state.items));
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
 
-				// 需返回新的state对象
-				return Object.assign({}, _extends({}, state, { items: items }));
-			case _ActionTypes.DELETE_TODO:
-				items = state.items.filter(function (item) {
-					return item.id !== action.id;
-				});
-				return Object.assign({}, _extends({}, state, { items: items }));
-			case _ActionTypes.COMPLETE_TODO:
-				items = state.items.map(function (item) {
-					return item.id === action.id ? _extends({}, item, { completed: !item.completed }) : item;
-				});
-				return Object.assign({}, _extends({}, state, { items: items }));
-			// case CHANGE_FILTER:
-			// 	return Object.assign({},{...state, filter: action.filter})
-			default:
-				return state;
-		}
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
 	}
 
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-07-05
+	 * Description: Todos
+	 */
+
+	var TodoItemCheckboxView = __webpack_require__(332);
+	var TodoItemTextView = __webpack_require__(333);
+	var TodoItemCompleteBtnView = __webpack_require__(334);
+	var TodoItemDeleteBtnView = __webpack_require__(335);
+
+	var TodoItemView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'TodoItemView',
+
+	  render: function render() {
+	    var data = this.props.data;
+	    return React.createElement(
+	      'li',
+	      null,
+	      React.createElement(TodoItemCheckboxView, { isChecked: data.isChecked, checkTodo: this.checkTodo }),
+	      React.createElement(TodoItemTextView, { todoText: data.value }),
+	      React.createElement(TodoItemCompleteBtnView, { completeTodo: this.completeTodo }),
+	      React.createElement(TodoItemDeleteBtnView, { deleteTodo: this.deleteTodo })
+	    );
+	  },
+
+	  // 点击todo	
+	  checkTodo: function checkTodo(isChecked) {
+	    this.props.checkTodo(this.props.data.id, isChecked);
+	  },
+
+	  // 完成todo
+	  completeTodo: function completeTodo() {
+	    this.props.completeTodo(this.props.data.id, true);
+	  },
+
+	  // 删除todo
+	  deleteTodo: function deleteTodo() {
+	    this.props.deleteTodo(this.props.data.id);
+	  }
+	}));
+
+	module.exports = TodoItemView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
 /***/ },
-/* 372 */
+/* 332 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+		_component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+		filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-checkbox-view.js',
+		components: _components,
+		locals: [],
+		imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+		filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-checkbox-view.js',
+		components: _components,
+		locals: [module],
+		imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+		return function (Component) {
+			return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+		};
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-07-05
+	 * Description: Todos
+	 */
+
+	var todoItemCheckboxView = _wrapComponent('_component')(React.createClass({
+		displayName: 'todoItemCheckboxView',
+
+		checkTodo: function checkTodo() {
+			this.props.checkTodo(this.itemCheckbox.checked);
+		},
+		render: function render() {
+			var self = this;
+			return React.createElement('input', { type: 'checkbox', className: 'itemCheckbox', checked: this.props.isChecked == true ? 'checked' : '', onClick: this.checkTodo, ref: function ref(dom) {
+					self.itemCheckbox = dom;
+				} });
+		}
+	}));
+
+	module.exports = todoItemCheckboxView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-text-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-text-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-07-05
+	 * Description: Todos
+	 */
+
+	var todoItemTextView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'todoItemTextView',
+
+	  render: function render() {
+	    return React.createElement(
+	      'span',
+	      { className: 'itemText' },
+	      this.props.todoText
+	    );
+	  }
+	}));
+
+	module.exports = todoItemTextView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 334 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-complete-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-complete-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-07-05
+	 * Description: Todos
+	 */
+
+	var todoItemCompleteBtnView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'todoItemCompleteBtnView',
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'todoBtn completeBtn', onClick: this.props.completeTodo, title: 'complete' },
+	      '\u221A'
+	    );
+	  }
+	}));
+
+	module.exports = todoItemCompleteBtnView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 335 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-delete-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/todo-item/todo-item-delete-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-07-05
+	 * Description: Todos
+	 */
+
+	var todoItemDeleteBtnView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'todoItemDeleteBtnView',
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'todoBtn deleteBtn', onClick: this.props.deleteTodo, title: 'delete' },
+	      '\xD7'
+	    );
+	  }
+	}));
+
+	module.exports = todoItemDeleteBtnView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 336 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-09-16
+	 * Description: Todos
+	 */
+
+	var TodoFootbarCheckAllView = __webpack_require__(337);
+	var TodoFootbarDeleteView = __webpack_require__(338);
+	var TodoFootbarCompleteView = __webpack_require__(339);
+	var TodoFootbarUndoneView = __webpack_require__(340);
+	var TodoFootbarCountView = __webpack_require__(341);
+
+	var TodoFootbarView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'TodoFootbarView',
+
+	  // 初次渲染前
+	  componentWillMount: function componentWillMount() {
+	    console.info('footbar-初次渲染');
+	    this.updateCounts();
+	  },
+
+	  // 父组件状态更新前
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.info('footbar-父组件状态渲染');
+	    // 更新按钮状态
+	    this.updateCounts(nextProps);
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'todoFootbar' },
+	      React.createElement(TodoFootbarCheckAllView, {
+	        checkAllTodos: this.props.checkAllTodos,
+	        checkRenderInputDatasState: this.props.checkRenderInputDatasState
+	      }),
+	      React.createElement(TodoFootbarDeleteView, { deleteTodos: this.props.deleteTodos }),
+	      React.createElement(TodoFootbarCompleteView, { completeTodos: this.completeTodos }),
+	      React.createElement(TodoFootbarUndoneView, { undoneTodos: this.undoneTodos }),
+	      React.createElement(TodoFootbarCountView, {
+	        changeQueryType: this.props.changeQueryType,
+	        queryType: this.props.queryType,
+	        queryTypeData: this.props.queryTypeData,
+	        totalCount: this.state.totalCount,
+	        completedCount: this.state.completedCount,
+	        undoneCount: this.state.undoneCount
+	      })
+	    );
+	  },
+
+	  completeTodos: function completeTodos() {
+	    this.props.updateCompleteState(true);
+	  },
+
+	  undoneTodos: function undoneTodos() {
+	    this.props.updateCompleteState(false);
+	  },
+
+	  // 重新获取渲染使用的数量
+	  updateCounts: function updateCounts(props) {
+	    var props = props || this.props;
+	    var counts = props.getInputDataCounts();
+	    this.setState({
+	      totalCount: counts.totalCount,
+	      completedCount: counts.completedCount,
+	      undoneCount: counts.undoneCount
+	    });
+	  }
+	}));
+
+	module.exports = TodoFootbarView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 337 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-check-all-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-check-all-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	* Title: Todos页面首页
+	* Author: MinterLee@hotmail.com
+	* CreateDate: 2016-09-16
+	* Description: Todos
+	*/
+
+	var TodoFootbarCheckAllView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'TodoFootbarCheckAllView',
+
+	  componentWillMount: function componentWillMount() {
+	    this.setState({
+	      checked: false
+	    });
+	  },
+
+	  // 父组件状态更新前
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    this.setState({
+	      checked: nextProps.checkRenderInputDatasState()
+	    });
+	  },
+
+	  render: function render() {
+	    var self = this;
+	    console.info('footbar-CheckAll-渲染');
+	    return React.createElement('input', { type: 'checkbox', className: 'checkAll', checked: this.state.checked ? 'checked' : '', onChange: this.checkAll, ref: function ref(el) {
+	        self.checkAllEl = el;
+	      } });
+	  },
+
+	  checkAll: function checkAll() {
+	    this.props.checkAllTodos(this.checkAllEl.checked);
+	    this.checked = this.checkAllEl.checked;
+	  }
+	}));
+
+	module.exports = TodoFootbarCheckAllView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 338 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-delete-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-delete-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-09-16
+	 * Description: Todos
+	 */
+
+	var TodoFootbarDeleteView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'TodoFootbarDeleteView',
+
+	  render: function render() {
+	    console.info('footbar-Delete-渲染');
+	    return React.createElement(
+	      'span',
+	      { className: 'todoBtn deleteBtn', onClick: this.props.deleteTodos, title: 'delete' },
+	      '\xD7'
+	    );
+	  }
+	}));
+
+	module.exports = TodoFootbarDeleteView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 339 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-complete-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-complete-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-09-16
+	 * Description: Todos
+	 */
+
+	var TodoFootbarCompleteView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'TodoFootbarCompleteView',
+
+	  render: function render() {
+	    console.info('footbar-Complete-渲染');
+	    return React.createElement(
+	      'span',
+	      { className: 'todoBtn completeBtn', onClick: this.props.completeTodos, title: 'complete' },
+	      '\u221A'
+	    );
+	  }
+	}));
+
+	module.exports = TodoFootbarCompleteView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 340 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+	  _component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-undone-view.js',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-undone-view.js',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+	  };
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-09-16
+	 * Description: Todos
+	 */
+
+	var TodoFootbarUndoneView = _wrapComponent('_component')(React.createClass({
+	  displayName: 'TodoFootbarUndoneView',
+
+	  render: function render() {
+	    console.info('footbar-Undone-渲染');
+	    return React.createElement(
+	      'span',
+	      { className: 'todoBtn undoneBtn', onClick: this.props.undoneTodos, title: 'undone' },
+	      'U'
+	    );
+	  }
+	}));
+
+	module.exports = TodoFootbarUndoneView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 341 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module, React) {'use strict';
+
+	var _reactTransformHmr3 = __webpack_require__(175);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _redboxReact2 = __webpack_require__(322);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _react2 = __webpack_require__(2);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(327);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _components = {
+		_component: {}
+	};
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+		filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-count-view.js',
+		components: _components,
+		locals: [],
+		imports: [_react3.default, _redboxReact3.default]
+	});
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+		filename: '/bsps/react-app/app/scripts/todos/footbar/todo-footbar-count-view.js',
+		components: _components,
+		locals: [module],
+		imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+		return function (Component) {
+			return _reactTransformCatchErrors2(_reactTransformHmr2(Component, id), id);
+		};
+	}
+
+	/*
+	 * Title: Todos页面首页
+	 * Author: MinterLee@hotmail.com
+	 * CreateDate: 2016-09-16
+	 * Description: Todos
+	 */
+
+	var TodoFootbarCountView = _wrapComponent('_component')(React.createClass({
+		displayName: 'TodoFootbarCountView',
+
+		// 获取初始状态
+		getInitialState: function getInitialState() {
+			return this.getDefaultState();
+		},
+
+		// 获取默认的状态
+		getDefaultState: function getDefaultState() {
+			return {
+				classNameAll: 'all',
+				classNameComplete: 'complete',
+				classNameUndone: 'undone',
+				totalCount: 0,
+				completedCount: 0,
+				undoneCount: 0
+			};
+		},
+
+		// 初次渲染前
+		componentWillMount: function componentWillMount() {
+			console.info('footbar-count-初次渲染');
+			this.updateClassName();
+		},
+
+		// 父组件状态更新前
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			console.info('footbar-count-父组件状态渲染');
+			// 更新按钮状态
+			this.updateClassName(nextProps);
+		},
+
+		render: function render() {
+			return React.createElement(
+				'ul',
+				{ className: 'queryBtn' },
+				React.createElement(
+					'li',
+					{ className: this.state.classNameAll,
+						onClick: this.queryAll,
+						ref: function ref(dom) {
+							this.allBtnDom = dom;
+						}
+					},
+					'A|',
+					this.state.totalCount
+				),
+				React.createElement(
+					'li',
+					{ className: this.state.classNameComplete,
+						onClick: this.queryComplete,
+						ref: function ref(dom) {
+							this.completeBtnDom = dom;
+						}
+					},
+					'C|',
+					this.state.completedCount
+				),
+				React.createElement(
+					'li',
+					{ className: this.state.classNameUndone,
+						onClick: this.queryUndone,
+						ref: function ref(dom) {
+							this.undoneBtnDom = dom;
+						} },
+					'U|',
+					this.state.undoneCount
+				)
+			);
+		},
+
+		// 查询所有
+		queryAll: function queryAll() {
+			this.props.changeQueryType(this.queryTypeData.all);
+		},
+
+		// 查询完成
+		queryComplete: function queryComplete() {
+			this.props.changeQueryType(this.queryTypeData.complete);
+		},
+
+		// 查询未完成
+		queryUndone: function queryUndone() {
+			this.props.changeQueryType(this.queryTypeData.undone);
+		},
+
+		// 更新样式名称
+		updateClassName: function updateClassName(props) {
+			var name;
+			// 修正props是调用此处的props是旧的，需要传入新的使用
+			var props = props || this.props;
+			var queryType = props.queryType;
+			this.queryTypeData = props.queryTypeData;
+			switch (queryType) {
+				case this.queryTypeData.all:
+					name = 'classNameAll';
+					break;
+				case this.queryTypeData.complete:
+					name = 'classNameComplete';
+					break;
+				case this.queryTypeData.undone:
+					name = 'classNameUndone';
+					break;
+				default:
+					name = 'classNameAll';
+					break;
+			}
+			var updateState = this.getDefaultState();
+			updateState[name] += ' on';
+			updateState.totalCount = props.totalCount;
+			updateState.completedCount = props.completedCount;
+			updateState.undoneCount = props.undoneCount;
+			this.setState(updateState);
+		}
+	}));
+
+	module.exports = TodoFootbarCountView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), __webpack_require__(2)))
+
+/***/ },
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -32092,7 +30099,7 @@
 					check();
 				}
 
-				__webpack_require__(373)(updatedModules, updatedModules);
+				__webpack_require__(343)(updatedModules, updatedModules);
 
 				if(upToDate()) {
 					console.log("[HMR] App is up to date.");
@@ -32121,7 +30128,7 @@
 
 
 /***/ },
-/* 373 */
+/* 343 */
 /***/ function(module, exports) {
 
 	/*
@@ -32152,12 +30159,12 @@
 
 
 /***/ },
-/* 374 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {var url = __webpack_require__(375);
-	var SockJS = __webpack_require__(380);
-	var stripAnsi = __webpack_require__(443);
+	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {var url = __webpack_require__(345);
+	var SockJS = __webpack_require__(350);
+	var stripAnsi = __webpack_require__(413);
 	var scriptElements = document.getElementsByTagName("script");
 	var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "");
 
@@ -32255,7 +30262,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "?http://localhost:9090/"))
 
 /***/ },
-/* 375 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -32279,7 +30286,7 @@
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	var punycode = __webpack_require__(376);
+	var punycode = __webpack_require__(346);
 
 	exports.parse = urlParse;
 	exports.resolve = urlResolve;
@@ -32351,7 +30358,7 @@
 	      'gopher:': true,
 	      'file:': true
 	    },
-	    querystring = __webpack_require__(377);
+	    querystring = __webpack_require__(347);
 
 	function urlParse(url, parseQueryString, slashesDenoteHost) {
 	  if (url && isObject(url) && url instanceof Url) return url;
@@ -32968,7 +30975,7 @@
 
 
 /***/ },
-/* 376 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! https://mths.be/punycode v1.3.2 by @mathias */
@@ -33500,20 +31507,20 @@
 
 	}(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), (function() { return this; }())))
 
 /***/ },
-/* 377 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.decode = exports.parse = __webpack_require__(378);
-	exports.encode = exports.stringify = __webpack_require__(379);
+	exports.decode = exports.parse = __webpack_require__(348);
+	exports.encode = exports.stringify = __webpack_require__(349);
 
 
 /***/ },
-/* 378 */
+/* 348 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -33599,7 +31606,7 @@
 
 
 /***/ },
-/* 379 */
+/* 349 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -33669,14 +31676,14 @@
 
 
 /***/ },
-/* 380 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var transportList = __webpack_require__(381);
+	var transportList = __webpack_require__(351);
 
-	module.exports = __webpack_require__(427)(transportList);
+	module.exports = __webpack_require__(397)(transportList);
 
 	// TODO can't get rid of this until all servers do
 	if ('_sockjs_onload' in global) {
@@ -33686,45 +31693,45 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 381 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = [
 	  // streaming transports
-	  __webpack_require__(382)
-	, __webpack_require__(398)
-	, __webpack_require__(408)
-	, __webpack_require__(410)
-	, __webpack_require__(413)(__webpack_require__(410))
+	  __webpack_require__(352)
+	, __webpack_require__(368)
+	, __webpack_require__(378)
+	, __webpack_require__(380)
+	, __webpack_require__(383)(__webpack_require__(380))
 
 	  // polling transports
-	, __webpack_require__(420)
-	, __webpack_require__(413)(__webpack_require__(420))
-	, __webpack_require__(422)
-	, __webpack_require__(423)
-	, __webpack_require__(413)(__webpack_require__(422))
-	, __webpack_require__(424)
+	, __webpack_require__(390)
+	, __webpack_require__(383)(__webpack_require__(390))
+	, __webpack_require__(392)
+	, __webpack_require__(393)
+	, __webpack_require__(383)(__webpack_require__(392))
+	, __webpack_require__(394)
 	];
 
 
 /***/ },
-/* 382 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(383)
-	  , urlUtils = __webpack_require__(386)
-	  , inherits = __webpack_require__(394)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
-	  , WebsocketDriver = __webpack_require__(397)
+	var utils = __webpack_require__(353)
+	  , urlUtils = __webpack_require__(356)
+	  , inherits = __webpack_require__(364)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
+	  , WebsocketDriver = __webpack_require__(367)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:websocket');
+	  debug = __webpack_require__(361)('sockjs-client:websocket');
 	}
 
 	function WebSocketTransport(transUrl, ignore, options) {
@@ -33815,12 +31822,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 383 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var random = __webpack_require__(384);
+	var random = __webpack_require__(354);
 
 	var onUnload = {}
 	  , afterUnload = false
@@ -33895,13 +31902,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 384 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	/* global crypto:true */
-	var crypto = __webpack_require__(385);
+	var crypto = __webpack_require__(355);
 
 	// This string has length 32, a power of 2, so the modulus doesn't introduce a
 	// bias.
@@ -33930,7 +31937,7 @@
 
 
 /***/ },
-/* 385 */
+/* 355 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -33954,16 +31961,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 386 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var URL = __webpack_require__(387);
+	var URL = __webpack_require__(357);
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:utils:url');
+	  debug = __webpack_require__(361)('sockjs-client:utils:url');
 	}
 
 	module.exports = {
@@ -34008,14 +32015,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 387 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var required = __webpack_require__(388)
-	  , lolcation = __webpack_require__(389)
-	  , qs = __webpack_require__(390)
+	var required = __webpack_require__(358)
+	  , lolcation = __webpack_require__(359)
+	  , qs = __webpack_require__(360)
 	  , relativere = /^\/(?!\/)/
 	  , protocolre = /^([a-z0-9.+-]+:)?(\/\/)?(.*)$/i; // actual protocol is first match
 
@@ -34283,7 +32290,7 @@
 
 
 /***/ },
-/* 388 */
+/* 358 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -34327,7 +32334,7 @@
 
 
 /***/ },
-/* 389 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -34359,7 +32366,7 @@
 	 */
 	module.exports = function lolcation(loc) {
 	  loc = loc || global.location || {};
-	  URL = URL || __webpack_require__(387);
+	  URL = URL || __webpack_require__(357);
 
 	  var finaldestination = {}
 	    , type = typeof loc
@@ -34387,7 +32394,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 390 */
+/* 360 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -34454,7 +32461,7 @@
 
 
 /***/ },
-/* 391 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -34464,7 +32471,7 @@
 	 * Expose `debug()` as the module.
 	 */
 
-	exports = module.exports = __webpack_require__(392);
+	exports = module.exports = __webpack_require__(362);
 	exports.log = log;
 	exports.formatArgs = formatArgs;
 	exports.save = save;
@@ -34628,7 +32635,7 @@
 
 
 /***/ },
-/* 392 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -34644,7 +32651,7 @@
 	exports.disable = disable;
 	exports.enable = enable;
 	exports.enabled = enabled;
-	exports.humanize = __webpack_require__(393);
+	exports.humanize = __webpack_require__(363);
 
 	/**
 	 * The currently active debug mode names, and names to skip.
@@ -34831,7 +32838,7 @@
 
 
 /***/ },
-/* 393 */
+/* 363 */
 /***/ function(module, exports) {
 
 	/**
@@ -34962,7 +32969,7 @@
 
 
 /***/ },
-/* 394 */
+/* 364 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -34991,13 +32998,13 @@
 
 
 /***/ },
-/* 395 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , EventTarget = __webpack_require__(396)
+	var inherits = __webpack_require__(364)
+	  , EventTarget = __webpack_require__(366)
 	  ;
 
 	function EventEmitter() {
@@ -35054,7 +33061,7 @@
 
 
 /***/ },
-/* 396 */
+/* 366 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35122,7 +33129,7 @@
 
 
 /***/ },
-/* 397 */
+/* 367 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -35137,17 +33144,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 398 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , AjaxBasedTransport = __webpack_require__(399)
-	  , XhrReceiver = __webpack_require__(403)
-	  , XHRCorsObject = __webpack_require__(404)
-	  , XHRLocalObject = __webpack_require__(406)
-	  , browser = __webpack_require__(407)
+	var inherits = __webpack_require__(364)
+	  , AjaxBasedTransport = __webpack_require__(369)
+	  , XhrReceiver = __webpack_require__(373)
+	  , XHRCorsObject = __webpack_require__(374)
+	  , XHRLocalObject = __webpack_require__(376)
+	  , browser = __webpack_require__(377)
 	  ;
 
 	function XhrStreamingTransport(transUrl) {
@@ -35185,19 +33192,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 399 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , urlUtils = __webpack_require__(386)
-	  , SenderReceiver = __webpack_require__(400)
+	var inherits = __webpack_require__(364)
+	  , urlUtils = __webpack_require__(356)
+	  , SenderReceiver = __webpack_require__(370)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:ajax-based');
+	  debug = __webpack_require__(361)('sockjs-client:ajax-based');
 	}
 
 	function createAjaxSender(AjaxObject) {
@@ -35241,20 +33248,20 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 400 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , urlUtils = __webpack_require__(386)
-	  , BufferedSender = __webpack_require__(401)
-	  , Polling = __webpack_require__(402)
+	var inherits = __webpack_require__(364)
+	  , urlUtils = __webpack_require__(356)
+	  , BufferedSender = __webpack_require__(371)
+	  , Polling = __webpack_require__(372)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:sender-receiver');
+	  debug = __webpack_require__(361)('sockjs-client:sender-receiver');
 	}
 
 	function SenderReceiver(transUrl, urlSuffix, senderFunc, Receiver, AjaxObject) {
@@ -35293,18 +33300,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 401 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
+	var inherits = __webpack_require__(364)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:buffered-sender');
+	  debug = __webpack_require__(361)('sockjs-client:buffered-sender');
 	}
 
 	function BufferedSender(url, sender) {
@@ -35387,18 +33394,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 402 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
+	var inherits = __webpack_require__(364)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:polling');
+	  debug = __webpack_require__(361)('sockjs-client:polling');
 	}
 
 	function Polling(Receiver, receiveUrl, AjaxObject) {
@@ -35451,18 +33458,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 403 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
+	var inherits = __webpack_require__(364)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:receiver:xhr');
+	  debug = __webpack_require__(361)('sockjs-client:receiver:xhr');
 	}
 
 	function XhrReceiver(url, AjaxObject) {
@@ -35528,13 +33535,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 404 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , XhrDriver = __webpack_require__(405)
+	var inherits = __webpack_require__(364)
+	  , XhrDriver = __webpack_require__(375)
 	  ;
 
 	function XHRCorsObject(method, url, payload, opts) {
@@ -35549,21 +33556,21 @@
 
 
 /***/ },
-/* 405 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {'use strict';
 
-	var EventEmitter = __webpack_require__(395).EventEmitter
-	  , inherits = __webpack_require__(394)
-	  , utils = __webpack_require__(383)
-	  , urlUtils = __webpack_require__(386)
+	var EventEmitter = __webpack_require__(365).EventEmitter
+	  , inherits = __webpack_require__(364)
+	  , utils = __webpack_require__(353)
+	  , urlUtils = __webpack_require__(356)
 	  , XHR = global.XMLHttpRequest
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:browser:xhr');
+	  debug = __webpack_require__(361)('sockjs-client:browser:xhr');
 	}
 
 	function AbstractXHRObject(method, url, payload, opts) {
@@ -35749,13 +33756,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(4)))
 
 /***/ },
-/* 406 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , XhrDriver = __webpack_require__(405)
+	var inherits = __webpack_require__(364)
+	  , XhrDriver = __webpack_require__(375)
 	  ;
 
 	function XHRLocalObject(method, url, payload /*, opts */) {
@@ -35772,7 +33779,7 @@
 
 
 /***/ },
-/* 407 */
+/* 377 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -35806,15 +33813,15 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 408 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , AjaxBasedTransport = __webpack_require__(399)
-	  , XhrReceiver = __webpack_require__(403)
-	  , XDRObject = __webpack_require__(409)
+	var inherits = __webpack_require__(364)
+	  , AjaxBasedTransport = __webpack_require__(369)
+	  , XhrReceiver = __webpack_require__(373)
+	  , XDRObject = __webpack_require__(379)
 	  ;
 
 	// According to:
@@ -35844,21 +33851,21 @@
 
 
 /***/ },
-/* 409 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var EventEmitter = __webpack_require__(395).EventEmitter
-	  , inherits = __webpack_require__(394)
-	  , eventUtils = __webpack_require__(383)
-	  , browser = __webpack_require__(407)
-	  , urlUtils = __webpack_require__(386)
+	var EventEmitter = __webpack_require__(365).EventEmitter
+	  , inherits = __webpack_require__(364)
+	  , eventUtils = __webpack_require__(353)
+	  , browser = __webpack_require__(377)
+	  , urlUtils = __webpack_require__(356)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:sender:xdr');
+	  debug = __webpack_require__(361)('sockjs-client:sender:xdr');
 	}
 
 	// References:
@@ -35954,16 +33961,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 410 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , AjaxBasedTransport = __webpack_require__(399)
-	  , EventSourceReceiver = __webpack_require__(411)
-	  , XHRCorsObject = __webpack_require__(404)
-	  , EventSourceDriver = __webpack_require__(412)
+	var inherits = __webpack_require__(364)
+	  , AjaxBasedTransport = __webpack_require__(369)
+	  , EventSourceReceiver = __webpack_require__(381)
+	  , XHRCorsObject = __webpack_require__(374)
+	  , EventSourceDriver = __webpack_require__(382)
 	  ;
 
 	function EventSourceTransport(transUrl) {
@@ -35987,19 +33994,19 @@
 
 
 /***/ },
-/* 411 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
-	  , EventSourceDriver = __webpack_require__(412)
+	var inherits = __webpack_require__(364)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
+	  , EventSourceDriver = __webpack_require__(382)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:receiver:eventsource');
+	  debug = __webpack_require__(361)('sockjs-client:receiver:eventsource');
 	}
 
 	function EventSourceReceiver(url) {
@@ -36057,7 +34064,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 412 */
+/* 382 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global.EventSource;
@@ -36065,14 +34072,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 413 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , IframeTransport = __webpack_require__(414)
-	  , objectUtils = __webpack_require__(419)
+	var inherits = __webpack_require__(364)
+	  , IframeTransport = __webpack_require__(384)
+	  , objectUtils = __webpack_require__(389)
 	  ;
 
 	module.exports = function(transport) {
@@ -36105,7 +34112,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 414 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -36118,19 +34125,19 @@
 	//    http://msdn.microsoft.com/en-us/library/cc197015(v=VS.85).aspx
 	//    http://stevesouders.com/misc/test-postmessage.php
 
-	var inherits = __webpack_require__(394)
-	  , JSON3 = __webpack_require__(415)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
-	  , version = __webpack_require__(417)
-	  , urlUtils = __webpack_require__(386)
-	  , iframeUtils = __webpack_require__(418)
-	  , eventUtils = __webpack_require__(383)
-	  , random = __webpack_require__(384)
+	var inherits = __webpack_require__(364)
+	  , JSON3 = __webpack_require__(385)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
+	  , version = __webpack_require__(387)
+	  , urlUtils = __webpack_require__(356)
+	  , iframeUtils = __webpack_require__(388)
+	  , eventUtils = __webpack_require__(353)
+	  , random = __webpack_require__(354)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:transport:iframe');
+	  debug = __webpack_require__(361)('sockjs-client:transport:iframe');
 	}
 
 	function IframeTransport(transport, transUrl, baseUrl) {
@@ -36253,14 +34260,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 415 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 	;(function () {
 	  // Detect the `define` function exposed by asynchronous module loaders. The
 	  // strict `define` check is necessary for compatibility with `r.js`.
-	  var isLoader = "function" === "function" && __webpack_require__(416);
+	  var isLoader = "function" === "function" && __webpack_require__(386);
 
 	  // A set of types used to distinguish objects from primitives.
 	  var objectTypes = {
@@ -37159,10 +35166,10 @@
 	  }
 	}).call(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(202)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), (function() { return this; }())))
 
 /***/ },
-/* 416 */
+/* 386 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -37170,26 +35177,26 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 417 */
+/* 387 */
 /***/ function(module, exports) {
 
 	module.exports = '1.1.1';
 
 
 /***/ },
-/* 418 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var eventUtils = __webpack_require__(383)
-	  , JSON3 = __webpack_require__(415)
-	  , browser = __webpack_require__(407)
+	var eventUtils = __webpack_require__(353)
+	  , JSON3 = __webpack_require__(385)
+	  , browser = __webpack_require__(377)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:utils:iframe');
+	  debug = __webpack_require__(361)('sockjs-client:utils:iframe');
 	}
 
 	module.exports = {
@@ -37371,7 +35378,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 419 */
+/* 389 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37401,15 +35408,15 @@
 
 
 /***/ },
-/* 420 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , HtmlfileReceiver = __webpack_require__(421)
-	  , XHRLocalObject = __webpack_require__(406)
-	  , AjaxBasedTransport = __webpack_require__(399)
+	var inherits = __webpack_require__(364)
+	  , HtmlfileReceiver = __webpack_require__(391)
+	  , XHRLocalObject = __webpack_require__(376)
+	  , AjaxBasedTransport = __webpack_require__(369)
 	  ;
 
 	function HtmlFileTransport(transUrl) {
@@ -37432,21 +35439,21 @@
 
 
 /***/ },
-/* 421 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , iframeUtils = __webpack_require__(418)
-	  , urlUtils = __webpack_require__(386)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
-	  , random = __webpack_require__(384)
+	var inherits = __webpack_require__(364)
+	  , iframeUtils = __webpack_require__(388)
+	  , urlUtils = __webpack_require__(356)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
+	  , random = __webpack_require__(354)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:receiver:htmlfile');
+	  debug = __webpack_require__(361)('sockjs-client:receiver:htmlfile');
 	}
 
 	function HtmlfileReceiver(url) {
@@ -37526,16 +35533,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 422 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , AjaxBasedTransport = __webpack_require__(399)
-	  , XhrReceiver = __webpack_require__(403)
-	  , XHRCorsObject = __webpack_require__(404)
-	  , XHRLocalObject = __webpack_require__(406)
+	var inherits = __webpack_require__(364)
+	  , AjaxBasedTransport = __webpack_require__(369)
+	  , XhrReceiver = __webpack_require__(373)
+	  , XHRCorsObject = __webpack_require__(374)
+	  , XHRLocalObject = __webpack_require__(376)
 	  ;
 
 	function XhrPollingTransport(transUrl) {
@@ -37565,16 +35572,16 @@
 
 
 /***/ },
-/* 423 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , AjaxBasedTransport = __webpack_require__(399)
-	  , XdrStreamingTransport = __webpack_require__(408)
-	  , XhrReceiver = __webpack_require__(403)
-	  , XDRObject = __webpack_require__(409)
+	var inherits = __webpack_require__(364)
+	  , AjaxBasedTransport = __webpack_require__(369)
+	  , XdrStreamingTransport = __webpack_require__(378)
+	  , XhrReceiver = __webpack_require__(373)
+	  , XDRObject = __webpack_require__(379)
 	  ;
 
 	function XdrPollingTransport(transUrl) {
@@ -37594,7 +35601,7 @@
 
 
 /***/ },
-/* 424 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -37607,10 +35614,10 @@
 	//   o you will get a spinning cursor
 	//   o for Konqueror a dumb timer is needed to detect errors
 
-	var inherits = __webpack_require__(394)
-	  , SenderReceiver = __webpack_require__(400)
-	  , JsonpReceiver = __webpack_require__(425)
-	  , jsonpSender = __webpack_require__(426)
+	var inherits = __webpack_require__(364)
+	  , SenderReceiver = __webpack_require__(370)
+	  , JsonpReceiver = __webpack_require__(395)
+	  , jsonpSender = __webpack_require__(396)
 	  ;
 
 	function JsonPTransport(transUrl) {
@@ -37635,22 +35642,22 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 425 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var utils = __webpack_require__(418)
-	  , random = __webpack_require__(384)
-	  , browser = __webpack_require__(407)
-	  , urlUtils = __webpack_require__(386)
-	  , inherits = __webpack_require__(394)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
+	var utils = __webpack_require__(388)
+	  , random = __webpack_require__(354)
+	  , browser = __webpack_require__(377)
+	  , urlUtils = __webpack_require__(356)
+	  , inherits = __webpack_require__(364)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:receiver:jsonp');
+	  debug = __webpack_require__(361)('sockjs-client:receiver:jsonp');
 	}
 
 	function JsonpReceiver(url) {
@@ -37825,18 +35832,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 426 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var random = __webpack_require__(384)
-	  , urlUtils = __webpack_require__(386)
+	var random = __webpack_require__(354)
+	  , urlUtils = __webpack_require__(356)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:sender:jsonp');
+	  debug = __webpack_require__(361)('sockjs-client:sender:jsonp');
 	}
 
 	var form, area;
@@ -37931,35 +35938,35 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 427 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	__webpack_require__(428);
+	__webpack_require__(398);
 
-	var URL = __webpack_require__(387)
-	  , inherits = __webpack_require__(394)
-	  , JSON3 = __webpack_require__(415)
-	  , random = __webpack_require__(384)
-	  , escape = __webpack_require__(429)
-	  , urlUtils = __webpack_require__(386)
-	  , eventUtils = __webpack_require__(383)
-	  , transport = __webpack_require__(430)
-	  , objectUtils = __webpack_require__(419)
-	  , browser = __webpack_require__(407)
-	  , log = __webpack_require__(431)
-	  , Event = __webpack_require__(432)
-	  , EventTarget = __webpack_require__(396)
-	  , loc = __webpack_require__(433)
-	  , CloseEvent = __webpack_require__(434)
-	  , TransportMessageEvent = __webpack_require__(435)
-	  , InfoReceiver = __webpack_require__(436)
+	var URL = __webpack_require__(357)
+	  , inherits = __webpack_require__(364)
+	  , JSON3 = __webpack_require__(385)
+	  , random = __webpack_require__(354)
+	  , escape = __webpack_require__(399)
+	  , urlUtils = __webpack_require__(356)
+	  , eventUtils = __webpack_require__(353)
+	  , transport = __webpack_require__(400)
+	  , objectUtils = __webpack_require__(389)
+	  , browser = __webpack_require__(377)
+	  , log = __webpack_require__(401)
+	  , Event = __webpack_require__(402)
+	  , EventTarget = __webpack_require__(366)
+	  , loc = __webpack_require__(403)
+	  , CloseEvent = __webpack_require__(404)
+	  , TransportMessageEvent = __webpack_require__(405)
+	  , InfoReceiver = __webpack_require__(406)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:main');
+	  debug = __webpack_require__(361)('sockjs-client:main');
 	}
 
 	var transports;
@@ -38099,7 +36106,7 @@
 	  this._transport.send(escape.quote(data));
 	};
 
-	SockJS.version = __webpack_require__(417);
+	SockJS.version = __webpack_require__(387);
 
 	SockJS.CONNECTING = 0;
 	SockJS.OPEN = 1;
@@ -38312,14 +36319,14 @@
 
 	module.exports = function(availableTransports) {
 	  transports = transport(availableTransports);
-	  __webpack_require__(441)(SockJS, availableTransports);
+	  __webpack_require__(411)(SockJS, availableTransports);
 	  return SockJS;
 	};
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 428 */
+/* 398 */
 /***/ function(module, exports) {
 
 	/* eslint-disable */
@@ -38798,12 +36805,12 @@
 
 
 /***/ },
-/* 429 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var JSON3 = __webpack_require__(415);
+	var JSON3 = __webpack_require__(385);
 
 	// Some extra characters that Chrome gets wrong, and substitutes with
 	// something else on the wire.
@@ -38853,14 +36860,14 @@
 
 
 /***/ },
-/* 430 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:utils:transport');
+	  debug = __webpack_require__(361)('sockjs-client:utils:transport');
 	}
 
 	module.exports = function(availableTransports) {
@@ -38910,7 +36917,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 431 */
+/* 401 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -38935,7 +36942,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 432 */
+/* 402 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38963,7 +36970,7 @@
 
 
 /***/ },
-/* 433 */
+/* 403 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -38980,13 +36987,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 434 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , Event = __webpack_require__(432)
+	var inherits = __webpack_require__(364)
+	  , Event = __webpack_require__(402)
 	  ;
 
 	function CloseEvent() {
@@ -39003,13 +37010,13 @@
 
 
 /***/ },
-/* 435 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , Event = __webpack_require__(432)
+	var inherits = __webpack_require__(364)
+	  , Event = __webpack_require__(402)
 	  ;
 
 	function TransportMessageEvent(data) {
@@ -39024,25 +37031,25 @@
 
 
 /***/ },
-/* 436 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var EventEmitter = __webpack_require__(395).EventEmitter
-	  , inherits = __webpack_require__(394)
-	  , urlUtils = __webpack_require__(386)
-	  , XDR = __webpack_require__(409)
-	  , XHRCors = __webpack_require__(404)
-	  , XHRLocal = __webpack_require__(406)
-	  , XHRFake = __webpack_require__(437)
-	  , InfoIframe = __webpack_require__(438)
-	  , InfoAjax = __webpack_require__(440)
+	var EventEmitter = __webpack_require__(365).EventEmitter
+	  , inherits = __webpack_require__(364)
+	  , urlUtils = __webpack_require__(356)
+	  , XDR = __webpack_require__(379)
+	  , XHRCors = __webpack_require__(374)
+	  , XHRLocal = __webpack_require__(376)
+	  , XHRFake = __webpack_require__(407)
+	  , InfoIframe = __webpack_require__(408)
+	  , InfoAjax = __webpack_require__(410)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:info-receiver');
+	  debug = __webpack_require__(361)('sockjs-client:info-receiver');
 	}
 
 	function InfoReceiver(baseUrl, urlInfo) {
@@ -39120,13 +37127,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 437 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var EventEmitter = __webpack_require__(395).EventEmitter
-	  , inherits = __webpack_require__(394)
+	var EventEmitter = __webpack_require__(365).EventEmitter
+	  , inherits = __webpack_require__(364)
 	  ;
 
 	function XHRFake(/* method, url, payload, opts */) {
@@ -39150,22 +37157,22 @@
 
 
 /***/ },
-/* 438 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var EventEmitter = __webpack_require__(395).EventEmitter
-	  , inherits = __webpack_require__(394)
-	  , JSON3 = __webpack_require__(415)
-	  , utils = __webpack_require__(383)
-	  , IframeTransport = __webpack_require__(414)
-	  , InfoReceiverIframe = __webpack_require__(439)
+	var EventEmitter = __webpack_require__(365).EventEmitter
+	  , inherits = __webpack_require__(364)
+	  , JSON3 = __webpack_require__(385)
+	  , utils = __webpack_require__(353)
+	  , IframeTransport = __webpack_require__(384)
+	  , InfoReceiverIframe = __webpack_require__(409)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:info-iframe');
+	  debug = __webpack_require__(361)('sockjs-client:info-iframe');
 	}
 
 	function InfoIframe(baseUrl, url) {
@@ -39226,16 +37233,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 439 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(394)
-	  , EventEmitter = __webpack_require__(395).EventEmitter
-	  , JSON3 = __webpack_require__(415)
-	  , XHRLocalObject = __webpack_require__(406)
-	  , InfoAjax = __webpack_require__(440)
+	var inherits = __webpack_require__(364)
+	  , EventEmitter = __webpack_require__(365).EventEmitter
+	  , JSON3 = __webpack_require__(385)
+	  , XHRLocalObject = __webpack_require__(376)
+	  , InfoAjax = __webpack_require__(410)
 	  ;
 
 	function InfoReceiverIframe(transUrl) {
@@ -39265,20 +37272,20 @@
 
 
 /***/ },
-/* 440 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var EventEmitter = __webpack_require__(395).EventEmitter
-	  , inherits = __webpack_require__(394)
-	  , JSON3 = __webpack_require__(415)
-	  , objectUtils = __webpack_require__(419)
+	var EventEmitter = __webpack_require__(365).EventEmitter
+	  , inherits = __webpack_require__(364)
+	  , JSON3 = __webpack_require__(385)
+	  , objectUtils = __webpack_require__(389)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:info-ajax');
+	  debug = __webpack_require__(361)('sockjs-client:info-ajax');
 	}
 
 	function InfoAjax(url, AjaxObject) {
@@ -39321,23 +37328,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 441 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var urlUtils = __webpack_require__(386)
-	  , eventUtils = __webpack_require__(383)
-	  , JSON3 = __webpack_require__(415)
-	  , FacadeJS = __webpack_require__(442)
-	  , InfoIframeReceiver = __webpack_require__(439)
-	  , iframeUtils = __webpack_require__(418)
-	  , loc = __webpack_require__(433)
+	var urlUtils = __webpack_require__(356)
+	  , eventUtils = __webpack_require__(353)
+	  , JSON3 = __webpack_require__(385)
+	  , FacadeJS = __webpack_require__(412)
+	  , InfoIframeReceiver = __webpack_require__(409)
+	  , iframeUtils = __webpack_require__(388)
+	  , loc = __webpack_require__(403)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(391)('sockjs-client:iframe-bootstrap');
+	  debug = __webpack_require__(361)('sockjs-client:iframe-bootstrap');
 	}
 
 	module.exports = function(SockJS, availableTransports) {
@@ -39430,13 +37437,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 442 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var JSON3 = __webpack_require__(415)
-	  , iframeUtils = __webpack_require__(418)
+	var JSON3 = __webpack_require__(385)
+	  , iframeUtils = __webpack_require__(388)
 	  ;
 
 	function FacadeJS(transport) {
@@ -39463,11 +37470,11 @@
 
 
 /***/ },
-/* 443 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var ansiRegex = __webpack_require__(444)();
+	var ansiRegex = __webpack_require__(414)();
 
 	module.exports = function (str) {
 		return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
@@ -39475,7 +37482,7 @@
 
 
 /***/ },
-/* 444 */
+/* 414 */
 /***/ function(module, exports) {
 
 	'use strict';
