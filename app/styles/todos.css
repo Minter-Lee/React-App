@@ -7,7 +7,7 @@
 
 .todos {
     width: 600px;
-    height: 500px;
+    height: 600px;
     margin: 0 auto;
     border: 2px solid #ddddde;
     position: relative;
@@ -24,29 +24,16 @@
 .todos .todoInput {
     height: 36px;
     line-height: 36px;
-    margin-left: 120px;
-    width: 350px;
+    margin-left: 70px;
+    width: 450px;
     padding-left: 10px;
-}
-
-.todos .addBtn {
-    display: inline-block;
-    height: 30px;
-    width: 50px;
-    line-height: 30px;
-    background-color: #cecece;
-    text-align: center;
-    cursor: pointer;
-}
-
-.todos .addBtn:hover {
-    background-color: #bbbbbb;
+    font-size: 20px;
 }
 
 .todos ul.todoList {
-    width: 400px;
-    height: 300px;
-    margin-left: 100px;
+    width: 500px;
+    height: 400px;
+    margin-left: 50px;
     margin-top: 10px;
     border: 1px solid #cecece;
 }
@@ -54,25 +41,47 @@
 .todos ul.todoList li {
     height: 45px;
     line-height: 45px;
-    width: 400px;
+    width: 500px;
     border-bottom: 1px solid #cecece;
 }
 
-.todos ul.todoList li .itemCheckbox {
-    width: 14px;
-    margin: 0 8px;
-    line-height: 45px;
-    height: 45px;
-    vertical-align: top;
-    text-align: center;
+.todos ul.todoList li .itemCompleteBtn {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 12px;
+    line-height: 22px;
+    vertical-align: middle;
+    border: 1px solid #cccccc;
+    margin: 0 10px;
+}
+
+.todos ul.todoList li .itemCompleted:after {
+    content: '';
+    height: 11px;
+    width: 6px;
+    border: 3px solid #ffffff;
+    transform: rotate(45deg);
+    border-top: none;
+    border-left: none;
+    display: inline-block;
+    position: relative;
+    left: 7px;
+    bottom: 1px;
+}
+
+.todos ul.todoList li .itemCompleted {
+    border: 1px solid #4287e2;
+    background: #4287e2;
 }
 
 .todos ul.todoList li .itemText {
     display: inline-block;
-    width: 300px;
+    width: 400px;
     height: 45px;
-    vertical-align: top;
+    vertical-align: middle;
     font-size: 20px;
+    padding-left: 10px;
 }
 
 .todos ul.todoList li .itemText.isCompleted {
@@ -85,6 +94,7 @@
     text-align: center;
     font-weight: bold;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .todos .todoBtn:hover {
@@ -96,63 +106,74 @@
     color: #c70101;
 }
 
-.todos .completeBtn {
-    color: #008000;
-}
-
-.todos .undoneBtn {
-    color: blue;
-}
-
 .todos .todoFootbar {
-    background: #cecece;
-    border: 1px solid #cecece;
-    width: 380px;
-    margin-left: 100px;
-    height: 45px;
-    line-height: 45px;
+    background: #ddd;
+    border: 1px solid #ddd;
+    width: 480px;
+    margin-left: 50px;
+    height: 35px;
+    line-height: 35px;
     padding: 0px 10px;
     position: absolute;
 }
 
-.todos .todoFootbar .checkAll {
-    height: 45px;
-    vertical-align: top;
-    width: 15px;
-    margin: 0 10px;
-}
-
 .todos .todoFootbar ul.queryBtn {
-    width: 180px;
-    height: 35px;
+    height: 25px;
     display: inline-block;
-    position: absolute;
-    right: 0px;
-    line-height: 35px;
-    padding: 5px 0px;
+    line-height: 25px;
 }
 
 .todos .todoFootbar ul.queryBtn li {
     display: inline-block;
-    width: 60px;
-    color: #ffffff;
     text-align: center;
     cursor: pointer;
+    font-size: 12px;
+    margin: 0 5px;
+    line-height: 20px;
+    height: 20px;
+}
+
+.todos .todoFootbar ul.queryBtn li.on, .todos .todoFootbar ul.queryBtn li:hover {
+    border: 1px solid #999999; 
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .todos .todoFootbar ul.queryBtn li.all {
-    background: #999999;
+    width: 40px;
 }
 
 .todos .todoFootbar ul.queryBtn li.complete {
-    background: #008000;
+    width: 90px;
 }
 
 .todos .todoFootbar ul.queryBtn li.undone {
-    background: blue;
+    width: 60px;
 }
 
-.todos .todoFootbar ul.queryBtn li.on {
-    border: 1px solid #ffffff;
-    box-sizing: border-box;
+.todos .todoFootbar .undoneCount {
+    display: inline-block;
+    font-size: 12px;
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 120px;
 }
+
+.todos .todoFootbar .todoClearBtn {
+    font-size: 12px;
+    display: inline-block;
+    width: 130px;
+    height: 25px;
+    line-height: 26px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ccc;
+    text-align: center;
+    position: absolute;
+    bottom: 5px;
+}
+
+.todos .todoFootbar .todoClearBtn:hover{
+    background: #a29c9c;
+}
+    

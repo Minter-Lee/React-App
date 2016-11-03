@@ -5,7 +5,10 @@
  * Description: Todos
  */
 
- var TodoFootbarCountView = React.createClass({
+
+var TODO_QUERY_TYPE = require('../todo-constant-query-type');
+
+var TodoFootbarQueryView = React.createClass({
  	// 获取初始状态
  	getInitialState: function(){
  		return this.getDefaultState();
@@ -16,56 +19,43 @@
 		return {
 			classNameAll: 'all',
 			classNameComplete: 'complete',
-			classNameUndone: 'undone',
-			totalCount: 0,
-			completedCount: 0,
-			undoneCount: 0
+			classNameUndone: 'undone'
 		}
  	},
 
  	// 初次渲染前
  	componentWillMount: function(){
- 		console.info('footbar-count-初次渲染');
+ 		console.info('footbar-query-初次渲染');
  		this.updateClassName();
  	},
 
  	// 父组件状态更新前
 	componentWillReceiveProps: function(nextProps) {
- 		console.info('footbar-count-父组件状态渲染');
+ 		console.info('footbar-query-父组件状态渲染');
 		// 更新按钮状态
 		this.updateClassName(nextProps);
 	},
 
- 	render: function(){
+	render: function() {
  		return <ul className='queryBtn'>
  			<li className={this.state.classNameAll} 
- 				onClick={this.queryAll} 
- 				ref={function(dom){this.allBtnDom = dom}}
- 			>A|{this.state.totalCount}</li>
+ 				onClick={this.queryTodos} 
+ 				data-queryType={TODO_QUERY_TYPE.QUERY_ALL}
+ 			>All</li>
  			<li className={this.state.classNameComplete} 
- 				onClick={this.queryComplete} 
- 				ref={function(dom){this.completeBtnDom = dom}}
- 				>C|{this.state.completedCount}</li>
+ 				onClick={this.queryTodos}
+ 				data-queryType={TODO_QUERY_TYPE.QUERY_COMPLETED}
+ 			>Completed</li>
  			<li className={this.state.classNameUndone} 
- 				onClick={this.queryUndone} 
- 				ref={function(dom){this.undoneBtnDom = dom}}>
- 				U|{this.state.undoneCount}</li>
+ 				onClick={this.queryTodos}
+				data-queryType={TODO_QUERY_TYPE.QUERY_UNDONE}
+ 			>Udone</li>
  		</ul>;
  	},
 
- 	// 查询所有
-	queryAll: function() {
-		this.props.changeQueryType(this.queryTypeData.all);
-	},
-
- 	// 查询完成
-	queryComplete: function() {
-		this.props.changeQueryType(this.queryTypeData.complete);
-	},
-
- 	// 查询未完成
-	queryUndone: function() {
-		this.props.changeQueryType(this.queryTypeData.undone);
+ 	// 查询Todo
+	queryTodos: function(e) {
+		this.props.changeQueryType(e.target.getAttribute('data-queryType'));
 	},
 
 	// 更新样式名称
@@ -74,15 +64,14 @@
 		// 修正props是调用此处的props是旧的，需要传入新的使用
 		var props = props || this.props;
 		var queryType = props.queryType;
-		this.queryTypeData = props.queryTypeData
 		switch (queryType) {
-			case this.queryTypeData.all:
+			case TODO_QUERY_TYPE.QUERY_ALL:
 				name = 'classNameAll';
 				break;
-			case this.queryTypeData.complete:
+			case TODO_QUERY_TYPE.QUERY_COMPLETED:
 				name = 'classNameComplete';
 				break;
-			case this.queryTypeData.undone:
+			case TODO_QUERY_TYPE.QUERY_UNDONE:
 				name = 'classNameUndone';
 				break;
 			default:
@@ -91,11 +80,8 @@
 		}
 		var updateState = this.getDefaultState();
 		updateState[name] += ' on';
-		updateState.totalCount = props.totalCount;
-		updateState.completedCount = props.completedCount;
-		updateState.undoneCount = props.undoneCount;
 		this.setState(updateState);
 	}
 });
 
-module.exports = TodoFootbarCountView;
+module.exports = TodoFootbarQueryView;

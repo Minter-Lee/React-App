@@ -8,20 +8,15 @@ var TodoTitleView = require("./todo-title-view");
 var TodoInputView = require("./todo-input-view");
 var TodoListView = require('./todo-list-view');
 var TodoFootbarView = require('./footbar/todo-footbar-view');
+var TODO_QUERY_TYPE = require('./todo-constant-query-type');
 
 var TodoIndexView = React.createClass({
 	// 页面初始化数据
 	getInitialState: function() {
 		this.idCount = 0;
-		this.queryTypeData = {
-			all: 'All',
-			complete: 'Complete',
-			undone: 'Undone'
-		}
-
 		return {
 			title: 'Todos',
-			queryType: this.queryTypeData.all,
+			queryType: TODO_QUERY_TYPE.QUERY_ALL,
 			inputDatas: []
 		}
 	},
@@ -33,19 +28,15 @@ var TodoIndexView = React.createClass({
 			<TodoInputView addTodos = {this.addTodos}/>  
 			<TodoListView 
 				getRenderInputDatas = {this.getRenderInputDatas} 
-				checkTodo = {this.checkTodo} 
 				completeTodo = {this.completeTodo} 
 				deleteTodo = {this.deleteTodo}
 			/> 
 			<TodoFootbarView 
-				deleteTodos = {this.deleteTodos} 
+				clearCompletedTodos = {this.clearCompletedTodos} 
 				changeQueryType = {this.changeQueryType} 
-				updateCompleteState = {this.updateCompleteState} 
-				queryTypeData = {this.queryTypeData} 
 				queryType = {this.state.queryType} 
-				getInputDataCounts = {this.getInputDataCounts}
-				checkAllTodos = {this.checkAllTodos}
-				checkRenderInputDatasState = {this.checkRenderInputDatasState}
+				getCompletedItemCount = {this.getCompletedItemCount}
+				getUndoneItemCount = {this.getUndoneItemCount}
 			/> 
 		</div>
 	},
@@ -54,7 +45,6 @@ var TodoIndexView = React.createClass({
 		var inputDatas = this.state.inputDatas;
 		var id = this.idCount++;
 		inputDatas.push({
-			isChecked: false,
 			isCompleted: false,
 			id: id,
 			value: value
@@ -64,47 +54,9 @@ var TodoIndexView = React.createClass({
 		});
 	},
 
-	// 选中todo
-	checkTodo: function(id, isChecked) {
-		this.updateTodo(id, 'isChecked', isChecked);
-	},
-
-	// 选中或取消选中所有
-	checkAllTodos: function(checked) {
-		var self = this;
-		var inputDatas = this.state.inputDatas;
-		var isCompleted = '';
-		switch(this.state.queryType){
-			case this.queryTypeData.all:
-				break;
-			case this.queryTypeData.complete:
-				isCompleted = true;
-				break;
-			case this.queryTypeData.undone:
-				isCompleted = false;
-				break;
-			default:
-				break;
-		}
-		inputDatas.map(function(item) {
-			// 获取数据
-			if(!(item.isCompleted != isCompleted)){
-				item.isChecked = checked;
-			}
-		});
-		this.setState({
-			inputDatas: inputDatas
-		});
-	},
-
 	// 标记完成
 	completeTodo: function(id, isCompleted) {
 		this.updateTodo(id, 'isCompleted', isCompleted);
-	},
-
-	// 标记完成
-	updateCompleteState: function(value) {
-		this.updateTodos('isCompleted', value);
 	},
 
 	// 更新属性
@@ -118,21 +70,6 @@ var TodoIndexView = React.createClass({
 				break;
 			}
 		}
-		this.setState({
-			inputDatas: inputDatas
-		});
-	},
-
-	// 更新属性--批量
-	updateTodos: function(attrName, value) {
-		var inputDatas = this.state.inputDatas;
-		inputDatas.map(function(item) {
-			if (item.isChecked === true) {
-				item[attrName] = value;
-				// 还原选中
-				item.isChecked = false;
-			}
-		});
 		this.setState({
 			inputDatas: inputDatas
 		});
@@ -154,15 +91,11 @@ var TodoIndexView = React.createClass({
 	},
 
 	// 删除-批量
-	deleteTodos: function() {
-		var newInputDatas = this.filterInputDatas('isChecked', false);
-		if (newInputDatas.length === this.state.inputDatas.length) {
-			alert("请先选择要删除的todo!");
-		} else {
-			this.setState({
-				inputDatas: newInputDatas
-			});
-		}
+	clearCompletedTodos: function() {
+		var undoneInputDatas = this.filterInputDatas('isCompleted', false);
+		this.setState({
+			inputDatas: undoneInputDatas
+		});
 	},
 
 	// 获取需要渲染的inputDatas
@@ -170,19 +103,18 @@ var TodoIndexView = React.createClass({
 		var queryType = this.state.queryType;
 		var datas = this.state.inputDatas;
 		switch (queryType) {
-			// case 'All':
-			// 	datas = this.state.inputDatas;
-			// 	break;
-			case this.queryTypeData.complete:
+			case TODO_QUERY_TYPE.QUERY_ALL:
+				break;
+			case TODO_QUERY_TYPE.QUERY_COMPLETED:
 				datas = this.filterInputDatas('isCompleted', true);
 				break;
-			case this.queryTypeData.undone:
+			case TODO_QUERY_TYPE.QUERY_UNDONE:
 				datas = this.filterInputDatas('isCompleted', false);
 				break;
 			default:
 				break;
 		}
-
+		debugger
 		return datas;
 	},
 
@@ -199,38 +131,18 @@ var TodoIndexView = React.createClass({
 
 	// 动态查询不同状态的数据
 	changeQueryType: function(queryType) {
-		console.info('Before', this.state.queryType);
 		this.setState({
 			queryType: queryType
-		}, function() {
-			console.info('After', this.state.queryType);
 		});
 	},
 
 	// 获取计数数量
-	getInputDataCounts: function() {
-		var totalCount = this.state.inputDatas.length;
-		var completedCount = this.filterInputDatas('isCompleted', true).length;
-		return {
-			totalCount: totalCount,
-			completedCount: completedCount,
-			undoneCount: (totalCount - completedCount)
-		}
+	getCompletedItemCount: function() {
+		return this.filterInputDatas('isCompleted', true).length;
 	},
 
-	// 获取当前查询选中数量
-	checkRenderInputDatasState: function(){
-		var isCheckAll = true;
-		var renderData = this.getRenderInputDatas();
-		if (renderData.length == 0) return false;
-		for (var i in renderData){
-			if(renderData[i].isChecked === false){
-				isCheckAll = false;
-				break;
-			}
-		}
-		return isCheckAll;
+	getUndoneItemCount: function() {
+		return this.filterInputDatas('isCompleted', false).length;
 	}
-
 });
 module.exports = TodoIndexView;

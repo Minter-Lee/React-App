@@ -5,64 +5,28 @@
  * Description: Todos
  */
 
-var TodoFootbarCheckAllView = require('./todo-footbar-check-all-view');
-var TodoFootbarDeleteView = require('./todo-footbar-delete-view');
-var TodoFootbarCompleteView = require('./todo-footbar-complete-view');
-var TodoFootbarUndoneView = require('./todo-footbar-undone-view');
-var TodoFootbarCountView = require('./todo-footbar-count-view');
+var TodoFootbarUndoneCountView = require('./todo-footbar-undone-count-view');
+var TodoFootbarQueryView = require('./todo-footbar-query-view');
+var TodoFootbarClearCompleteView = require('./todo-footbar-clear-complete-view');
 
  var TodoFootbarView = React.createClass({
- 	// 初次渲染前
- 	componentWillMount: function(){
- 		console.info('footbar-初次渲染');
- 		this.updateCounts();
- 	},
-
- 	// 父组件状态更新前
-	componentWillReceiveProps: function(nextProps) {
- 		console.info('footbar-父组件状态渲染');
-		// 更新按钮状态
-		this.updateCounts(nextProps);
-	},
-
  	render: function(){
+ 		var completedItemCount = this.props.getCompletedItemCount();
  		return <div className='todoFootbar'>
- 			<TodoFootbarCheckAllView 
- 				checkAllTodos={this.props.checkAllTodos}
- 				checkRenderInputDatasState={this.props.checkRenderInputDatasState}
+ 			<TodoFootbarUndoneCountView undoneItemCount = {this.props.getUndoneItemCount()} />
+ 			<TodoFootbarQueryView  
+ 				changeQueryType = {this.props.changeQueryType} 
+ 				queryType = {this.props.queryType}
  			/>
- 			<TodoFootbarDeleteView deleteTodos={this.props.deleteTodos}/>
- 			<TodoFootbarCompleteView completeTodos={this.completeTodos}/>
- 			<TodoFootbarUndoneView undoneTodos={this.undoneTodos}/>
- 			<TodoFootbarCountView 
- 				changeQueryType={this.props.changeQueryType} 
- 				queryType={this.props.queryType} 
- 				queryTypeData={this.props.queryTypeData} 
- 				totalCount={this.state.totalCount}
- 				completedCount={this.state.completedCount}
- 				undoneCount={this.state.undoneCount}
- 			/>
+ 			{
+ 				completedItemCount > 0 ? ( <TodoFootbarClearCompleteView 
+ 					clearCompletedTodos = {this.props.clearCompletedTodos} 
+ 					completedItemCount = {completedItemCount}
+ 				/> 
+ 				) : null
+ 			}
  		</div>;
- 	},
-
- 	completeTodos: function(){
- 		this.props.updateCompleteState(true);
- 	},
-
- 	undoneTodos: function(){
- 		this.props.updateCompleteState(false);
- 	},
-
- 	// 重新获取渲染使用的数量
-	updateCounts: function(props) {
-		var props = props || this.props;
-		var counts = props.getInputDataCounts();
-		this.setState({
-			totalCount: counts.totalCount,
-			completedCount: counts.completedCount,
-			undoneCount: counts.undoneCount
-		});
-	}
+ 	}
  });
 
  module.exports = TodoFootbarView;

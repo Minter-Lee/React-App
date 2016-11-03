@@ -5,10 +5,42 @@
  * Description: Todos
  */
 
- var todoItemCompleteBtnView = React.createClass({
+var todoItemCompleteView = React.createClass({
+	getInitialState: function() {
+		return {
+			itemClassName: 'itemCompleteBtn'
+		}
+	},
+
+	// 初次渲染前
+ 	componentWillMount: function(){
+ 		this.updateClassName();
+ 	},
+
+	// 父组件状态更新前
+	componentWillReceiveProps: function(nextProps) {
+		this.updateClassName(nextProps);
+	},
+
+	updateClassName: function(props){
+		var props = props || this.props;
+		if (props.isCompleted === true) {
+			this.setState({
+				itemClassName: 'itemCompleteBtn itemCompleted'
+			});
+		} else {
+			this.setState({
+				itemClassName: 'itemCompleteBtn'
+			});
+		}
+	},
+
 	render: function(){
-		return <div className='todoBtn completeBtn' onClick={this.props.completeTodo} title='complete'>√</div>
+		console.info('item-complete-渲染');
+		return <span 
+			className={this.state.itemClassName}
+			onClick={this.props.completeTodo}></span>
 	}
 });
 
-module.exports = todoItemCompleteBtnView;
+module.exports = todoItemCompleteView;

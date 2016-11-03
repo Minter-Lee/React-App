@@ -8,13 +8,6 @@
 var ENTER_KEY = 13;
 
 var TodoInputView = React.createClass({
-	getInitialState: function(){
-		var self = this;
-		return {
-			inputValue: ''
-		}
-	},
-
 	render: function() {
 		var self = this;
 		console.info("todoInputView-render");
@@ -23,17 +16,9 @@ var TodoInputView = React.createClass({
 				className="todoInput" 
 				placeholder = "Todos" 
 				ref={function(el){self.inputEl = el;}} 
-				value={this.state.inputValue}
-				onChange={this.handelChange}
 				onKeyDown={this.handleKeyDown}
 			/>
 		</div>
-	},
-
-	handelChange: function(e){
-		this.setState({
-			inputValue: e.target.value
-		})
 	},
 
 	handleKeyDown: function(e) {
@@ -41,9 +26,7 @@ var TodoInputView = React.createClass({
 			var inputValue = this.inputEl.value;
 			if (inputValue == '') return;
 			this.props.addTodos(inputValue);
-			this.setState({
-				inputValue: ''
-			});
+			this.inputEl.value = '';
 		}
 	}
 });
