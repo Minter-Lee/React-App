@@ -1,5 +1,5 @@
 /*
- * Title: Todos页面首页
+ * Title: Todos页面底部工具栏
  * Author: MinterLee@hotmail.com
  * CreateDate: 2016-09-16
  * Description: Todos
@@ -11,6 +11,7 @@ var TodoFootbarClearCompleteView = require('./todo-footbar-clear-complete-view')
 
  var TodoFootbarView = React.createClass({
  	render: function(){
+ 		console.info('footbar-render')
  		var completedItemCount = this.props.getCompletedItemCount();
  		return <div className='todoFootbar'>
  			<TodoFootbarUndoneCountView undoneItemCount = {this.props.getUndoneItemCount()} />

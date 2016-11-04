@@ -1,7 +1,7 @@
 /*
- * Title: Todos页面首页
+ * Title: 底部工具栏查询按钮
  * Author: MinterLee@hotmail.com
- * CreateDate: 2016-09-16
+ * CreateDate: 2016-11-03
  * Description: Todos
  */
 
@@ -25,18 +25,26 @@ var TodoFootbarQueryView = React.createClass({
 
  	// 初次渲染前
  	componentWillMount: function(){
- 		console.info('footbar-query-初次渲染');
  		this.updateClassName();
  	},
 
  	// 父组件状态更新前
 	componentWillReceiveProps: function(nextProps) {
- 		console.info('footbar-query-父组件状态渲染');
 		// 更新按钮状态
 		this.updateClassName(nextProps);
 	},
 
+	// 拦截不必要的更新
+	shouldComponentUpdate(nextProps, nextState) {
+		if (nextProps.queryType === this.props.queryType) {
+			console.info('footbar-query-render-拦截')
+			return false;
+		}
+ 		return true;
+ 	},
+
 	render: function() {
+		console.info('footbar-query-render')
  		return <ul className='queryBtn'>
  			<li className={this.state.classNameAll} 
  				onClick={this.queryTodos} 

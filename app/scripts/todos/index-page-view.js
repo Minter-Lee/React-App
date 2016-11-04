@@ -61,7 +61,6 @@ var TodoIndexView = React.createClass({
 
 	// 更新属性
 	updateTodo: function(id, attrName, value) {
-		console.info('更新属性 : ', attrName);
 		var inputDatas = this.state.inputDatas;
 		for(var i in inputDatas){
 			var inputData = inputDatas[i];
@@ -114,7 +113,6 @@ var TodoIndexView = React.createClass({
 			default:
 				break;
 		}
-		debugger
 		return datas;
 	},
 
@@ -136,11 +134,12 @@ var TodoIndexView = React.createClass({
 		});
 	},
 
-	// 获取计数数量
+	// 获取已完成数量
 	getCompletedItemCount: function() {
 		return this.filterInputDatas('isCompleted', true).length;
 	},
 
+	// 获取未完成数量
 	getUndoneItemCount: function() {
 		return this.filterInputDatas('isCompleted', false).length;
 	}

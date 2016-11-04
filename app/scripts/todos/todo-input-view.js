@@ -8,9 +8,17 @@
 var ENTER_KEY = 13;
 
 var TodoInputView = React.createClass({
+	shouldComponentUpdate(nextProps, nextState) {
+ 		if (nextProps.addTodos === this.props.addTodos) {
+ 			console.info('todo-input-render-拦截')
+ 			return false;
+ 		}
+ 		return true;
+ 	},
+
 	render: function() {
 		var self = this;
-		console.info("todoInputView-render");
+		console.info("todo-input-render");
 		return <div>
 			<input 
 				className="todoInput" 

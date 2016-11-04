@@ -1,13 +1,17 @@
 /*
- * Title: Todos页面首页
+ * Title: 底部工具栏清除已完成Item按钮
  * Author: MinterLee@hotmail.com
- * CreateDate: 2016-09-16
+ * CreateDate: 2016-11-04
  * Description: Todos
  */
 
  var TodoFootbarClearCompleteView = React.createClass({
+ 	shouldComponentUpdate(nextProps, nextState) {
+ 		return true;
+ 	},
+
  	render: function(){
- 		console.info('footbar-clear-complete-渲染');
+ 		console.info('footbar-clear-complete-render');
  		return <span 
  			className='todoClearBtn' 
  			onClick={this.props.clearCompletedTodos} 

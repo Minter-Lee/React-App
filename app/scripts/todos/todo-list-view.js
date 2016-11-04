@@ -16,19 +16,18 @@ var TodoListView = React.createClass({
 
 	// 初次渲染前
 	componentWillMount: function() {
- 		console.info('listView-初次渲染');
 		this.state.inputDatas = this.props.getRenderInputDatas();
 	},
 
 	// 新的props来之前
 	componentWillReceiveProps: function(nextProps) {
- 		console.info('listView-父组件状态渲染');
 		// 渲染前确认需要渲染的是全部todo还是已完成\未完成的todo;
 		this.state.inputDatas = this.props.getRenderInputDatas();
 	},
 
 	render: function(){
 		var self = this;
+		console.info('todo-list-render')
 		return (
 			<ul className='todoList'>
 			{

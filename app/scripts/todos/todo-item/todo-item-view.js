@@ -11,6 +11,7 @@ var TodoItemDeleteBtnView = require('./todo-item-delete-view');
 
 var TodoItemView = React.createClass({
  	render: function(){
+ 		console.info('item-render')
  		var data = this.props.data;
  		return <li>
  			<TodoItemCompleteView isCompleted={data.isCompleted} completeTodo={this.completeTodo}/>
