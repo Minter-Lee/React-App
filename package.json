@@ -50,15 +50,6 @@
         "babel-preset-es2015": "",
         "eslint": "",
 
-        "webpack-dev-server": "",
-
-        "grunt": "",  
-        "grunt-contrib-jshint": "",  
-        "grunt-contrib-concat": "",  
-        "grunt-contrib-uglify": "",  
-        "grunt-contrib-requirejs": "",  
-        "grunt-contrib-copy": "",  
-        "grunt-contrib-clean": "",  
-        "grunt-strip": ""  
+        "webpack-dev-server": ""  
     }
 }
