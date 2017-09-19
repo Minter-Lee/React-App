@@ -13,8 +13,9 @@ var WebpackCfg = {
     //页面入口文件
     entry: {
         "index": [
-            './scripts/index.js',
+            // './scripts/index.js',
             // './scripts/redux-es6-index.js',
+            './scripts/NewReactTodoIndex.js',
             'webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:9090/'
         ]
@@ -23,7 +24,8 @@ var WebpackCfg = {
     output: {
         //name出自entry配置项，目前看仅能在filename配置项中使用，path中不会解析
         filename: '[name]Bundle.js',
-        path: path.join(__dirname, 'app/bundles'),
+        path: path.join(__dirname, 'app/bundles')
+        ,
         publicPath: "/"
     },
     //插件部分
@@ -50,7 +52,9 @@ var WebpackCfg = {
         //加载器配置
         loaders: [{
             test: /\.css$/,
-            loader: 'style-loader!css-loader' //CSS注入和语法
+            // loader: ' //CSS注入和语法
+            // 使用CSSmodule对CSS进行处理
+            loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5] '
         }, 
         // {
         //     test: /\.js$/,
@@ -58,7 +62,7 @@ var WebpackCfg = {
         // }, 
         {
             test: /\.js$/,
-            loaders: ['babel'],
+            loaders: ['babel-loader'],
             exclude: /node_modules/
         }, 
         {

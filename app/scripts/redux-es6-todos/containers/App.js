@@ -37,7 +37,7 @@ App.propTypes = {
 // 处理，剩余的可能毫无关联，这还仅仅是1个数据的处理和计算，若这
 // 类本地处理的数据很多，性能上一定有影响，虽然后续业务开发中很少
 // 出现本地数据处理，但是针对这部分我觉得大部分情况下还是由使用该
-// 的Compoents进行处理比较合适。
+// 的Compotents进行处理比较合适。
 // const mapStateToProps = state => {
 // 	const {filter, items} = state.todos;
 // 	todos: {...state.todos, 

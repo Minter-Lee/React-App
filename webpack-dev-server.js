@@ -11,12 +11,13 @@ var path = require('path');
 
 var compiler = webpack(config);
 var server = new WebpackDevServer(compiler, {
+    // 访问根目录路径（index.html所在目录）
     contentBase: 'app',
-    filename: 'IndexBundle.js',
-    hot: true,
+    filename: 'indexBundle.js',
     publicPath: '/',
+    hot: true,
     stats: {
-        colors: true,
-    },
+        colors: true
+    }
 });
 server.listen(9090, 'localhost', function() {});

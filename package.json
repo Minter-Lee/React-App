@@ -35,6 +35,7 @@
         "react-dom": "",
         "react-redux":"",
         "redux":"",
+        "react-css-modules": "",
         "babel-loader": "^6.2.4",
         "babel-core": "^6.7.7",
         "babel-register":"^6.7.2",
@@ -50,6 +51,7 @@
         "babel-preset-es2015": "",
         "eslint": "",
 
-        "webpack-dev-server": ""  
+        "webpack-dev-server": "",  
+        "classnames":""
     }
 }
