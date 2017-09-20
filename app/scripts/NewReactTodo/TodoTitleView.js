@@ -7,8 +7,6 @@
 
 import styles from './TodoTitle.css';
 
-const TodoTitleView = (props) => (
+export default (props) => (
     <h1 className = { styles.headTitle } > {props.todoTitle} </h1>
 );
-
-export default TodoTitleView;

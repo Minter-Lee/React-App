@@ -1,0 +1,40 @@
+/*
+ * Title: 完成按钮
+ * Author: MinterLee@hotmail.com
+ * CreateDate: 2016-09-20
+ * Description: 支持CSSModule语法，同时尽量做到：
+ * 1. 不使用选择器，只是用class名来定义样式
+ * 2. 不层叠多个class，只使用一个class把所有样式定义好
+ * 3. 所有样式通过compose组合来实现服用
+ * 4. 不嵌套
+ * 5. 尽量做到以上4点，初期可以折中。
+ */
+.completeBtn {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 12px;
+    line-height: 22px;
+    vertical-align: middle;
+    border: 1px solid #cccccc;
+    margin: 0 10px;
+}
+
+.completeBtn:after {
+    content: '';
+    height: 11px;
+    width: 6px;
+    border: 3px solid #ffffff;
+    transform: rotate(45deg);
+    border-top: none;
+    border-left: none;
+    display: inline-block;
+    position: relative;
+    left: 7px;
+    bottom: 1px;
+}
+
+.completed {
+    border: 1px solid #4287e2;
+    background: #4287e2;
+}

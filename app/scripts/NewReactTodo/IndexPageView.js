@@ -16,11 +16,9 @@ import TodoTitleView from './todoTitleView';
 import TodoMainView from './todoMainView';
 
 // 因为使用了CSSMoudules包裹，所以这里样式可以使用styleName来注入
-const App = (props) => (
+export default CSSModules((props) => (
     <div styleName = 'container'>
         <TodoTitleView todoTitle={props.todoTitle}/>
         <TodoMainView/>
     </div>
-)
-
-export default CSSModules(App, styles);
+), styles);

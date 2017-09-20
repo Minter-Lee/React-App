@@ -64,8 +64,7 @@ export default class TodoInputView extends Component {
                 styleName = { 'inputOption' }
                 placeholder = 'please input todos'
                 onChange = { this.handleChange }
-                onKeyDown = { this.handleSave }
-            />
+                onKeyDown = { this.handleSave }/>
             <div styleName = {errorMsgClass} > { errorMsg }</div>
         </div>
     }

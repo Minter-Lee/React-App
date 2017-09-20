@@ -1,0 +1,33 @@
+/*
+ * Title: 工具栏样式
+ * Author: MinterLee@hotmail.com
+ * CreateDate: 2016-09-20
+ * Description: 支持CSSModule语法，同时尽量做到：
+ * 1. 不使用选择器，只是用class名来定义样式
+ * 2. 不层叠多个class，只使用一个class把所有样式定义好
+ * 3. 所有样式通过compose组合来实现服用
+ * 4. 不嵌套
+ * 5. 尽量做到以上4点，初期可以折中。
+ */
+.clearBtn {
+    font-size: 12px;
+    width: 130px;
+    height: 25px;
+    line-height: 26px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ccc;
+    text-align: center;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display: none;
+}
+
+.clearBtn:hover{
+    background: #a29c9c;
+}
+
+.displayInlineBlock {
+    display: inline-block;
+}

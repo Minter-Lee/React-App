@@ -1,0 +1,19 @@
+/*
+ * Title: 列表CSS
+ * Author: MinterLee@hotmail.com
+ * CreateDate: 2016-09-19
+ * Description: 支持CSSModule语法，同时尽量做到：
+ * 1. 不使用选择器，只是用class名来定义样式
+ * 2. 不层叠多个class，只使用一个class把所有样式定义好
+ * 3. 所有样式通过compose组合来实现服用
+ * 4. 不嵌套
+ * 5. 尽量做到以上4点，初期可以折中。
+ */
+.list {
+    width: 500px;
+    height: 400px;
+    margin-left: 50px;
+    margin-top: 10px;
+    border: 1px solid #cecece;
+    overflow: auto;
+}

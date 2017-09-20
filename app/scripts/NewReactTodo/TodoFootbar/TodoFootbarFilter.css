@@ -1,0 +1,48 @@
+/*
+ * Title: 工具栏样式
+ * Author: MinterLee@hotmail.com
+ * CreateDate: 2016-09-20
+ * Description: 支持CSSModule语法，同时尽量做到：
+ * 1. 不使用选择器，只是用class名来定义样式
+ * 2. 不层叠多个class，只使用一个class把所有样式定义好
+ * 3. 所有样式通过compose组合来实现服用
+ * 4. 不嵌套
+ * 5. 尽量做到以上4点，初期可以折中。
+ */
+
+.filterBtn {
+    height: 25px;
+    display: inline-block;
+    line-height: 25px;
+    margin-left: 30px;
+    margin-top: 4px;
+    vertical-align: top;
+}
+
+.filterBtnLi{
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 0 5px;
+    line-height: 22px;
+    height: 24px;
+}
+
+.filterBtnOn, .filterBtnLi:hover {
+    border: 1px solid #999999; 
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.all {
+    width: 40px;
+}
+
+.completed {
+    width: 90px;
+}
+
+.active {
+    width: 60px;
+}
