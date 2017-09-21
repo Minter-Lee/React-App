@@ -6,7 +6,14 @@
  */
 
 import styles from './TodoTitle.css';
+import PropTypes from 'prop-types';
 
-export default (props) => (
+const TodoTitleView = (props) => (
     <h1 className = { styles.headTitle } > {props.todoTitle} </h1>
 );
+
+TodoTitleView.propTypes = {
+    todoTitle: PropTypes.string.isRequired
+}
+
+export default TodoTitleView;

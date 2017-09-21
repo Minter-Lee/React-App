@@ -9,16 +9,20 @@ if (module.hot) {
 }
 
 import  styles from './IndexPage.css';
-
-import CSSModules from 'react-css-modules';
+import PropTypes from 'prop-types';
 
 import TodoTitleView from './todoTitleView';
 import TodoMainView from './todoMainView';
 
-// 因为使用了CSSMoudules包裹，所以这里样式可以使用styleName来注入
-export default CSSModules((props) => (
-    <div styleName = 'container'>
+const IndexPageView = (props) => (
+    <div className = {styles.container}>
         <TodoTitleView todoTitle={props.todoTitle}/>
         <TodoMainView/>
     </div>
-), styles);
+)
+
+IndexPageView.propTypes = {
+    todoTitle: PropTypes.string.isRequired
+}
+
+export default IndexPageView;

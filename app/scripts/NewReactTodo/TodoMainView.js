@@ -8,6 +8,7 @@ import { Component } from 'react';
 import TodoInputView from './TodoInputView';
 import TodoListView from './TodoList/TodoListView';
 import TodoFootbarView from './TodoFootbar/TodoFootbarView';
+import { ALL, ACTIVE, COMPLETED } from './Constants';
 
 export default class TodoMainView extends Component {
     constructor ( props, context ) {
@@ -25,7 +26,7 @@ export default class TodoMainView extends Component {
     state = {
         todoList: [],
         completedCount: 0,
-        filterType: 'ALL'
+        filterType: ALL
     }
 
     initTodoId = 1;
@@ -97,11 +98,11 @@ export default class TodoMainView extends Component {
         const {filterType, todoList} = this.state;
         let list;
         switch (filterType) {
-            case 'ALL':
+            case ALL:
                 return todoList;
-            case 'ACTIVE':
+            case ACTIVE:
                 return todoList.filter(item => item.isCompleted === false);
-            case 'COMPLETED':
+            case COMPLETED:
                 return  todoList.filter(item => item.isCompleted === true);
             default :
                 return todoList;

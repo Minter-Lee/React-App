@@ -1,7 +1,7 @@
 /*
  * Title: 工具栏样式
  * Author: MinterLee@hotmail.com
- * CreateDate: 2016-09-20
+ * CreateDate: 2017-09-20
  * Description: 支持CSSModule语法，同时尽量做到：
  * 1. 不使用选择器，只是用class名来定义样式
  * 2. 不层叠多个class，只使用一个class把所有样式定义好

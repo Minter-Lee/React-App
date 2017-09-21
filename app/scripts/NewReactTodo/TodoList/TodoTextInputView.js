@@ -5,7 +5,8 @@
  * Description: todo内容展示，双击可编辑
  */
 
-import { Component, PropTypes } from 'react';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './TodoTextInput.css';
 import CSSModules from 'react-css-modules';

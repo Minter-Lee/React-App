@@ -5,7 +5,8 @@
  * Description: ...
  */
 
-import {Component, PropTypes } from 'react';
+import {Component } from 'react';
+import PropTypes from 'prop-types';
 import styles from './TodoInput.css';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';

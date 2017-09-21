@@ -5,19 +5,15 @@
  * Description: 
  */
 
-import {Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import styles from './TodoDelete.css';
 
-export default class TodoDeleteBtn extends Component {
-    constructor (props, context) {
-        super(props, context);
-    }
+const TodoDeleteBtn = (props) => (
+    <div className={styles.deleteBtn} onClick={props.deleteTodo} title='delete'>×</div>
+)
 
-    static propTypes = {
-        deleteTodo: PropTypes.func.isRequired
-    }
-
-    render() {
-        return <div className={styles.deleteBtn} onClick={this.props.deleteTodo} title='delete'>×</div>
-    }
+TodoDeleteBtn.propTypes = {
+    deleteTodo: PropTypes.func.isRequired
 }
+
+export default TodoDeleteBtn;

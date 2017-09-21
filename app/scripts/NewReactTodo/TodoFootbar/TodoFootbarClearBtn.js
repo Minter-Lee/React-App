@@ -8,10 +8,16 @@
 import styles from './TodoFootbarClear.css';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';
+import PropTypes from 'prop-types';
 
-export default CSSModules((props) => (
+const TodoFootbarClearBtn = (props) => (
     <span styleName={classNames('clearBtn',{
                 'displayInlineBlock': props.completedCount > 0})}
             onClick={props.clearCompletedTodos} title='clear completed' 
             >clear {props.completedCount} completed</span>
-), styles, {allowMultiple: true});
+)
+TodoFootbarClearBtn.propTypes = {
+    completedCount: PropTypes.number.isRequired,
+    clearCompletedTodos: PropTypes.func.isRequired
+}
+export default CSSModules(TodoFootbarClearBtn, styles, {allowMultiple: true});
