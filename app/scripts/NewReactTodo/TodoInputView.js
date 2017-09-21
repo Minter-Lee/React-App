@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import styles from './TodoInput.css';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';
+import Immutable from 'immutable';
 
 
 // 加入CSSModules高阶组件，方便使用styles。注意css文件中class
@@ -28,45 +29,54 @@ export default class TodoInputView extends Component {
     }
 
     state = {
-        inputValue : '',
-        showError: false,
-        errorMsg : '请输入正确的Todo!'
+        data: Immutable.fromJS({
+            inputValue : '',
+            showError: false,
+            errorMsg : '请输入正确的Todo!'
+        })
+    }
+
+    render(){
+        const immData = this.state.data;
+        // 直接放入结构中判断，会造成此dom在diff时总是与原来不等，
+        // 因为每次都是计算出来的，结果相同，内存指向也不同，所以提前计算好
+        const errorMsgClass = classNames({'error': true, 'displayBlock': immData.getIn(['showError'])});
+        return <div>
+            <input 
+                type = 'text'
+                autoFocus = {true}
+                value = {immData.getIn(['inputValue'])}
+                styleName = { 'inputOption' }
+                placeholder = 'Please input todos'
+                onChange = { this.handleChange }
+                onKeyDown = { this.handleSave }/>
+            <div styleName = {errorMsgClass} > { immData.getIn(['errorMsg']) }</div>
+        </div>
     }
 
     handleChange(e) {
-        this.setState({inputValue: e.target.value});
+        const inputValue = e.target.value;
+        this.setState(({data}) => ({
+            data: data.setIn(['inputValue'], inputValue)
+        }));
     }
 
     handleSave(e) {
         const inputValue = e.target.value.trim();
         if (e.which === 13) {
             if (inputValue.length === 0) {
-                this.setState({showError: true});
+                this.setState(({data}) => ({
+                    data: data.setIn(['showError'], true)
+                }));
             }else{
                 this.props.addTodo(inputValue);
-                this.setState({
-                    inputValue : '',
-                    showError: false
-                });
+                this.setState(({data}) => ({
+                    data : data
+                        .setIn(['inputValue'], '')
+                        .setIn(['showError'], false)
+                }))
             }
         }
     }
 
-    render(){
-        const { inputValue, showError, errorMsg } = this.state; 
-        // 直接放入结构中判断，会造成此dom在diff时总是与原来不等，
-        // 因为每次都是计算出来的，结果相同，内存指向也不同，所以提前计算好
-        const errorMsgClass = classNames({'error': true, 'displayBlock': showError});
-        return <div>
-            <input 
-                type = 'text'
-                autoFocus = {true}
-                value = {inputValue}
-                styleName = { 'inputOption' }
-                placeholder = 'please input todos'
-                onChange = { this.handleChange }
-                onKeyDown = { this.handleSave }/>
-            <div styleName = {errorMsgClass} > { errorMsg }</div>
-        </div>
-    }
 }

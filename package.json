@@ -53,6 +53,7 @@
 
         "webpack-dev-server": "",  
         "classnames":"",
-        "prop-types":""
+        "prop-types":"",
+        "immutable":""
     }
 }

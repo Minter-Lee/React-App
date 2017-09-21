@@ -91,8 +91,7 @@ TodoItemView.propTypes = {
     completeTodo: PropTypes.func.isRequired,
     updateTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
-    key: PropTypes.number.isRequired
+    todoItem: PropTypes.object.isRequired
 }
 
 export default TodoItemView;
