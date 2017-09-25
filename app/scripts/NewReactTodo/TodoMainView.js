@@ -9,6 +9,7 @@ import TodoInputView from './TodoInputView';
 import TodoListView from './TodoList/TodoListView';
 import TodoFootbarView from './TodoFootbar/TodoFootbarView';
 import { ALL, ACTIVE, COMPLETED } from './Constants';
+import Immutable from 'immutable';
 
 export default class TodoMainView extends Component {
     constructor ( props, context ) {
@@ -24,15 +25,17 @@ export default class TodoMainView extends Component {
     }
 
     state = {
-        todoList: [],
-        completedCount: 0,
-        filterType: ALL
+        data: Immutable.fromJS({
+            todoList: [],
+            completedCount: 0,
+            filterType: ALL
+        })
     }
 
     initTodoId = 1;
 
     render () {
-        const {todoList, completedCount, filterType } = this.state;
+        const immData = this.state.data;
         return <div>
             <TodoInputView addTodo={this.addTodo} />
             <TodoListView 
@@ -41,79 +44,84 @@ export default class TodoMainView extends Component {
                 updateTodo = { this.updateTodoValue }
                 completeTodo = { this.completeTodo }/>
             <TodoFootbarView
-                completedCount = { completedCount }
-                filterType = {filterType}
+                completedCount = { immData.get('completedCount') }
+                filterType = {immData.get('filterType')}
                 changeFilterType = {this.changeFilterType}
                 clearCompletedTodos = {this.clearCompletedTodos}/>
         </div>
     }
 
     addTodo (value) {
-        let newList = this.state.todoList;
-        newList.push({
-          value,
-          todoId: this.initTodoId++,
-          isCompleted: false
+        const newItem = Immutable.fromJS({
+            value,
+            todoId: this.initTodoId++,
+            isCompleted: false
         });
-        this.setState({todoList: newList});
+        this.setState(({data}) => ({
+            data : data.update('todoList', list => list.push(newItem))
+        }));
     }
 
-    // 为了保证数据的一致性，需要在这里对单个Todo进行修正，然后整体更新List进行diff
-    completeTodo(todoId, isCompleted) {
-        const { todoList } = this.state;
-        // 对数组中元素的直接修改，然后重新setState，这种方式不知道是否符合immutable的要求
-        let cTodo = todoList.filter(item => item.todoId === todoId)[0];
-        cTodo.isCompleted = !cTodo.isCompleted;
-        this.setState({
-            todoList: todoList,
-            completedCount: this.getCompletedCount()
-        });
+    completeTodo(todoId) {
+        const todoList = this.state.data.get('todoList');
+        const index = todoList.findIndex( item => item.get('todoId') === todoId);
+        const updateList = todoList.updateIn([index,'isCompleted'], isCompleted => !isCompleted);
+        this.setState(({data}) => ({
+            data: data.set('todoList', updateList)
+                .set('completedCount',this.getCompletedCount(updateList))
+        }));
     }
 
     updateTodoValue(todoId, newValue) {
-        const { todoList } = this.state;
-        let uTodo = todoList.filter(item => item.todoId === todoId)[0];
-        uTodo.value = newValue;
-        this.setState({todoList: todoList});
+        const todoList = this.state.data.get('todoList');
+        const index = todoList.findIndex( item => item.get('todoId') === todoId);
+        this.setState(({data}) => ({
+            data: data.update('todoList', list => list.setIn([index,'value'], newValue))
+        }));
     }
 
-    deleteTodo(todoItem) {
-        const { todoList } = this.state;
-        const newList = todoList.filter((item, index) => index != todoList.indexOf(todoItem));
-        this.setState({
-            todoList: newList,
-            completedCount: this.getCompletedCount()
-        });
+    deleteTodo(todoId) {
+        const todoList = this.state.data.get('todoList');
+        const index = todoList.findIndex( item => item.get('todoId') === todoId);
+        const updateList = todoList.delete(index);
+        this.setState(({data}) =>({
+            data: data.set('todoList', updateList)
+                .set('completedCount',this.getCompletedCount(updateList))
+        }));
     }
 
-    getCompletedCount (list = this.state.todoList) {
-        return list.filter(item => item.isCompleted === true).length;
+    getCompletedCount (list) {
+        return list.filter(item => item.get('isCompleted') === true).size;
     }
 
     changeFilterType(type) {
-        this.setState({filterType:type});
+        this.setState(({data}) => ({
+            data: data.set('filterType',type)
+        }));
     }
 
     getShowTodoList() {
-        const {filterType, todoList} = this.state;
+        const immData = this.state.data;
+        const filterType = immData.get('filterType'),
+            todoList = immData.get('todoList');
         let list;
         switch (filterType) {
             case ALL:
                 return todoList;
             case ACTIVE:
-                return todoList.filter(item => item.isCompleted === false);
+                return todoList.filter(item => item.get('isCompleted') === false);
             case COMPLETED:
-                return  todoList.filter(item => item.isCompleted === true);
+                return  todoList.filter(item => item.get('isCompleted') === true);
             default :
                 return todoList;
         }
     }
 
     clearCompletedTodos(){
-        const newList = this.state.todoList.filter(item => item.isCompleted === false);
-        this.setState({
-            todoList: newList,
-            completedCount: this.getCompletedCount(newList)
-        });
+        const todoList = this.state.data.get('todoList');
+        this.setState(({data}) => ({
+            data: data.update('todoList', list => list.filter(item => item.get('isCompleted') === false))
+                .set('completedCount',0)
+        }));
     }
 }

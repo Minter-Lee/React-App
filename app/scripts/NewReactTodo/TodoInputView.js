@@ -40,24 +40,24 @@ export default class TodoInputView extends Component {
         const immData = this.state.data;
         // 直接放入结构中判断，会造成此dom在diff时总是与原来不等，
         // 因为每次都是计算出来的，结果相同，内存指向也不同，所以提前计算好
-        const errorMsgClass = classNames({'error': true, 'displayBlock': immData.getIn(['showError'])});
+        const errorMsgClass = classNames({'error': true, 'displayBlock': immData.get('showError')});
         return <div>
             <input 
                 type = 'text'
                 autoFocus = {true}
-                value = {immData.getIn(['inputValue'])}
+                value = {immData.get('inputValue')}
                 styleName = { 'inputOption' }
                 placeholder = 'Please input todos'
                 onChange = { this.handleChange }
                 onKeyDown = { this.handleSave }/>
-            <div styleName = {errorMsgClass} > { immData.getIn(['errorMsg']) }</div>
+            <div styleName = {errorMsgClass} > { immData.get('errorMsg') }</div>
         </div>
     }
 
     handleChange(e) {
         const inputValue = e.target.value;
         this.setState(({data}) => ({
-            data: data.setIn(['inputValue'], inputValue)
+            data: data.set('inputValue', inputValue)
         }));
     }
 
@@ -66,14 +66,14 @@ export default class TodoInputView extends Component {
         if (e.which === 13) {
             if (inputValue.length === 0) {
                 this.setState(({data}) => ({
-                    data: data.setIn(['showError'], true)
+                    data: data.set('showError', true)
                 }));
             }else{
                 this.props.addTodo(inputValue);
                 this.setState(({data}) => ({
                     data : data
-                        .setIn(['inputValue'], '')
-                        .setIn(['showError'], false)
+                        .set('inputValue', '')
+                        .set('showError', false)
                 }))
             }
         }

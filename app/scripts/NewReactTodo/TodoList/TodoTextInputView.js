@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './TodoTextInput.css';
 import CSSModules from 'react-css-modules';
+import Immutable from 'immutable';
 
 @CSSModules(styles,{allowMultiple: true})
 export default class TodoTextInputView extends Component {
@@ -21,9 +22,11 @@ export default class TodoTextInputView extends Component {
     }
 
     state = {
-        readOnly : true,
-        error : false,
-        value: this.props.value
+        data: Immutable.fromJS({
+            readOnly : true,
+            error : false,
+            value: this.props.value
+        })
     }
 
     static propTypes = {
@@ -37,33 +40,43 @@ export default class TodoTextInputView extends Component {
     }
 
     render() {
-        const {readOnly, error, value} = this.state;
-        const styleName = classNames('text',{'error':error},{'completed': this.props.isCompleted});
+        const immData = this.state.data;
+        const styleName = classNames('text',{'error':immData.get('error')},{'completed': this.props.isCompleted});
 
         return <input 
             styleName={styleName} 
-            readOnly={readOnly} 
+            readOnly={immData.get('readOnly')} 
             onBlur={this.handleBlur}
             onDoubleClick={this.handleDoubleClick} 
             onChange={this.handleChange}
-            value={value}/>
+            value={immData.get('value')}/>
     }
 
     handleDoubleClick() {
-        this.setState({readOnly: false});
+        this.setState(({data}) => ({
+            data: data.set('readOnly', false)
+        }));
     }
 
     handleBlur(e) {
         const value = e.target.value.trim();
         if(value.length === 0 ) {
-            this.setState({error:true});
+            this.setState(({data}) => ({
+                data: data.set('error', true)
+            }));
         }else{
             this.props.updateTodo(e.target.value.trim());
-            this.setState({readOnly: true});
+            this.setState(({data}) => ({
+                data: data.set('readOnly',true)
+                    .set('error',false)
+            }));
         }
     }
 
     handleChange(e) {
-        this.setState({value:e.target.value});
+        const newValue = e.target.value;
+        this.setState(({data}) => ({
+            data: data.set('value', newValue)
+        }));
     }
 }

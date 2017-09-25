@@ -54,6 +54,7 @@
         "webpack-dev-server": "",  
         "classnames":"",
         "prop-types":"",
-        "immutable":""
+        "immutable":"",
+        "react-immutable-proptypes":""
     }
 }

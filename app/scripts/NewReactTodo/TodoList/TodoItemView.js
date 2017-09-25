@@ -6,6 +6,7 @@
  */
 
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import styles from './TodoItem.css';
 
 import TodoCompleteBtn from './TodoCompleteBtn';
@@ -58,28 +59,28 @@ import TodoDeleteBtn from './TodoDeleteBtn';
 
 const TodoItemView = (props) => {
     const completeTodo = (e) => {
-        props.completeTodo(props.todoItem.todoId);
+        props.completeTodo(props.todoItem.get('todoId'));
     },
 
     updateTodo = (value) => {
-        props.updateTodo(props.todoItem.todoId, value);
+        props.updateTodo(props.todoItem.get('todoId'), value);
     },
 
     deleteTodo = (e) => {
-        props.deleteTodo(props.todoItem);
+        props.deleteTodo(props.todoItem.get('todoId'));
     }
 
-    const {value, isCompleted, key} = props.todoItem;
+    const immData = props.todoItem;
 
-    return <li className = {styles.item} key={key}>
+    return <li className = {styles.item} key={immData.get('key')}>
         <TodoCompleteBtn 
             completeTodo = { completeTodo } 
-            isCompleted = {isCompleted}
+            isCompleted = {immData.get('isCompleted')}
             ></TodoCompleteBtn>
         <TodoTextInputView 
             updateTodo = { updateTodo }
-            value = { value }
-            isCompleted = {isCompleted}
+            value = { immData.get('value') }
+            isCompleted = {immData.get('isCompleted')}
             ></TodoTextInputView>
         <TodoDeleteBtn 
             deleteTodo = {deleteTodo}
@@ -91,7 +92,7 @@ TodoItemView.propTypes = {
     completeTodo: PropTypes.func.isRequired,
     updateTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    todoItem: PropTypes.object.isRequired
+    todoItem: ImmutablePropTypes.map.isRequired
 }
 
 export default TodoItemView;
