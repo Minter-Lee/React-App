@@ -11,7 +11,9 @@ import classNames from 'classnames';
 import styles from './TodoTextInput.css';
 import CSSModules from 'react-css-modules';
 import Immutable from 'immutable';
+import {immutableRenderDecorator} from 'react-immutable-render-mixin';
 
+@immutableRenderDecorator
 @CSSModules(styles,{allowMultiple: true})
 export default class TodoTextInputView extends Component {
     constructor( props, context ) {

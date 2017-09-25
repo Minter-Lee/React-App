@@ -10,7 +10,9 @@ import TodoListView from './TodoList/TodoListView';
 import TodoFootbarView from './TodoFootbar/TodoFootbarView';
 import { ALL, ACTIVE, COMPLETED } from './Constants';
 import Immutable from 'immutable';
+import {immutableRenderDecorator} from 'react-immutable-render-mixin';
 
+@immutableRenderDecorator
 export default class TodoMainView extends Component {
     constructor ( props, context ) {
         super(props, context);

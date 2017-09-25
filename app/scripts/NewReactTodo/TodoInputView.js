@@ -11,11 +11,13 @@ import styles from './TodoInput.css';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';
 import Immutable from 'immutable';
+import {immutableRenderDecorator} from 'react-immutable-render-mixin';
 
 
 // 加入CSSModules高阶组件，方便使用styles。注意css文件中class
 // 的名称不是最后的名称（webpack中由CSSMoudels重新命名了）
 // 所以这里使用styleName调用
+@immutableRenderDecorator
 @CSSModules(styles, {allowMultiple: true})
 export default class TodoInputView extends Component {
     constructor(props, context) {

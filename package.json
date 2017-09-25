@@ -55,6 +55,7 @@
         "classnames":"",
         "prop-types":"",
         "immutable":"",
-        "react-immutable-proptypes":""
+        "react-immutable-proptypes":"",
+        "react-immutable-render-mixin":""
     }
 }
