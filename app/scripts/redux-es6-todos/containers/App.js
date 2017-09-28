@@ -19,8 +19,7 @@ const App = ({todos, actions}) => (
 		<TodoInputView addTodo = {actions.addTodo}/>
 		<TodoSectionView 
 			todoItems = {todos.items} 
-			{...actions}
-		/>
+			{...actions} />
 	</div>
 )
 

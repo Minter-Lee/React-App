@@ -5,11 +5,11 @@
  * Description: 虽然只有一个，但重在有此结构支持多reducer，方面管理
  */
 
-import { combineReducers } from 'redux'
-import todos from './todos'
+import { combineReducers } from 'redux';
+import todos from './todos';
 
 const rootRducer = combineReducers({
-	todos
-})
+    todos
+});
 
-export default rootRducer
+export default rootRducer;
