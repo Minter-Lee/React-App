@@ -10,15 +10,35 @@ const LOAD_ARTICLES_SUCCESS = 'LOAD_ARTICLES_SUCCESS';
 const LOAD_ARTICLES_ERROR = 'LOAD_ARTICLES_ERROR';
 
 // actions
-export function loadArticles() {
+export function loadArticles(query) {
+    let url = 'scripts/redux-curd/api/articles.json';
+    if(query) {
+        url = 'scripts/redux-curd/api/articles2.json';
+    }
     return {
         types: [LOAD_ARTICLES,LOAD_ARTICLES_SUCCESS, LOAD_ARTICLES_ERROR],
-        url: 'scripts/redux-blog/api/articles.json'
+        url: url
+    }
+}
+
+export function changeQuery(e) {
+    return {
+        type: 'CHANGE_QUERY',
+        payload: {
+            query: e.target.value.trim()
+        }
+    }
+}
+
+export function search () {
+    return (dispatch, getState) => {
+        const { query } = getState().articles.table;
+        return dispatch(loadArticles(query));
     }
 }
 
 // reducers
-function previewList( state = initialState, action) {
+function articles ( state = initialState, action) {
     switch (action.type) {
         case LOAD_ARTICLES: { 
             return {
@@ -44,9 +64,17 @@ function previewList( state = initialState, action) {
                 error: true
             }
         }
+
+        case 'CHANGE_QUERY': {
+            return {
+                ...state,
+                query: action.payload.query
+            }
+        }
+
         default: 
             return state
     }
 }
 
-export default previewList;
+export default articles;

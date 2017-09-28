@@ -1,11 +1,14 @@
 import { combineReducers }  from 'redux';
 
-import list from '../components/Home/PreviewListRedux';
+import tableRedux from '../components/Home/TableRedux';
+import modalRedux from '../components/Home/ModalRedux';
 
 // 所有reducer集合
 export default combineReducers({
-    list: list
+    table: tableRedux,
+    modal: modalRedux
 })
 
 // 相关actions
-export * as listActions from '../components/Home/PreviewListRedux';
+export * as tableActions from '../components/Home/TableRedux';
+export * as modalActions from '../components/Home/ModalRedux';

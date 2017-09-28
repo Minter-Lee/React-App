@@ -12,11 +12,13 @@
         "start": "node server/server.js"
     },
     "dependencies": {
+        "antd": "^2.13.3",
         "body-parser": "^1.15.0",
         "connect-multiparty": "",
         "express": "^4.x",
         "jquery": "^1.11.3",
         "redux-composable-fetch": "^0.3.4",
+        "redux-form-utils": "^1.1.2",
         "redux-thunk": "^2.2.0",
         "underscore": "^1.8.3"
     },
