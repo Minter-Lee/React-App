@@ -15,8 +15,8 @@ var WebpackCfg = {
         "index": [
             // './scripts/index.js',
             // './scripts/redux-es6-index.js',
-            // './scripts/NewReactTodoIndex.js',
-            './scripts/redux-blog.js',
+            './scripts/NewReactTodoIndex.js',
+            // './scripts/redux-blog.js',
             'webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:9090/'
         ]
